@@ -1,0 +1,33 @@
+{
+  "success": true,
+  "data": {
+    "jadwal_sidang": [
+      { "id": 1001, "perkara_id": 801, "tanggal_sidang": "2026-09-20", "agenda": "Pemeriksaan Terdakwa", "ruang_sidang": "Ruang Kartika", "jam_sidang": "09:00 WITA" },
+      { "id": 1002, "perkara_id": 802, "tanggal_sidang": "2026-09-21", "agenda": "Pembacaan Tuntutan", "ruang_sidang": "Ruang Cakra", "jam_sidang": "10:00 WITA" },
+      { "id": 1003, "perkara_id": 803, "tanggal_sidang": "2026-09-21", "agenda": "Pemeriksaan Saksi Oditur", "ruang_sidang": "Ruang Kartika", "jam_sidang": "13:30 WITA" },
+      { "id": 1004, "perkara_id": 804, "tanggal_sidang": "2026-09-22", "agenda": "Pembacaan Putusan", "ruang_sidang": "Ruang Kartika", "jam_sidang": "14:00 WITA" },
+      { "id": 1005, "perkara_id": 805, "tanggal_sidang": "2026-09-23", "agenda": "Replik dari Oditur Militer", "ruang_sidang": "Ruang Cakra", "jam_sidang": "09:00 WITA" }
+    ],
+    "perkara": [
+      { "perkara_id": 801, "nomor_perkara": "40-K/PMT.V/BDG/AD/IX/2026" },
+      { "perkara_id": 802, "nomor_perkara": "41-K/PMT.V/BDG/AL/IX/2026" },
+      { "perkara_id": 803, "nomor_perkara": "42-K/PMT.V/BDG/AU/IX/2026" },
+      { "perkara_id": 804, "nomor_perkara": "43-K/PMT.V/BDG/AD/IX/2026" },
+      { "perkara_id": 805, "nomor_perkara": "44-K/PMT.V/BDG/AL/IX/2026" }
+    ],
+    "perkara_pihak": [
+      { "perkara_id": 801, "pihak_id": 5001, "jenis_pihak": "Terdakwa" },
+      { "perkara_id": 802, "pihak_id": 5002, "jenis_pihak": "Terdakwa" },
+      { "perkara_id": 803, "pihak_id": 5003, "jenis_pihak": "Terdakwa" },
+      { "perkara_id": 804, "pihak_id": 5004, "jenis_pihak": "Terdakwa" },
+      { "perkara_id": 805, "pihak_id": 5005, "jenis_pihak": "Terdakwa" }
+    ],
+    "pihak": [
+      { "id": 5001, "nama": "Mayor Inf Gatot Saputro", "alamat": "Asrama Kodam XIV/Hasanuddin", "nomor_hp": "08111222333" },
+      { "id": 5002, "nama": "Letkol Laut (P) Andi Budianto", "alamat": "Kompleks TNI AL Lantamal VI", "nomor_hp": "08222333444" },
+      { "id": 5003, "nama": "Mayor Pnb Rendi Wibowo", "alamat": "Lanud Sultan Hasanuddin Makassar", "nomor_hp": "08333444555" },
+      { "id": 5004, "nama": "Kapten Cpm Doni Kurniawan", "alamat": "Pomdam XIV/Hasanuddin Makassar", "nomor_hp": "08444555666" },
+      { "id": 5005, "nama": "Lettu Mar Roni Suwandi", "alamat": "Yonmarhanlan VI Makassar", "nomor_hp": "08555666777" }
+    ]
+  }
+}

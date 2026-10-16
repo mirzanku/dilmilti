@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pengadilan Militer Tinggi V Makassar - Situs Resmi Mahkamah Agung RI</title>
+    <meta name="description" content="Situs Web Resmi Pengadilan Militer Tinggi V Makassar sesuai Pedoman Standarisasi Website Mahkamah Agung RI dan Ditjen Badilmiltun SK No. 593/DJMT/SK.TI2.1.1/VII/2026." />
+    <meta property="og:title" content="Pengadilan Militer Tinggi V Makassar - Situs Resmi Mahkamah Agung RI" />
+    <meta property="og:description" content="Situs Web Resmi Pengadilan Militer Tinggi V Makassar sesuai Pedoman Standarisasi Website Mahkamah Agung RI dan Ditjen Badilmiltun SK No. 593/DJMT/SK.TI2.1.1/VII/2026." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#041E11" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="PTSP Dilmilti" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed Berita Resmi Pengadilan Militer Tinggi V Makassar" href="/rss.xml" />
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed Pengumuman & Maklumat Dilmilti V Makassar" href="/api/rss/pengumuman.xml" />
+    <link rel="alternate" type="application/feed+json" title="JSON Feed Dilmilti V Makassar" href="/api/rss/json" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+      (function () {
+        try {
+          if ('caches' in window) {
+            caches.keys().then(function (keys) {
+              keys.forEach(function (key) {
+                if (
+                  key.indexOf('workbox-') === 0 ||
+                  key.indexOf('ptsp-dilmilti5-') === 0 ||
+                  (key.indexOf('dilmilti5-') === 0 && key.indexOf('-v7') === -1)
+                ) {
+                  caches.delete(key);
+                }
+              });
+            });
+          }
+          if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(function (regs) {
+              regs.forEach(function (reg) {
+                var scriptUrl = (reg.active && reg.active.scriptURL) || (reg.installing && reg.installing.scriptURL) || (reg.waiting && reg.waiting.scriptURL) || '';
+                if (
+                  scriptUrl.indexOf('dev-sw.js') !== -1 ||
+                  scriptUrl.indexOf('sw-ptsp.js') !== -1 ||
+                  scriptUrl.indexOf('workbox') !== -1
+                ) {
+                  reg.unregister();
+                } else {
+                  reg.update();
+                }
+              });
+            });
+          }
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body class="bg-[#F8FAF8] text-slate-800 antialiased selection:bg-emerald-800 selection:text-amber-200">
+    <div id="root">
+      <div style="min-height:100vh;display:flex;flex-direction:column;background:#F8FAF8;font-family:'Plus Jakarta Sans',system-ui,sans-serif;color:#1e293b;">
+        <div style="background:linear-gradient(90deg,#041E11 0%,#0A3D24 50%,#041E11 100%);border-bottom:3px solid #D4AF37;padding:20px 24px;color:#ffffff;">
+          <div style="max-width:1280px;margin:0 auto;display:flex;align-items:center;gap:16px;">
+            <img src="/icon.svg" alt="Lambang Pengadilan" style="width:48px;height:48px;object-fit:contain;" />
+            <div>
+              <div style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#fcd34d;font-weight:700;">Mahkamah Agung Republik Indonesia</div>
+              <div style="font-size:18px;font-weight:800;letter-spacing:0.02em;color:#ffffff;margin-top:2px;">PENGADILAN MILITER TINGGI V MAKASSAR</div>
+            </div>
+          </div>
+        </div>
+        <div style="max-width:1280px;width:100%;margin:32px auto;padding:0 24px;box-sizing:border-box;">
+          <div style="background:#ffffff;border:1px solid rgba(6,78,59,0.15);border-radius:16px;padding:24px;box-shadow:0 4px 20px rgba(0,0,0,0.04);">
+            <div style="font-size:14px;font-weight:700;color:#064e3b;">Memuat Portal Resmi &amp; Menyinkronkan Rute Halaman...</div>
+            <div style="font-size:12px;color:#64748b;margin-top:4px;">Mohon tunggu sebentar, sistem sedang menyiapkan tampilan halaman.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+

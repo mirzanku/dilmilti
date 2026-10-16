@@ -1,0 +1,601 @@
+@import "tailwindcss";
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 78px;
+}
+
+/* Smooth Native Scroll-Snap Container & Sections for Homepage */
+.homepage-scroll-container {
+  scroll-snap-type: y proximity;
+  scroll-padding-top: 80px;
+}
+
+.homepage-scroll-section {
+  scroll-snap-align: start;
+  scroll-margin-top: 80px;
+}
+
+/* Sticky Navbar Elevation & Blur transitions */
+.navbar-sticky-scrolled {
+  background-color: rgba(5, 23, 14, 0.94) !important;
+  backdrop-filter: blur(16px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
+  border-bottom: 2px solid #F59E0B !important;
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.7), 0 0 20px rgba(245, 158, 11, 0.25) !important;
+}
+
+@layer utilities {
+  /* Slider Banner Aspect Ratio & High-Clarity Image Rules for Smooth Responsive Scaling */
+  .slider-banner-container {
+    aspect-ratio: 21 / 9;
+    min-height: 300px;
+  }
+  @media (max-width: 640px) {
+    .slider-banner-container {
+      aspect-ratio: 16 / 9;
+      min-height: 220px;
+    }
+  }
+  .slider-banner-image {
+    object-fit: cover;
+    object-position: center;
+    -webkit-font-smoothing: antialiased;
+    image-rendering: -webkit-optimize-contrast;
+  }
+
+  /* Exact Fluid Shapes Liquid Camouflage Pattern from User Image:
+     Palette:
+     - Deep Tactical Charcoal Black: #141715 / #101211
+     - Vivid Military Emerald Green: #0F7A43 / #13874B
+     - Rich Earth Chocolate Brown: #6E4927 / #5B3C1F
+     - Warm Desert Sand Tan: #E0AF82 / #E5B78E
+  */
+
+  /* Clean Professional Solid Header & Navbar Banner Background */
+  .camo-banner-bg {
+    background-color: #0F1D15;
+    background-image: linear-gradient(135deg, #0A140E 0%, #0F2318 50%, #152E20 100%);
+  }
+
+  /* Clean Soft Warm Ivory/Neutral Website Body Background without Camo Overlay */
+  .bg-military-body {
+    background-color: #FAF6F0;
+    background-image: linear-gradient(135deg, #FAF6F0 0%, #F3EDDF 50%, #EAE2D2 100%);
+    background-attachment: fixed;
+  }
+
+  /* SVG Tactical Clean Grid Mesh Pattern overlay */
+  .bg-military-grid {
+    background-image: 
+      linear-gradient(to right, rgba(15, 122, 67, 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(15, 122, 67, 0.05) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  .bg-military-camo-pattern {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600' viewBox='0 0 600 600'%3E%3Crect width='100%25' height='100%25' fill='%23141715'/%3E%3Cpath d='M-100,100 Q 100,-100 200,100 T 500,-100 T 700,200 T 400,400 T 100,300 T -100,100 Z' fill='%230F7A43' opacity='0.7'/%3E%3Cpath d='M150,250 Q 300,50 450,250 T 750,250 T 450,550 T 150,550 T 150,250 Z' fill='%236E4927' opacity='0.6'/%3E%3Cpath d='M-50,450 Q 150,150 350,450 T 650,350 T 350,650 T -50,550 Z' fill='%23E0AF82' opacity='0.45'/%3E%3Cpath d='M300,50 Q 400,200 500,50 T 600,300 T 200,300 Z' fill='%230F7A43' opacity='0.55'/%3E%3C/svg%3E");
+    background-size: 600px 600px;
+  }
+
+  /* Military Card Header Accent Stripe with Rank Chevrons */
+  .military-card-header {
+    background: linear-gradient(90deg, #141715 0%, #2A1D13 40%, #0F7A43 80%, #141715 100%);
+    border-bottom: 2px solid #E0AF82;
+  }
+
+  /* Sand Gold & Camo Accent Border */
+  .military-border-gold {
+    border-color: #E0AF82;
+    box-shadow: 0 0 0 1px rgba(224, 175, 130, 0.3);
+  }
+
+  /* Tactical Crosshair Corner Effect */
+  .tactical-corners {
+    position: relative;
+  }
+  .tactical-corners::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    width: 12px;
+    height: 12px;
+    border-top: 2px solid #E0AF82;
+    border-left: 2px solid #E0AF82;
+  }
+  .tactical-corners::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    right: -2px;
+    width: 12px;
+    height: 12px;
+    border-bottom: 2px solid #E0AF82;
+    border-right: 2px solid #E0AF82;
+  }
+
+  /* Smooth Animation Keyframes and Transitions */
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes scaleUp {
+    from { opacity: 0; transform: scale(0.93) translateY(12px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+  }
+
+  @keyframes floatSlow {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-6px); }
+  }
+
+  @keyframes pulseGlow {
+    0%, 100% { box-shadow: 0 0 15px rgba(224, 175, 130, 0.2), inset 0 0 8px rgba(15, 122, 67, 0.2); }
+    50% { box-shadow: 0 0 25px rgba(224, 175, 130, 0.45), inset 0 0 14px rgba(15, 122, 67, 0.35); }
+  }
+
+  @keyframes logoGlow {
+    0%, 100% { filter: drop-shadow(0 0 5px rgba(251, 191, 36, 0.4)); }
+    50% { filter: drop-shadow(0 0 15px rgba(251, 191, 36, 0.8)); }
+  }
+
+  @keyframes radarSweep {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  @keyframes shimmerSlide {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  .animate-fadeIn {
+    animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .animate-scaleUp {
+    animation: scaleUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .animate-float {
+    animation: floatSlow 4s ease-in-out infinite;
+  }
+
+  .animate-pulse-glow {
+    animation: pulseGlow 3s ease-in-out infinite;
+  }
+
+  .animate-logo-glow {
+    animation: logoGlow 3s ease-in-out infinite;
+  }
+
+  .card-hover-effect {
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .card-hover-effect:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 30px -10px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(224, 175, 130, 0.4);
+  }
+
+  .shimmer-badge {
+    background: linear-gradient(90deg, rgba(224,175,130,0.1) 0%, rgba(224,175,130,0.35) 50%, rgba(224,175,130,0.1) 100%);
+    background-size: 200% 100%;
+    animation: shimmerSlide 3s linear infinite;
+  }
+
+  /* Smooth Tab & Sub-Tab Fade-In + Slide-Up Navigation Transitions */
+  @keyframes tabFadeSlideUp {
+    0% {
+      opacity: 0;
+      transform: translate3d(0, 18px, 0) scale(0.994);
+    }
+    60% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 1;
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+  }
+
+  @keyframes subTabFadeSlideUp {
+    0% {
+      opacity: 0;
+      transform: translate3d(0, 12px, 0);
+    }
+    100% {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  /* Fade-in up entrance animation for news cards and interactive elements */
+  @keyframes fadeInUpCard {
+    0% {
+      opacity: 0;
+      transform: translate3d(0, 24px, 0) scale(0.98);
+    }
+    100% {
+      opacity: 1;
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+  }
+
+  .animate-fadeInUp {
+    animation: fadeInUpCard 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  /* Smooth Fade-In + subtle translateY Entrance for Sidebar Widgets on Page Load */
+  @keyframes sidebarWidgetEntrance {
+    0% {
+      opacity: 0;
+      transform: translate3d(0, 20px, 0);
+    }
+    100% {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  .animate-sidebar-widget {
+    opacity: 0;
+    animation: sidebarWidgetEntrance 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    will-change: opacity, transform;
+  }
+
+  /* Smooth Slider Transitions & Ken Burns FX */
+  @keyframes sliderBgKenBurns {
+    0% {
+      transform: scale(1.08) translate3d(-0.5%, -0.5%, 0);
+      opacity: 0;
+    }
+    20% {
+      opacity: 0.9;
+    }
+    100% {
+      transform: scale(1.0) translate3d(0, 0, 0);
+      opacity: 0.85;
+    }
+  }
+
+  @keyframes sliderSlideInRight {
+    0% {
+      opacity: 0;
+      transform: translate3d(24px, 0, 0);
+    }
+    100% {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  @keyframes sliderSlideInLeft {
+    0% {
+      opacity: 0;
+      transform: translate3d(-24px, 0, 0);
+    }
+    100% {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  .animate-slider-bg {
+    animation: sliderBgKenBurns 8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .animate-slider-next {
+    animation: sliderSlideInRight 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .animate-slider-prev {
+    animation: sliderSlideInLeft 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  /* Seamless Continuous Marquee Animation */
+  @keyframes marqueeScroll {
+    0% {
+      transform: translate3d(0, 0, 0);
+    }
+    100% {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+
+  .animate-marquee {
+    display: flex;
+    width: max-content;
+    will-change: transform;
+    animation: marqueeScroll 32s linear infinite;
+  }
+
+  .animate-marquee:hover {
+    animation-play-state: paused;
+  }
+
+  @keyframes dropdownSlideFade {
+    0% {
+      opacity: 0;
+      transform: translate3d(0, 8px, 0) scale(0.98);
+    }
+    100% {
+      opacity: 1;
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+  }
+
+  @keyframes breadcrumbSlideFade {
+    0% {
+      opacity: 0;
+      transform: translate3d(0, -6px, 0);
+    }
+    100% {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  .animate-tab-transition {
+    animation: tabFadeSlideUp 0.44s cubic-bezier(0.22, 1, 0.36, 1) both;
+    will-change: opacity, transform;
+  }
+
+  .animate-subtab-transition {
+    animation: subTabFadeSlideUp 0.36s cubic-bezier(0.22, 1, 0.36, 1) both;
+    will-change: opacity, transform;
+  }
+
+  .animate-dropdown-in {
+    animation: dropdownSlideFade 0.24s cubic-bezier(0.22, 1, 0.36, 1) both;
+    transform-origin: top center;
+    will-change: opacity, transform;
+  }
+
+  .animate-breadcrumb-in {
+    animation: breadcrumbSlideFade 0.32s cubic-bezier(0.22, 1, 0.36, 1) both;
+    will-change: opacity, transform;
+  }
+}
+
+/* Automatically apply smooth fade-in & slide-up when internal sub-tab panels mount inside sections */
+main section > div:nth-child(n+3) {
+  animation: subTabFadeSlideUp 0.38s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Respect WCAG prefers-reduced-motion user preference */
+@media (prefers-reduced-motion: reduce) {
+  .animate-tab-transition,
+  .animate-subtab-transition,
+  .animate-dropdown-in,
+  .animate-breadcrumb-in,
+  main section > div:nth-child(n+3) {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+  }
+}
+
+/* ==========================================================================
+   WAI-ARIA & WCAG ACCESSIBILITY STYLES (Mode Kontras Tinggi, Dark Mode, Dyslexia)
+   ========================================================================== */
+
+/* 1. Mode Kontras Tinggi (High Contrast Mode WCAG AAA) */
+html.contrast-more,
+html.contrast-more body,
+html.contrast-more .bg-military-body,
+html.contrast-more main,
+html.contrast-more footer,
+html.contrast-more header,
+html.contrast-more nav,
+html.contrast-more div,
+html.contrast-more article,
+html.contrast-more section,
+html.contrast-more aside {
+  background-color: #000000 !important;
+  background-image: none !important;
+  color: #FFFF00 !important;
+  border-color: #FFFF00 !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+html.contrast-more h1,
+html.contrast-more h2,
+html.contrast-more h3,
+html.contrast-more h4,
+html.contrast-more h5,
+html.contrast-more h6,
+html.contrast-more p,
+html.contrast-more span,
+html.contrast-more label,
+html.contrast-more td,
+html.contrast-more th,
+html.contrast-more li,
+html.contrast-more svg {
+  color: #FFFF00 !important;
+}
+
+html.contrast-more a,
+html.contrast-more button,
+html.contrast-more input,
+html.contrast-more select,
+html.contrast-more textarea {
+  background-color: #000000 !important;
+  color: #00FFFF !important;
+  border: 2px solid #FFFF00 !important;
+}
+
+html.contrast-more button:hover,
+html.contrast-more a:hover {
+  background-color: #FFFF00 !important;
+  color: #000000 !important;
+}
+
+html.contrast-more img {
+  filter: contrast(180%) brightness(120%) !important;
+}
+
+/* 2. Mode Gelap (Dark Mode) */
+html.dark,
+html.dark body,
+html.dark .bg-military-body {
+  background-color: #070D09 !important;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px) !important;
+  background-size: 28px 28px !important;
+  color: #E2E8F0 !important;
+}
+
+html.dark main section,
+html.dark main article,
+html.dark div.bg-white,
+html.dark div.bg-slate-50,
+html.dark div.bg-gradient-to-b,
+html.dark .bg-slate-900\/90 {
+  background-color: #0F1713 !important;
+  background-image: none !important;
+  color: #E2E8F0 !important;
+  border-color: #1E382B !important;
+}
+
+html.dark h1, 
+html.dark h2, 
+html.dark h3, 
+html.dark h4, 
+html.dark h5, 
+html.dark h6,
+html.dark .text-slate-900,
+html.dark .text-slate-800 {
+  color: #F8FAFC !important;
+}
+
+html.dark p, 
+html.dark span:not(.bg-amber-400), 
+html.dark label,
+html.dark .text-slate-700,
+html.dark .text-slate-600 {
+  color: #CBD5E1 !important;
+}
+
+html.dark input, 
+html.dark select, 
+html.dark textarea {
+  background-color: #142119 !important;
+  color: #FFFFFF !important;
+  border-color: #2D4C3A !important;
+}
+
+/* 3. Dyslexia Friendly Font */
+html.dyslexic-font,
+html.dyslexic-font body,
+html.dyslexic-font h1,
+html.dyslexic-font h2,
+html.dyslexic-font h3,
+html.dyslexic-font h4,
+html.dyslexic-font h5,
+html.dyslexic-font h6,
+html.dyslexic-font p,
+html.dyslexic-font span,
+html.dyslexic-font button,
+html.dyslexic-font input,
+html.dyslexic-font a,
+html.dyslexic-font td,
+html.dyslexic-font th,
+html.dyslexic-font li,
+html.dyslexic-font label {
+  font-family: 'OpenDyslexic', 'Comic Sans MS', 'Arial', sans-serif !important;
+  letter-spacing: 0.04em !important;
+  word-spacing: 0.08em !important;
+  line-height: 1.6 !important;
+}
+
+/* 4. Text Scaling Root Support */
+html[style*="--text-scale"] {
+  font-size: calc(16px * var(--text-scale, 1));
+}
+
+/* 5. Print-Specific Clean Document Layouts */
+.no-print {
+  /* Utility class to explicitly hide components in print mode */
+}
+
+@media print {
+  /* Hide non-essential interactive elements, navigation bars, widgets, and AI chatbot */
+  .no-print,
+  #sidebar-widgets,
+  #ai-chatbot-widget,
+  #accessibility-bar,
+  #site-navbar,
+  .floating-action-buttons,
+  .quick-access-actions,
+  footer,
+  button:not(.allow-print),
+  .breadcrumb-bar {
+    display: none !important;
+  }
+
+  body,
+  .bg-military-body {
+    background: #ffffff !important;
+    background-image: none !important;
+    color: #000000 !important;
+    font-size: 11pt !important;
+  }
+
+  #site-header {
+    background: #ffffff !important;
+    background-image: none !important;
+    color: #000000 !important;
+    border-bottom: 2px solid #000000 !important;
+    box-shadow: none !important;
+  }
+
+  #site-header h1,
+  #site-header h2,
+  #site-header h3,
+  #site-header span,
+  #site-header p {
+    color: #000000 !important;
+    text-shadow: none !important;
+  }
+
+  main {
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+  }
+
+  .grid-cols-12 {
+    display: block !important;
+  }
+
+  .lg\:col-span-8,
+  .col-span-8,
+  .lg\:col-span-12,
+  .col-span-12 {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* Document preview modal full width during print */
+  .print-document-content {
+    background: #ffffff !important;
+    color: #000000 !important;
+    box-shadow: none !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+  }
+
+  a {
+    text-decoration: none !important;
+    color: #000000 !important;
+  }
+}
+
+

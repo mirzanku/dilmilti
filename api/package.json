@@ -1,0 +1,11 @@
+{
+  "name": "dilmilti5-api",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@google/genai": "^2.4.0",
+    "@vercel/node": "^5.1.10",
+    "mongoose": "^9.10.2"
+  }
+}

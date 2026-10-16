@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "functions": {
+    "api/*.ts": {
+      "maxDuration": 60,
+      "includeFiles": "{data/**,api/*.json}"
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/api/court-db/version",
+      "destination": "/api/court-db?action=version"
+    },
+    {
+      "source": "/api/court-db/sync-key",
+      "destination": "/api/court-db"
+    },
+    {
+      "source": "/api/court-db/reset",
+      "destination": "/api/court-db?action=reset"
+    },
+    {
+      "source": "/((?!api/|assets/|uploads/|images/|sw\\.js|icon\\.svg|apple-touch-icon\\.png).*)",
+      "destination": "/index.html"
+    }
+  ]
+}

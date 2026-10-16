@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#041E11" />
+      <stop offset="50%" stop-color="#0A3820" />
+      <stop offset="100%" stop-color="#03150B" />
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FDE047" />
+      <stop offset="50%" stop-color="#F59E0B" />
+      <stop offset="100%" stop-color="#B45309" />
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="96" fill="url(#bgGrad)" />
+  <rect x="28" y="28" width="456" height="456" rx="76" fill="none" stroke="url(#goldGrad)" stroke-width="10" opacity="0.85" />
+  <!-- Shield Emblem -->
+  <path d="M256 84 L388 136 L388 252 C388 342 328 406 256 436 C184 406 124 342 124 252 L124 136 Z" fill="#062E1A" stroke="url(#goldGrad)" stroke-width="12" />
+  <!-- Scales of Justice & Star -->
+  <polygon points="256,120 268,148 298,148 274,166 283,194 256,177 229,194 238,166 214,148 244,148" fill="url(#goldGrad)" />
+  <rect x="248" y="202" width="16" height="145" rx="4" fill="url(#goldGrad)" />
+  <rect x="176" y="220" width="160" height="12" rx="6" fill="url(#goldGrad)" />
+  <circle cx="192" cy="276" r="24" fill="none" stroke="url(#goldGrad)" stroke-width="8" />
+  <circle cx="320" cy="276" r="24" fill="none" stroke="url(#goldGrad)" stroke-width="8" />
+  <rect x="206" y="344" width="100" height="16" rx="8" fill="url(#goldGrad)" />
+  <text x="256" y="405" text-anchor="middle" font-family="Arial, sans-serif" font-weight="900" font-size="34" fill="#FDE047" letter-spacing="3">PTSP V</text>
+</svg>
