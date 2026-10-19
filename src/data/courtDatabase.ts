@@ -362,7 +362,7 @@ export const INITIAL_INOVASI_QUICK_ACCESS: InovasiQuickAccessItem[] = [
     deskripsi: 'Notifikasi otomatis jadwal sidang H-1, panggilan persidangan, status perkara banding militer, dan info amar putusan langsung ke WhatsApp.',
     badge: 'WA REAL-TIME',
     kategori: 'Inovasi Kepaniteraan & Sidang',
-    urlTujuan: 'https://wa.me/628114455668',
+    urlTujuan: 'https://wa.me/6281144405554',
     domainLabel: 'Notifikasi WA Gateway Dilmilti V',
     instansi: 'Kepaniteraan Pengadilan Militer Tinggi V Makassar',
     internalSection: 'whatsapp',
@@ -571,7 +571,7 @@ export const DEFAULT_ECOURT_CONTENT: ECourtPageContent = {
       alamat: 'Jl. Urip Sumoharjo KM 7, Makassar',
       jamLayananSeninKamis: 'Senin – Kamis: 08.00 – 16.30 WITA',
       jamLayananJumat: 'Jumat: 08.00 – 17.00 WITA',
-      noWhatsapp: '+62 811-4440-593',
+      noWhatsapp: '0811-4440-5554',
       namaHelpdesk: 'Kepaniteraan Dilmilti V Makassar'
     }
   },
@@ -852,6 +852,8 @@ export const INITIAL_RELATED_WEBSITES: RelatedWebsiteItem[] = DEFAULT_RELATED_WE
 
 export const INITIAL_COURT_IDENTITY: CourtIdentityData = {
   ...DEFAULT_COURT_IDENTITY,
+  phone: '081144405554',
+  whatsapp: '0811-4440-5554',
   address: 'Jalan Metro Tanjung Bunga Kompleks Mall Phinisi Point Makassar Sulawesi Selatan 90122',
   email: 'dilmiti5makassar@gmail.com',
   jamOperasional: 'Senin - Jumat: 08.00 - 16.30 WITA',
@@ -1695,7 +1697,7 @@ export const INITIAL_USER_ACCOUNTS: UserAccount[] = [
     role: 'super_admin',
     nipNrp: '11980017760771',
     instansi: 'Pengadilan Militer Tinggi V Makassar',
-    nomorWA: '0811-4567-890',
+    nomorWA: '0811-4440-5554',
     status: 'aktif',
     avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80',
     createdAt: '2026-01-01 08:00:00',
@@ -5464,6 +5466,14 @@ class CourtDatabaseEngine {
     try {
       const data = localStorage.getItem(STORAGE_KEYS.COURT_IDENTITY);
       const parsed = data ? JSON.parse(data) : INITIAL_COURT_IDENTITY;
+      if (parsed) {
+        if (!parsed.phone || parsed.phone.includes('0411') || parsed.phone.includes('512345') || parsed.phone.includes('515088')) {
+          parsed.phone = '081144405554';
+        }
+        if (!parsed.whatsapp || parsed.whatsapp.includes('4567') || parsed.whatsapp.includes('4288') || parsed.whatsapp.includes('4455668') || parsed.whatsapp.includes('0812')) {
+          parsed.whatsapp = '0811-4440-5554';
+        }
+      }
       if (parsed.logoUrl) {
         parsed.logoUrl = this.migrateAssetUrl(parsed.logoUrl, INITIAL_COURT_IDENTITY.logoUrl || '');
       }

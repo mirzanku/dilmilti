@@ -289,8 +289,8 @@ export const FAQ_ITEMS: FaqItem[] = [
     categoryLabel: 'PTSP & Pengaduan',
     badge: 'Alamat & Kontak',
     question: 'Di mana alamat kantor dan nomor WhatsApp resmi Pengadilan Militer Tinggi V Makassar?',
-    shortDesc: 'Kompleks Mall Phinisi Point Makassar & Hotline WhatsApp 0811-4567-890',
-    previewAnswer: 'Alamat kantor berada di Jalan Metro Tanjung Bunga Kompleks Mall Phinisi Point Makassar, Sulawesi Selatan 90122. Kontak WhatsApp resmi: 0811-4567-890 dan email dilmiti5makassar@gmail.com.'
+    shortDesc: 'Kompleks Mall Phinisi Point Makassar & Hotline WhatsApp 0811-4440-5554',
+    previewAnswer: 'Alamat kantor berada di Jalan Metro Tanjung Bunga Kompleks Mall Phinisi Point Makassar, Sulawesi Selatan 90122. Kontak WhatsApp resmi: 0811-4440-5554 dan email dilmiti5makassar@gmail.com.'
   },
   {
     id: 'faq-t3',

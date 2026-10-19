@@ -502,7 +502,7 @@ export default function InovasiQuickAccessSection({
 
                   {isLowerWa && (
                     <a
-                      href={item.urlTujuan || 'https://wa.me/628114455668'}
+                      href={item.urlTujuan || 'https://wa.me/6281144405554'}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="w-full py-1.5 px-2.5 rounded-lg bg-white/10 hover:bg-white/20 text-emerald-200 border border-white/15 font-bold text-[11px] flex items-center justify-center gap-1 transition-colors"

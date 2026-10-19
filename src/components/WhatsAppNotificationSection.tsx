@@ -198,7 +198,7 @@ export default function WhatsAppNotificationSection({ prefilledNomorPerkara, onN
       } else if (lower.includes('lokasi') || lower.includes('alamat')) {
         replyText = '📍 *LOKASI GEDUNG PENGADILAN MILITER TINGGI V MAKASSAR:*\n\nJl. Perintis Kemerdekaan KM. 13, Kel. Daya, Kec. Biringkanaya, Kota Makassar, Sulawesi Selatan 90243\nEmail: dilmiti5makassar@gmail.com';
       } else {
-        replyText = `🤖 Terima kasih atas pesan Anda. Perintah "${textToSend}" diterima oleh sistem bot Dilmilti V Makassar.\n\nKetik kata kunci:\n• *INFO 24-K* (Cek detail perkara)\n• *JADWAL* (Jadwal sidang terkini)\n• *PTSP* (Jam pelayanan)\n• *BIAYA* (Informasi biaya)\n• *LOKASI* (Alamat pengadilan)\n\nAtau hubungi petugas PTSP pada jam kerja di 0811-4567-890.`;
+        replyText = `🤖 Terima kasih atas pesan Anda. Perintah "${textToSend}" diterima oleh sistem bot Dilmilti V Makassar.\n\nKetik kata kunci:\n• *INFO 24-K* (Cek detail perkara)\n• *JADWAL* (Jadwal sidang terkini)\n• *PTSP* (Jam pelayanan)\n• *BIAYA* (Informasi biaya)\n• *LOKASI* (Alamat pengadilan)\n\nAtau hubungi petugas PTSP pada jam kerja di 0811-4440-5554.`;
       }
 
       setChatMessages((prev) => [

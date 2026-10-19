@@ -32,7 +32,8 @@ export function buildSipintarSystemInstruction(ctx?: SipintarContextData): strin
   const courtIdentity = ctx?.courtIdentity || {};
   const courtName = courtIdentity.name || 'PENGADILAN MILITER TINGGI V MAKASSAR';
   const courtAddr = courtIdentity.address || 'Jalan Metro Tanjung Bunga Kompleks Mall Phinisi Point Makassar, Sulawesi Selatan 90122';
-  const courtWA = courtIdentity.whatsapp || '0811-4567-890';
+  const courtPhone = courtIdentity.phone || '081144405554';
+  const courtWA = courtIdentity.whatsapp || '0811-4440-5554';
   const courtEmail = courtIdentity.email || 'dilmiti5makassar@gmail.com';
   const courtJam = courtIdentity.jamOperasional || 'Senin - Kamis 08.00 - 16.30 WITA, Jumat 08.00 - 17.00 WITA';
 
@@ -143,6 +144,7 @@ DATA RESMI SATUAN KERJA ${courtName}:
 - Induk: Mahkamah Agung RI (Ditjen Badilmiltun)
 - Alamat: ${courtAddr}
 - Jam PTSP: ${courtJam}
+- Telepon Kantor: ${courtPhone}
 - WhatsApp Resmi: ${courtWA}
 - Email: ${courtEmail}
 - Dasar Standar Website: SK Dirjen Badilmiltun Nomor 593/DJMT/SK.TI2.1.1/VII/2026
@@ -184,7 +186,8 @@ export function generateSmartSipintarReply(
   const courtIdentity = ctx?.courtIdentity || {};
   const courtName = courtIdentity.name || 'PENGADILAN MILITER TINGGI V MAKASSAR';
   const courtAddr = courtIdentity.address || 'Jalan Metro Tanjung Bunga Kompleks Mall Phinisi Point Makassar, Sulawesi Selatan 90122';
-  const courtWA = courtIdentity.whatsapp || '0811-4567-890';
+  const courtPhone = courtIdentity.phone || '081144405554';
+  const courtWA = courtIdentity.whatsapp || '0811-4440-5554';
   const courtEmail = courtIdentity.email || 'dilmiti5makassar@gmail.com';
   const courtJam = courtIdentity.jamOperasional || 'Senin - Kamis 08.00 - 16.30 WITA, Jumat 08.00 - 17.00 WITA';
 
@@ -1311,6 +1314,7 @@ ${courtAddr}
 ---
 
 ### 📞 **Saluran Kontak Resmi:**
+- **Telepon Kantor:** **${courtPhone}**
 - **WhatsApp PTSP & Notifikasi:** **${courtWA}**
 - **Email Resmi:** \`${courtEmail}\`
 - **Inovasi PTSP Online:** Tersedia pengambilan antrean digital & konsultasi video call melalui menu **PTSP Inovasi**.
@@ -1408,7 +1412,7 @@ Mengenai pertanyaan Anda: **"${msg}"**
 Berikut informasi panduan dan rujukan resmi yang dapat Anda akses:
 1. 🔍 **Penelusuran Google & Regulasi Terkait:** Untuk topik atau regulasi di luar lingkup internal, Anda dapat menelusuri data mutakhir langsung melalui mesin pencari dan portal hukum resmi nasional.
 2. 🏛️ **Layanan Pengadilan Militer:** Apabila pertanyaan Anda berkaitan dengan perkara banding, jadwal sidang, Posbakum gratis, atau template dokumen resmi Dilmilti V Makassar, Anda dapat mengetik kata kunci seperti *"Jadwal Sidang"*, *"Syarat Banding"*, *"Gugatan STUM"*, atau *"Template"*.
-3. 📞 **Pusat Bantuan PTSP:** Petugas Meja PTSP siap membantu konsultasi secara langsung di kantor kami (${courtAddr}) maupun melalui WhatsApp: **${courtWA}** (Jam Layanan: ${courtJam}).
+3. 📞 **Pusat Bantuan PTSP:** Petugas Meja PTSP siap membantu konsultasi secara langsung di kantor kami (${courtAddr}) maupun melalui Telepon: **${courtPhone}** / WhatsApp: **${courtWA}** (Jam Layanan: ${courtJam}).
 
 🌐 **Penelusuran Web & Referensi Resmi Terkait:**
 - 🌐 [Hasil Penelusuran Google: "${msg}"](https://www.google.com/search?q=${encodeURIComponent(msg)})

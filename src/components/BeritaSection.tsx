@@ -578,7 +578,7 @@ ${item.desc}
 
 Informasi Layanan:
 - Alamat  : Jl. Perintis Kemerdekaan KM. 13, Daya, Biringkanaya, Kota Makassar
-- Telepon : (0411) 515088
+- Telepon : 081144405554
 - Email   : dilmiti5makassar@gmail.com
 - Prinsip : Cepat, Sederhana, Biaya Ringan (Rp 0,- untuk Perkara Pidana Militer)`;
 

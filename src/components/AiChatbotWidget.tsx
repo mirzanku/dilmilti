@@ -620,7 +620,7 @@ export const AiChatbotWidget: React.FC<AiChatbotWidgetProps> = ({ onNavigate, hi
             </button>
 
             <a
-              href="https://wa.me/628114567890"
+              href="https://wa.me/6281144405554"
               target="_blank"
               rel="noopener noreferrer"
               className="px-2.5 py-1 rounded-lg bg-teal-950/70 hover:bg-teal-900 text-teal-300 border border-teal-500/30 shrink-0 flex items-center gap-1 cursor-pointer"

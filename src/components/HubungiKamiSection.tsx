@@ -74,8 +74,8 @@ export default function HubungiKamiSection({ initialSubTab = 'alamat', onNavigat
       '--------------------------------------------------------------------',
       '1. Alamat Kantor    : Jl. Perintis Kemerdekaan KM. 13, Kel. Daya,',
       '                      Kec. Biringkanaya, Kota Makassar, Sulawesi Selatan 90243',
-      '2. Telepon & Fax    : (0411) 515088',
-      '3. WhatsApp PTSP    : +62 812-4288-5005',
+      '2. Telepon & Fax    : 081144405554',
+      '3. WhatsApp PTSP    : 0811-4440-5554',
       '4. Email Kedinasan  : dilmiti5makassar@gmail.com',
       '5. Jam Pelayanan    : Senin - Kamis (08.00 - 16.30 WITA)',
       '                      Jumat (08.00 - 17.00 WITA)',
@@ -206,16 +206,16 @@ export default function HubungiKamiSection({ initialSubTab = 'alamat', onNavigat
                   <Phone className="w-4 h-4" />
                 </div>
                 <div className="text-[10px] font-black uppercase text-slate-400">Telepon & Fax</div>
-                <div className="text-sm font-black text-slate-900">(0411) 515088</div>
+                <div className="text-sm font-black text-slate-900">081144405554</div>
                 <p className="text-[11px] text-slate-600 leading-relaxed">
                   Saluran telepon resmi Meja Informasi & Kepaniteraan pada jam kerja kedinasan.
                 </p>
               </div>
               <a
-                href="tel:0411515088"
+                href="tel:081144405554"
                 className="w-full py-2 px-3 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs text-center transition-colors"
               >
-                Hubungi Telepon
+                Hubungi Telepon (081144405554)
               </a>
             </div>
 
@@ -228,13 +228,13 @@ export default function HubungiKamiSection({ initialSubTab = 'alamat', onNavigat
                   <MessageSquare className="w-4 h-4" />
                 </div>
                 <div className="text-[10px] font-black uppercase text-emerald-700">WhatsApp Layanan PTSP</div>
-                <div className="text-sm font-black text-slate-900">+62 812-4288-5005</div>
+                <div className="text-sm font-black text-slate-900">0811-4440-5554</div>
                 <p className="text-[11px] text-slate-600 leading-relaxed">
                   Layanan informasi perkara, antrean PTSP Online, PPID, dan konsultasi Posbakum.
                 </p>
               </div>
               <a
-                href="https://wa.me/6281242885005?text=Halo%20Petugas%20PTSP%20Dilmilti%20V%20Makassar,%20saya%20ingin%20bertanya%20mengenai%20layanan%20pengadilan."
+                href="https://wa.me/6281144405554?text=Halo%20Petugas%20PTSP%20Dilmilti%20V%20Makassar,%20saya%20ingin%20bertanya%20mengenai%20layanan%20pengadilan."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full py-2 px-3 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs text-center flex items-center justify-center gap-1.5 transition-colors"
