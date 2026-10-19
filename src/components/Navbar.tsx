@@ -737,7 +737,7 @@ export default function Navbar({
               {[
                 { id: 'beranda-hero-slider', label: 'Slider Utama', icon: '🎯' },
                 { id: 'beranda-layanan-utama', label: 'Layanan Publik', icon: '⚡' },
-                { id: 'beranda-inovasi-ptsp', label: 'Inovasi PTSP', icon: '💡' },
+                { id: 'beranda-inovasi-ptsp', label: 'Inovasi Layanan Publik', icon: '💡' },
                 { id: 'beranda-statistik-layanan', label: 'Statistik Kinerja', icon: '📊' },
                 { id: 'beranda-perkara-sidang', label: 'Perkara & Sidang', icon: '⚖️' },
                 { id: 'beranda-info-layanan', label: 'Informasi Satker', icon: '🏛️' }

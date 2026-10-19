@@ -282,7 +282,7 @@ export default function InovasiQuickAccessSection({
   return (
     <section
       id="inovasi-quick-access-section"
-      aria-label="Quick Access Khusus Aplikasi Inovasi"
+      aria-label="Inovasi Layanan Publik"
       className="bg-gradient-to-r from-[#041A0F] via-[#09321E] to-[#041A0F] rounded-2xl shadow-xl border-2 border-amber-400/80 p-4 sm:p-6 text-white relative overflow-hidden tactical-corners"
     >
       {/* Background tactical pattern */}
@@ -315,17 +315,17 @@ export default function InovasiQuickAccessSection({
             <div className="flex flex-wrap items-center gap-2 mb-0.5">
               <span className="px-2.5 py-0.5 rounded-full bg-amber-400 text-slate-950 font-black text-[10px] uppercase tracking-wider flex items-center gap-1">
                 <Swords className="w-3 h-3" />
-                <span>QUICK ACCESS KHUSUS APLIKASI INOVASI</span>
+                <span>INOVASI LAYANAN PUBLIK</span>
               </span>
               <span className="text-[11px] font-mono text-emerald-300 font-bold">
                 PTSP Online • Cuti Online • Notifikasi WhatsApp • Inovasi Digital
               </span>
             </div>
             <h3 className="text-sm sm:text-lg font-black text-white tracking-tight font-serif">
-              Akses Cepat Aplikasi Inovasi Pengadilan Militer Tinggi V Makassar
+              Inovasi Layanan Publik Pengadilan Militer Tinggi V Makassar
             </h3>
             <p className="text-[11px] text-emerald-100/85">
-              Portal pintasan khusus menuju aplikasi inovasi pelayanan publik, administrasi kepegawaian (Cuti Online), PTSP Online, dan Notifikasi Persidangan WhatsApp.
+              Portal pintasan khusus menuju inovasi pelayanan publik, administrasi kepegawaian (Cuti Online), PTSP Online, dan Notifikasi Persidangan WhatsApp.
             </p>
           </div>
         </div>
@@ -566,7 +566,7 @@ export default function InovasiQuickAccessSection({
                       : `Edit Aplikasi Inovasi: ${namaAplikasi}`}
                   </h4>
                   <p className="text-[11px] text-amber-300">
-                    Manajemen CRUD Role Admin • Quick Access Khusus Aplikasi Inovasi
+                    Manajemen CRUD Role Admin • Inovasi Layanan Publik
                   </p>
                 </div>
               </div>

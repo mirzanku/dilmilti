@@ -672,7 +672,7 @@ export default function App() {
               <QuickAccessGrid onNavigate={handleNavigate} />
             </div>
 
-            {/* Section 3: Quick Access Khusus Aplikasi Inovasi (PTSP Online, Cuti Online, Notifikasi WhatsApp + CRUD Admin) */}
+            {/* Section 3: Inovasi Layanan Publik (PTSP Online, Cuti Online, Notifikasi WhatsApp + CRUD Admin) */}
             <div id="beranda-inovasi-ptsp" className="homepage-scroll-section">
               <InovasiQuickAccessSection
                 currentUser={currentUser}
