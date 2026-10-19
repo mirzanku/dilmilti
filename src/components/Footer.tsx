@@ -146,21 +146,23 @@ export default function Footer({ onNavigate }: FooterProps) {
               <li>
                 <button
                   type="button"
-                  onClick={() => onNavigate('ptsp-online', 'app-viewer')}
+                  onClick={() => window.open('/?tab=ptsp-online&sub=app-viewer', '_blank')}
                   className="text-emerald-300 hover:text-amber-300 font-bold transition-colors text-left cursor-pointer flex items-center gap-1.5"
                 >
                   <span className="text-emerald-400">•</span>
                   <span>Aplikasi PTSP Online (Subdomain)</span>
+                  <ExternalLink className="w-3 h-3 text-emerald-400 shrink-0" />
                 </button>
               </li>
               <li>
                 <button
                   type="button"
-                  onClick={() => onNavigate('ptsp-online', 'login')}
+                  onClick={() => window.open('/?tab=ptsp-online&sub=login', '_blank')}
                   className="text-slate-200 hover:text-amber-300 font-semibold transition-colors text-left cursor-pointer flex items-center gap-1.5"
                 >
                   <span className="text-amber-400">•</span>
                   <span>Login Petugas / Admin PTSP</span>
+                  <ExternalLink className="w-3 h-3 text-amber-300 shrink-0" />
                 </button>
               </li>
               <li>

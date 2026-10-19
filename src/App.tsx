@@ -323,8 +323,19 @@ export default function App() {
       subTab = 'panduan-hukum';
     }
     else if (tab === 'ecourt') {
-      normalizedTab = 'publik';
-      subTab = 'jenis-layanan';
+      normalizedTab = 'ecourt';
+    }
+    else if (tab === 'publik' && subTab === 'sipp') {
+      normalizedTab = 'sipp';
+      subTab = undefined;
+    }
+    else if (tab === 'publik' && (subTab === 'jadwal' || subTab === 'jadwal-sidang')) {
+      normalizedTab = 'jadwal';
+      subTab = undefined;
+    }
+    else if (tab === 'publik' && (subTab === 'ppid' || subTab === 'dip')) {
+      normalizedTab = 'ppid';
+      subTab = 'berkala';
     }
 
     setActiveTab(normalizedTab);

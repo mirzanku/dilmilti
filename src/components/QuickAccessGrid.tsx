@@ -230,7 +230,7 @@ export default function QuickAccessGrid({ onNavigate, hide }: QuickAccessGridPro
     // If it's an internal route that we have onNavigate handler for
     if (onNavigate) {
       if (item.id === 'btn-quick-ptsp' || item.section === 'ptsp-inovasi') {
-        onNavigate('ptsp-inovasi', item.subTab || 'app-viewer');
+        window.open(`/?tab=ptsp-online&sub=${item.subTab || 'app-viewer'}`, '_blank');
         return;
       }
       if (item.section === 'sipp') {

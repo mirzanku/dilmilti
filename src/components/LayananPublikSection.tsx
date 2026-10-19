@@ -275,7 +275,7 @@ Dokumen ini diterbitkan secara sah oleh Sistem Informasi Layanan Publik Pengadil
           {activeSub === 'infografis' || activeSub === 'infografis-ptsp' || activeSub === 'alur-layanan' || activeSub === 'alur-ptsp' ? (
             <PtspInfografisAlurSection
               onNavigateToPtspOnline={(tab, service) => {
-                if (onNavigate) onNavigate('ptsp-online', tab);
+                window.open(`/?tab=ptsp-online&sub=${tab || 'app-viewer'}${service ? `&service=${encodeURIComponent(service)}` : ''}`, '_blank');
               }}
               onNavigateToSection={onNavigate}
             />
@@ -285,9 +285,7 @@ Dokumen ini diterbitkan secara sah oleh Sistem Informasi Layanan Publik Pengadil
               currentUser={currentUser}
               onOpenAuth={onOpenAuth}
               onOpenPtspOnline={(tab, serviceName) => {
-                if (onNavigate) {
-                  onNavigate('ptsp-online', tab);
-                }
+                window.open(`/?tab=ptsp-online&sub=${tab || 'app-viewer'}${serviceName ? `&service=${encodeURIComponent(serviceName)}` : ''}`, '_blank');
               }}
             />
           ) : (

@@ -421,11 +421,11 @@ export default function Navbar({
                       </span>
                     </div>
                     {[
-                      { tab: 'publik', id: 'sipp', label: 'Penelusuran Perkara (SIPP)', icon: <Search className="w-3.5 h-3.5 text-amber-300" /> },
-                      { tab: 'publik', id: 'jadwal', label: 'Jadwal Sidang Satker', icon: <Calendar className="w-3.5 h-3.5 text-violet-300" /> },
+                      { tab: 'sipp', id: '', label: 'Penelusuran Perkara (SIPP)', icon: <Search className="w-3.5 h-3.5 text-amber-300" /> },
+                      { tab: 'jadwal', id: '', label: 'Jadwal Sidang Satker', icon: <Calendar className="w-3.5 h-3.5 text-violet-300" /> },
                       { tab: 'publik', id: 'laporan', label: 'Laporan (Tahunan, SAKIP & DIPA)', icon: <BarChart3 className="w-3.5 h-3.5 text-cyan-400" /> },
                       { tab: 'publik', id: 'lhkpn', label: 'Laporan LHKPN & LHKASN', icon: <Shield className="w-3.5 h-3.5 text-emerald-300" /> },
-                      { tab: 'publik', id: 'ppid', label: 'Daftar Informasi Publik (DIP)', icon: <FileText className="w-3.5 h-3.5 text-teal-300" /> },
+                      { tab: 'ppid', id: 'berkala', label: 'Daftar Informasi Publik (DIP)', icon: <FileText className="w-3.5 h-3.5 text-teal-300" /> },
                       { tab: 'publik', id: 'siwas', label: 'Pengaduan SIWAS & SP4N-LAPOR!', icon: <AlertTriangle className="w-3.5 h-3.5 text-orange-400" /> },
                       { tab: 'publik', id: 'survei', label: 'Survei Kepuasan (IKM & IPAK)', icon: <Star className="w-3.5 h-3.5 text-amber-400" /> },
                       { tab: 'publik', id: 'ebrosur', label: 'e-Brosur & Inovasi Publik', icon: <BookOpen className="w-3.5 h-3.5 text-purple-300" /> }
