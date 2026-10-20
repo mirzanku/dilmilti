@@ -129,6 +129,7 @@ export default function App() {
   const [isAuthOpen, setIsAuthOpen] = useState<boolean>(false);
   const [currentUser, setCurrentUser] = useState<UserAccount | null>(() => CourtDB.getCurrentSession());
   const [courtIdentity, setCourtIdentity] = useState<CourtIdentityData>(() => CourtDB.getCourtIdentity());
+  const lastDbVersionRef = useRef(CourtDB.serverVersion);
 
   // Reactive data for homepage widgets
   const [perkaraList, setPerkaraList] = useState<PerkaraSIPP[]>(() => CourtDB.getSippList());
@@ -195,6 +196,10 @@ export default function App() {
     }, 180);
 
     const handleDbUpdate = () => {
+      const currentVersion = CourtDB.serverVersion;
+      if (lastDbVersionRef.current === currentVersion) return;
+      lastDbVersionRef.current = currentVersion;
+      
       setPerkaraList(CourtDB.getSippList());
       setJadwalList(CourtDB.getJadwalList());
       setNewsList(CourtDB.getNewsList());

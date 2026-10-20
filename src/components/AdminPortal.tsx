@@ -6184,6 +6184,27 @@ try {
               </div>
             </div>
 
+            <div className="p-5 bg-gradient-to-r from-rose-950/40 to-slate-900 rounded-2xl border border-rose-500/30 flex items-center justify-between gap-4">
+              <div>
+                <h4 className="text-sm font-bold text-white">Paksa Sinkronisasi & Pembersihan Cache</h4>
+                <p className="text-[11px] text-rose-200/70">
+                  Gunakan tombol ini jika gambar atau data terlihat basi (stale) dan tidak diperbarui meski sudah diubah di server.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => {
+                  if (confirm('Lakukan pembersihan cache dan paksa sinkronisasi ulang dengan server?')) {
+                    CourtDB.forceFullSync();
+                    showToast('Sinkronisasi penuh dipicu!');
+                  }
+                }}
+                className="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs cursor-pointer shadow-lg transition-all"
+              >
+                Sync Ulang Sekarang
+              </button>
+            </div>
+
             {/* Central Server & LAN Sync Status Card */}
             <div className="p-4 bg-gradient-to-r from-slate-900 via-indigo-950/40 to-slate-900 rounded-2xl border border-indigo-500/30 shadow-lg flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
               <div className="flex items-start gap-3.5">

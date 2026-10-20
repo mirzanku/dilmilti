@@ -2933,7 +2933,7 @@ export const courtSyncManager = new SyncManager();
 class CourtDatabaseEngine {
   public readonly syncManager: SyncManager = courtSyncManager;
   private listeners: Array<() => void> = [];
-  private serverVersion: number = 0;
+  private _serverVersion: number = 0;
   private lastSyncedServerVersion: number = 0;
   private lastSyncedServerTimestamp: number = 0;
   private modifiedKeysVector: Map<string, VersionVectorNode> = new Map();
@@ -2948,6 +2948,11 @@ class CourtDatabaseEngine {
   private isLocalSyncInProgress: boolean = false;
   private isBackgroundRevalidating: boolean = false;
   private loadedFromSnapshot: boolean = false;
+
+  public get serverVersion(): number {
+    return this._serverVersion;
+  }
+
   private lastSnapshotTimestamp: number | null = null;
   private lastSnapshotIso: string | null = null;
   private syncPromiseChain: Promise<any> = Promise.resolve();
@@ -3164,8 +3169,8 @@ class CourtDatabaseEngine {
       if (!snapshot || typeof snapshot !== 'object' || !snapshot.data) return false;
 
       if (typeof snapshot.version === 'number' && snapshot.version > 0) {
-        this.serverVersion = Math.max(this.serverVersion, snapshot.version);
-        this.setLocalVersion(this.serverVersion);
+        this._serverVersion = Math.max(this._serverVersion, snapshot.version);
+        this.setLocalVersion(this._serverVersion);
       }
       if (typeof snapshot.timestamp === 'number') {
         this.lastSnapshotTimestamp = snapshot.timestamp;
@@ -3193,7 +3198,7 @@ class CourtDatabaseEngine {
   public saveLocalSnapshotAsync(source: 'server' | 'local_mutation' | 'seed' = 'server'): void {
     if (typeof window === 'undefined') return;
     const now = Date.now();
-    const version = Math.max(this.serverVersion, this.getLocalVersion(), 85);
+    const version = Math.max(this._serverVersion, this.getLocalVersion(), 85);
     const rawEntries = this.getAllRawLocalEntries();
     const versionVector = this.getVersionVector();
 
@@ -3230,7 +3235,7 @@ class CourtDatabaseEngine {
     try {
       const now = Date.now();
       const iso = new Date(now).toISOString();
-      const version = Math.max(this.serverVersion, this.getLocalVersion(), 85);
+      const version = Math.max(this._serverVersion, this.getLocalVersion(), 85);
       const allData = this.getAllLocalData();
 
       const snapshot: CourtDbSnapshot = {
@@ -3263,7 +3268,7 @@ class CourtDatabaseEngine {
       try {
         const now = Date.now();
         const iso = new Date(now).toISOString();
-        const version = Math.max(this.serverVersion, this.getLocalVersion(), 85);
+        const version = Math.max(this._serverVersion, this.getLocalVersion(), 85);
         localStorage.setItem(
           SNAPSHOT_META_KEY,
           JSON.stringify({
@@ -3313,7 +3318,7 @@ class CourtDatabaseEngine {
   // Version-Vector & Local version tracking helpers
   public getVersionVector(): CourtVersionVector {
     const fallbackNow = Date.now();
-    const fallbackVer = Math.max(this.serverVersion, this.getLocalVersion(), 85);
+    const fallbackVer = Math.max(this._serverVersion, this.getLocalVersion(), 85);
     if (typeof window === 'undefined') {
       return {
         version: fallbackVer,
@@ -3473,7 +3478,7 @@ class CourtDatabaseEngine {
       this.emitUIChange();
 
       try {
-        const localVer = Math.max(this.serverVersion, this.getLocalVersion(), 85);
+        const localVer = Math.max(this._serverVersion, this.getLocalVersion(), 85);
         const localVector = this.getVersionVector();
         const localWriteTs = this.lastLocalWriteTime || localVector.timestamp || syncStartTime;
         const rawEntries = this.getAllRawLocalEntries();
@@ -3508,7 +3513,7 @@ class CourtDatabaseEngine {
 
             if (resData.success) {
               const validatedVer = Math.max(resData.version || localVer + 1, 85);
-              this.serverVersion = validatedVer;
+              this._serverVersion = validatedVer;
               this.setLocalVersion(validatedVer);
               this.lastSyncedServerVersion = validatedVer;
               this.lastSyncedServerTimestamp = resData.serverTimestamp || Date.now();
@@ -3589,7 +3594,7 @@ class CourtDatabaseEngine {
         if (json && json.success) {
           const serverVer = typeof json.version === 'number' ? json.version : nextVer;
           const validatedVer = Math.max(serverVer, nextVer);
-          this.serverVersion = validatedVer;
+          this._serverVersion = validatedVer;
           this.setLocalVersion(validatedVer);
           this.lastSyncedServerVersion = validatedVer;
           this.lastSyncCompleteTime = Date.now();
@@ -3704,9 +3709,9 @@ class CourtDatabaseEngine {
       if (this.lastSyncedServerVersion > 0 && serverVer < this.lastSyncedServerVersion) {
         return;
       }
-      this.serverVersion = Math.max(serverVer, 85);
-      this.setLocalVersion(this.serverVersion);
-      this.lastSyncedServerVersion = this.serverVersion;
+      this._serverVersion = Math.max(serverVer, 85);
+      this.setLocalVersion(this._serverVersion);
+      this.lastSyncedServerVersion = this._serverVersion;
       this.lastSyncedServerTimestamp = result.serverTimestamp || Date.now();
       this.lastSyncCompleteTime = Date.now();
       this.hasInitialFetched = true;
@@ -3736,7 +3741,7 @@ class CourtDatabaseEngine {
     if (this.isLocalDirty || this.isLocalSyncInProgress) return;
     if (Date.now() - this.lastSyncCompleteTime < 4500 || Date.now() - this.lastLocalWriteTime < 4500) return;
     const incomingVer = typeof json.version === 'number' ? json.version : 0;
-    if (incomingVer > 0 && (incomingVer < this.lastSyncedServerVersion || incomingVer < this.serverVersion)) {
+    if (incomingVer > 0 && (incomingVer < this.lastSyncedServerVersion || incomingVer < this._serverVersion)) {
       return;
     }
 
@@ -3756,9 +3761,9 @@ class CourtDatabaseEngine {
 
           const result = workerRes.result;
           this.isServerConnected = true;
-          this.serverVersion = Math.max(result.version || 85, 85);
-          this.setLocalVersion(this.serverVersion);
-          this.lastSyncedServerVersion = this.serverVersion;
+          this._serverVersion = Math.max(result.version || 85, 85);
+          this.setLocalVersion(this._serverVersion);
+          this.lastSyncedServerVersion = this._serverVersion;
           this.lastSyncedServerTimestamp = result.serverTimestamp || Date.now();
           this.hasInitialFetched = true;
 
@@ -3773,9 +3778,9 @@ class CourtDatabaseEngine {
 
     this.isServerConnected = true;
     const serverVer = typeof json.version === 'number' ? json.version : 85;
-    this.serverVersion = Math.max(serverVer, 85);
-    this.setLocalVersion(this.serverVersion);
-    this.syncVersionVectorWithServer(this.serverVersion, json.lastUpdated);
+    this._serverVersion = Math.max(serverVer, 85);
+    this.setLocalVersion(this._serverVersion);
+    this.syncVersionVectorWithServer(this._serverVersion, json.lastUpdated);
     this.hasInitialFetched = true;
 
     let hasChanges = false;
@@ -3834,9 +3839,9 @@ class CourtDatabaseEngine {
 
       const result = workerRes.result;
       this.isServerConnected = true;
-      this.serverVersion = Math.max(result.version || 85, 85);
-      this.setLocalVersion(this.serverVersion);
-      this.lastSyncedServerVersion = this.serverVersion;
+      this._serverVersion = Math.max(result.version || 85, 85);
+      this.setLocalVersion(this._serverVersion);
+      this.lastSyncedServerVersion = this._serverVersion;
       this.lastSyncedServerTimestamp = result.serverTimestamp || Date.now();
       this.hasInitialFetched = true;
 
@@ -3949,7 +3954,7 @@ class CourtDatabaseEngine {
         const workerRes = await this.syncManager.dispatchTask(
           'VERSION_CHECK',
           {
-            serverVersion: this.serverVersion,
+            serverVersion: this._serverVersion,
             localVersion: localVer,
             hasInitialFetched: this.hasInitialFetched,
             rawEntries: this.getAllRawLocalEntries(),
@@ -3971,7 +3976,7 @@ class CourtDatabaseEngine {
           if (this.lastSyncedServerVersion > 0 && serverVer < this.lastSyncedServerVersion) {
             return;
           }
-          this.serverVersion = serverVer;
+          this._serverVersion = serverVer;
           this.setLocalVersion(serverVer);
           this.lastSyncedServerVersion = serverVer;
           this.lastSyncedServerTimestamp = pullRes.serverTimestamp || Date.now();
@@ -4000,7 +4005,7 @@ class CourtDatabaseEngine {
       this.isServerConnected = true;
       const serverVer = typeof json?.version === 'number' ? json.version : 0;
       const localVer = this.getLocalVersion();
-      const knownVer = Math.max(this.serverVersion, localVer);
+      const knownVer = Math.max(this._serverVersion, localVer);
 
       // Pull from server if server version is newer than cached local version or on initial fetch
       if (serverVer > 0 && (!this.hasInitialFetched || serverVer > knownVer)) {
@@ -4018,7 +4023,7 @@ class CourtDatabaseEngine {
     const workerMetrics = this.syncManager.getMetrics();
     return {
       connected: this.isServerConnected,
-      version: Math.max(this.serverVersion, this.getLocalVersion(), 85),
+      version: Math.max(this._serverVersion, this.getLocalVersion(), 85),
       hasFetched: this.hasInitialFetched,
       isSyncing: this.isLocalSyncInProgress,
       isRevalidating: this.isBackgroundRevalidating,
@@ -4047,8 +4052,8 @@ class CourtDatabaseEngine {
     const now = Date.now();
     this.lastLocalWriteTime = now;
     this.isLocalDirty = true;
-    const nextVer = Math.max(this.serverVersion, this.getLocalVersion(), 85) + 1;
-    this.serverVersion = nextVer;
+    const nextVer = Math.max(this._serverVersion, this.getLocalVersion(), 85) + 1;
+    this._serverVersion = nextVer;
     this.setLocalVersion(nextVer);
     this.updateVersionVectorOnMutation(specificKey, nextVer, now);
     if (typeof window !== 'undefined') {
@@ -4065,7 +4070,7 @@ class CourtDatabaseEngine {
     if (typeof window !== 'undefined') {
       try {
         if (this.broadcastChannel) {
-          this.broadcastChannel.postMessage({ type: 'DB_UPDATED', version: this.serverVersion });
+          this.broadcastChannel.postMessage({ type: 'DB_UPDATED', version: this._serverVersion });
         }
       } catch (e) {}
 
@@ -4182,8 +4187,8 @@ class CourtDatabaseEngine {
       this.safeSetLocalStorage(key, storageValue);
 
       // 3. Increment version
-      const nextVer = Math.max(this.serverVersion, this.getLocalVersion(), 85) + 1;
-      this.serverVersion = nextVer;
+      const nextVer = Math.max(this._serverVersion, this.getLocalVersion(), 85) + 1;
+      this._serverVersion = nextVer;
       this.setLocalVersion(nextVer);
 
       // 4. Audit Log
@@ -7344,6 +7349,21 @@ class CourtDatabaseEngine {
     this.notify();
     return [...INITIAL_INOVASI_QUICK_ACCESS];
   }
+  public forceFullSync(): void {
+    // Clear local sync state and force re-fetch to resolve stale images/data
+    this._serverVersion = 0;
+    this.hasInitialFetched = false;
+    this.isVersionCheckInFlight = false;
+    this.isLocalDirty = false;
+    this.isLocalSyncInProgress = false;
+
+    // Optional: Could also clear specific localStorage keys, 
+    // but a clean re-fetch usually suffices if server version matches.
+    this.fetchFromCentralServer(true);
+    this.emitUIChange();
+    window.dispatchEvent(new CustomEvent('dilmilti_db_updated'));
+  }
+
   // ====================================================================
   // CRUD QUICK ACCESS UTAMA WEBSITE (10 IKON STANDAR SK 593/2026 + PTSP)
   // ====================================================================
