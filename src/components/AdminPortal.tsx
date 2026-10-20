@@ -3749,9 +3749,27 @@ try {
                             required
                             value={profLogoUrl}
                             onChange={(e) => setProfLogoUrl(e.target.value)}
+                            onBlur={() => {
+                              if (profLogoUrl?.trim()) {
+                                CourtDB.updateCourtIdentity({ logoUrl: profLogoUrl.trim() });
+                                showToast('Tautan lambang pengadilan disimpan!');
+                              }
+                            }}
                             placeholder="Contoh: /images/dilmilti_v_logo_transparent.png atau https://..."
                             className="w-full bg-slate-900 border border-amber-400/50 rounded-xl px-3 py-2 text-white focus:border-amber-400 font-mono text-xs"
                           />
+                          <button
+                            type="button"
+                            onClick={() => {
+                              if (!profLogoUrl) return;
+                              CourtDB.updateCourtIdentity({ logoUrl: profLogoUrl.trim() });
+                              showToast('Tautan lambang pengadilan diterapkan & disimpan!');
+                            }}
+                            className="px-2.5 py-1 mb-2 rounded-lg bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-[11px] cursor-pointer flex items-center gap-1 shadow-xs transition-colors"
+                          >
+                            <CheckCircle className="w-3.5 h-3.5" />
+                            <span>Terapkan URL</span>
+                          </button>
                           <div className="flex flex-wrap items-center gap-2">
                             <label className="px-2.5 py-1 rounded-lg bg-emerald-700 hover:bg-emerald-600 text-white font-bold text-[11px] cursor-pointer flex items-center gap-1.5 transition-colors shadow-xs">
                               <Upload className="w-3.5 h-3.5" />
@@ -3839,9 +3857,27 @@ try {
                             type="text"
                             value={profBannerUrl}
                             onChange={(e) => setProfBannerUrl(e.target.value)}
+                            onBlur={() => {
+                              if (profBannerUrl?.trim()) {
+                                CourtDB.updateCourtIdentity({ bannerUrl: profBannerUrl.trim() });
+                                showToast('Tautan banner header disimpan!');
+                              }
+                            }}
                             placeholder="Contoh: /images/makassar_court_banner_1789442426023.jpg atau https://..."
                             className="w-full bg-slate-900 border border-emerald-500/50 rounded-xl px-3 py-2 text-white focus:border-emerald-400 font-mono text-xs"
                           />
+                          <button
+                            type="button"
+                            onClick={() => {
+                              if (!profBannerUrl) return;
+                              CourtDB.updateCourtIdentity({ bannerUrl: profBannerUrl.trim() });
+                              showToast('Tautan banner header diterapkan & disimpan!');
+                            }}
+                            className="px-2.5 py-1 mb-2 rounded-lg bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-[11px] cursor-pointer flex items-center gap-1 shadow-xs transition-colors"
+                          >
+                            <CheckCircle className="w-3.5 h-3.5" />
+                            <span>Terapkan URL Banner</span>
+                          </button>
                           <div className="flex flex-wrap items-center gap-2">
                             <label className="px-2.5 py-1 rounded-lg bg-emerald-700 hover:bg-emerald-600 text-white font-bold text-[11px] cursor-pointer flex items-center gap-1.5 transition-colors shadow-xs">
                               <Upload className="w-3.5 h-3.5" />
