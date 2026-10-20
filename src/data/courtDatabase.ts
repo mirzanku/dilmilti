@@ -7308,7 +7308,7 @@ class CourtDatabaseEngine {
     };
     const updated = [...current, newItem];
     this.saveInovasiQuickAccess(updated);
-    this.addAuditLog('CREATE', 'SISTEM', `Menambahkan Quick Access Aplikasi Inovasi: ${newItem.namaAplikasi}`);
+    this.addAuditLog('CREATE', 'SISTEM', `Menambahkan Inovasi Layanan Publik: ${newItem.namaAplikasi}`);
     return newItem;
   }
 
@@ -7323,7 +7323,7 @@ class CourtDatabaseEngine {
       updatedAt: new Date().toISOString().slice(0, 10)
     };
     this.saveInovasiQuickAccess(current);
-    this.addAuditLog('UPDATE', 'SISTEM', `Memperbarui Quick Access Aplikasi Inovasi: ${current[idx].namaAplikasi}`);
+    this.addAuditLog('UPDATE', 'SISTEM', `Memperbarui Inovasi Layanan Publik: ${current[idx].namaAplikasi}`);
     return true;
   }
 
@@ -7333,14 +7333,14 @@ class CourtDatabaseEngine {
     const filtered = current.filter((item) => item.id !== id);
     if (filtered.length === current.length) return false;
     localStorage.setItem(STORAGE_KEYS.INOVASI_QUICK_ACCESS, JSON.stringify(filtered));
-    this.addAuditLog('DELETE', 'SISTEM', `Menghapus Quick Access Aplikasi Inovasi: ${target?.namaAplikasi || id}`);
+    this.addAuditLog('DELETE', 'SISTEM', `Menghapus Inovasi Layanan Publik: ${target?.namaAplikasi || id}`);
     this.notify();
     return true;
   }
 
   public resetInovasiQuickAccess(): InovasiQuickAccessItem[] {
     localStorage.setItem(STORAGE_KEYS.INOVASI_QUICK_ACCESS, JSON.stringify(INITIAL_INOVASI_QUICK_ACCESS));
-    this.addAuditLog('RESTORE', 'SISTEM', 'Mereset daftar Quick Access Aplikasi Inovasi ke bawaan.');
+    this.addAuditLog('RESTORE', 'SISTEM', 'Mereset daftar Inovasi Layanan Publik ke bawaan.');
     this.notify();
     return [...INITIAL_INOVASI_QUICK_ACCESS];
   }

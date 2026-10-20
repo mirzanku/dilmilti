@@ -70,14 +70,30 @@ export default function SliderBanner({ onNavigate, onOpenAuth }: SliderBannerPro
       setDbNews(CourtDB.getNewsList());
     };
 
+    const unsubscribe = CourtDB.subscribe(handleDbUpdate);
     window.addEventListener('dilmilti_db_updated', handleDbUpdate);
     return () => {
+      unsubscribe();
       window.removeEventListener('dilmilti_db_updated', handleDbUpdate);
     };
   }, []);
 
   // Build unified slide items combining official Satker slides and News headlines
   const allSlides: UnifiedSlideItem[] = useMemo(() => {
+    const serviceSlides: UnifiedSlideItem[] = dbSlides.slice(0, 5).map((s, idx) => ({
+      id: `service-${s.id || idx}`,
+      type: 'service',
+      title: s.title,
+      subtitle: s.subtitle,
+      desc: s.desc,
+      badge: s.badge || 'LAYANAN UNGGULAN',
+      tag: s.tag || 'INOVASI MA-RI',
+      bgImage: s.bgImage || DEFAULT_BANNER_IMAGE,
+      actionText: s.actionText || 'Lihat Detail Layanan',
+      targetSection: (s.targetSection || 'layanan-publik') as NavSection,
+      isFeatured: idx === 0
+    }));
+
     const newsSlides: UnifiedSlideItem[] = dbNews.slice(0, 4).map((n, idx) => ({
       id: `news-${n.id || idx}`,
       type: 'news',
@@ -94,29 +110,15 @@ export default function SliderBanner({ onNavigate, onOpenAuth }: SliderBannerPro
       date: n.tanggal,
       author: n.penulis || 'Humas Dilmilti V Makassar',
       views: n.views || '1.4k',
-      isFeatured: n.isFeatured ?? idx === 0
-    }));
-
-    const serviceSlides: UnifiedSlideItem[] = dbSlides.slice(0, 4).map((s, idx) => ({
-      id: `service-${s.id || idx}`,
-      type: 'service',
-      title: s.title,
-      subtitle: s.subtitle,
-      desc: s.desc,
-      badge: s.badge || 'LAYANAN UNGGULAN',
-      tag: s.tag || 'INOVASI MA-RI',
-      bgImage: s.bgImage || DEFAULT_BANNER_IMAGE,
-      actionText: s.actionText || 'Lihat Detail Layanan',
-      targetSection: (s.targetSection || 'layanan-publik') as NavSection,
       isFeatured: false
     }));
 
-    // Interleave news headlines and service slides for balanced showcase
+    // Interleave slides prioritizing custom configured Satker banner slides first
     const combined: UnifiedSlideItem[] = [];
-    const maxLen = Math.max(newsSlides.length, serviceSlides.length);
+    const maxLen = Math.max(serviceSlides.length, newsSlides.length);
     for (let i = 0; i < maxLen; i++) {
-      if (i < newsSlides.length) combined.push(newsSlides[i]);
       if (i < serviceSlides.length) combined.push(serviceSlides[i]);
+      if (i < newsSlides.length) combined.push(newsSlides[i]);
     }
 
     return combined.length > 0 ? combined : serviceSlides;

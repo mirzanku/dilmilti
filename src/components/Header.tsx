@@ -19,34 +19,45 @@ export default function Header({ onNavigate }: HeaderProps) {
   const [courtIdentity, setCourtIdentity] = useState<CourtIdentityData>(() => CourtDB.getCourtIdentity());
 
   useEffect(() => {
-    setCourtIdentity(CourtDB.getCourtIdentity());
     const handleUpdate = () => {
       setCourtIdentity(CourtDB.getCourtIdentity());
     };
+    handleUpdate();
+    const unsubscribe = CourtDB.subscribe(handleUpdate);
     window.addEventListener('dilmilti_db_updated', handleUpdate);
-    return () => window.removeEventListener('dilmilti_db_updated', handleUpdate);
+    return () => {
+      unsubscribe();
+      window.removeEventListener('dilmilti_db_updated', handleUpdate);
+    };
   }, []);
 
+  const bannerSource = courtIdentity.bannerUrl?.trim() || bannerMakassar;
+  const logoSource = courtIdentity.logoUrl?.trim() || logoTransparent;
+
   return (
-    <header id="site-header" className="relative overflow-hidden camo-banner-bg text-white border-b-2 border-amber-400 shadow-2xl">
+    <header id="site-header" className="relative overflow-hidden bg-[#041A0F] text-white border-b-2 border-amber-400 shadow-2xl">
       
-      {/* Background Graphic: Photorealistic Makassar Pinisi Court Banner blended with Camo Motif */}
+      {/* Background Graphic: Banner Header Utama (Foto / Gedung / Pinisi) yang jelas dan responsif */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
         <img
-          src={getFreshImageUrl(courtIdentity.bannerUrl || bannerMakassar)}
-          alt="Banner Utama Pengadilan Militer Tinggi V Makassar - Kapal Layar Pinisi & Kota Daeng"
+          key={`header-banner-${bannerSource}`}
+          src={getFreshImageUrl(bannerSource)}
+          alt="Banner Utama Pengadilan Militer Tinggi V Makassar"
           referrerPolicy="no-referrer"
-          className="w-full h-full object-cover object-center opacity-25 mix-blend-overlay scale-105"
+          className="w-full h-full object-cover object-center opacity-75 sm:opacity-85 scale-100 transition-opacity duration-500"
           onError={(e) => {
-            (e.target as HTMLImageElement).src = bannerMakassar;
+            const target = e.target as HTMLImageElement;
+            if (target.src !== bannerMakassar) {
+              target.src = bannerMakassar;
+            }
           }}
         />
-        {/* Layered Camo Gradient darkness overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#071F13]/90 via-[#0D2E1B]/75 to-[#071F13]/90"></div>
+        {/* Layered Gradient: Menjamin keterbacaan teks kiri tanpa mengaburkan keindahan gambar */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#03150B]/95 via-[#062414]/80 md:via-[#062414]/70 to-[#03150B]/45"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-[#03150B]/85 via-transparent to-black/20"></div>
+        {/* Camo Tactical Vector Overlay Accent */}
+        <div className="absolute inset-0 opacity-10 bg-military-camo-pattern mix-blend-overlay"></div>
       </div>
-
-      {/* Camo Tactical Vector Overlay Accent */}
-      <div className="absolute inset-0 pointer-events-none opacity-25 z-0 bg-military-camo-pattern"></div>
 
       {/* Header Banner Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 py-4 sm:py-5">
@@ -71,12 +82,16 @@ export default function Header({ onNavigate }: HeaderProps) {
               <div className="relative w-20 h-[105px] sm:w-24 sm:h-[126px] md:w-26 md:h-[137px] lg:w-28 lg:h-[147px] transition-all duration-300 transform group-hover:scale-105 filter drop-shadow-[0_10px_20px_rgba(0,0,0,0.6)]">
                 <div className="w-full h-full rounded-[50%] border-3 sm:border-4 border-amber-400 ring-2 ring-amber-300/80 shadow-2xl overflow-hidden bg-[#1b6b2d] flex items-center justify-center p-0">
                   <img
-                    src={getFreshImageUrl(courtIdentity.logoUrl || logoTransparent)}
+                    key={`header-logo-${logoSource}`}
+                    src={getFreshImageUrl(logoSource)}
                     alt="Lambang Resmi Pengadilan Militer Tinggi V Makassar"
                     referrerPolicy="no-referrer"
                     className="w-full h-full object-cover filter drop-shadow-[0_4px_12px_rgba(0,0,0,0.6)] scale-[1.01] animate-logo-glow"
                     onError={(e) => {
-                      (e.target as HTMLImageElement).src = logoTransparent;
+                      const target = e.target as HTMLImageElement;
+                      if (target.src !== logoTransparent) {
+                        target.src = logoTransparent;
+                      }
                     }}
                   />
                 </div>

@@ -3,6 +3,7 @@ import { UserRole, UserAccount } from '../types';
 export type AdminModule = 
   | 'telemetri'
   | 'whatsapp'
+  | 'inovasi'
   | 'personel'
   | 'satker'
   | 'tautan'
@@ -53,6 +54,7 @@ export const ROLE_CONFIGS: Record<UserRole, RoleMeta> = {
     allowedModules: [
       'telemetri',
       'whatsapp',
+      'inovasi',
       'personel',
       'satker',
       'tautan',
@@ -108,12 +110,12 @@ export const ROLE_CONFIGS: Record<UserRole, RoleMeta> = {
     badgeBorder: 'border-sky-400/80',
     badgeText: 'text-sky-300',
     isStaff: true,
-    description: 'Fokus operasional & aparatur: Mengelola Personel resmi MA-RI, Struktur Satker PERMA 1/2017, Profil Pengadilan, Pop-up Pengumuman, dan Eviden ZI (WBBM Area I s.d. VI).',
-    allowedModules: ['telemetri', 'whatsapp', 'personel', 'satker', 'profil', 'popup', 'eviden', 'slider', 'ecourt'],
+    description: 'Fokus operasional & aparatur: Mengelola Inovasi Layanan Publik, Personel resmi MA-RI, Struktur Satker PERMA 1/2017, Profil Pengadilan, Pop-up Pengumuman, dan Eviden ZI (WBBM Area I s.d. VI).',
+    allowedModules: ['telemetri', 'whatsapp', 'inovasi', 'personel', 'satker', 'profil', 'popup', 'eviden', 'slider', 'ecourt'],
     permissions: {
-      canCreate: (mod) => ['personel', 'satker', 'profil', 'popup', 'eviden', 'whatsapp', 'slider', 'ecourt'].includes(mod),
-      canEdit: (mod) => ['personel', 'satker', 'profil', 'popup', 'eviden', 'whatsapp', 'slider', 'ecourt'].includes(mod),
-      canDelete: (mod) => ['personel', 'satker', 'eviden', 'slider', 'ecourt'].includes(mod),
+      canCreate: (mod) => ['inovasi', 'personel', 'satker', 'profil', 'popup', 'eviden', 'whatsapp', 'slider', 'ecourt'].includes(mod),
+      canEdit: (mod) => ['inovasi', 'personel', 'satker', 'profil', 'popup', 'eviden', 'whatsapp', 'slider', 'ecourt'].includes(mod),
+      canDelete: (mod) => ['inovasi', 'personel', 'satker', 'eviden', 'slider', 'ecourt'].includes(mod),
       canExportDb: false,
       canResetDb: false,
       canManageUsers: false
@@ -129,12 +131,12 @@ export const ROLE_CONFIGS: Record<UserRole, RoleMeta> = {
     badgeBorder: 'border-purple-400/80',
     badgeText: 'text-purple-300',
     isStaff: true,
-    description: 'Fokus komunikasi & branding website: Mengelola artikel Berita & Kegiatan Pengadilan, Pop-up Pengumuman Resmi, Tautan Situs Resmi MA, serta pemutakhiran informasi Profil Pengadilan.',
-    allowedModules: ['telemetri', 'whatsapp', 'berita', 'tautan', 'profil', 'popup', 'slider', 'ecourt'],
+    description: 'Fokus komunikasi & branding website: Mengelola Inovasi Layanan Publik, artikel Berita & Kegiatan Pengadilan, Pop-up Pengumuman Resmi, Tautan Situs Resmi MA, serta pemutakhiran informasi Profil Pengadilan.',
+    allowedModules: ['telemetri', 'whatsapp', 'inovasi', 'berita', 'tautan', 'profil', 'popup', 'slider', 'ecourt'],
     permissions: {
-      canCreate: (mod) => ['berita', 'tautan', 'popup', 'whatsapp', 'slider', 'ecourt'].includes(mod),
-      canEdit: (mod) => ['berita', 'tautan', 'profil', 'popup', 'whatsapp', 'slider', 'ecourt'].includes(mod),
-      canDelete: (mod) => ['berita', 'tautan', 'slider'].includes(mod),
+      canCreate: (mod) => ['inovasi', 'berita', 'tautan', 'popup', 'whatsapp', 'slider', 'ecourt'].includes(mod),
+      canEdit: (mod) => ['inovasi', 'berita', 'tautan', 'profil', 'popup', 'whatsapp', 'slider', 'ecourt'].includes(mod),
+      canDelete: (mod) => ['inovasi', 'berita', 'tautan', 'slider'].includes(mod),
       canExportDb: false,
       canResetDb: false,
       canManageUsers: false
@@ -150,12 +152,12 @@ export const ROLE_CONFIGS: Record<UserRole, RoleMeta> = {
     badgeBorder: 'border-teal-400/80',
     badgeText: 'text-teal-300',
     isStaff: true,
-    description: 'Fokus pelayanan masyarakat: Memverifikasi tiket permohonan layanan publik (Izin Besuk, Legalisasi Putusan), mengelola antrean loket, dan Daftar Informasi Publik (DIP PPID).',
-    allowedModules: ['telemetri', 'whatsapp', 'ppid', 'jadwal', 'sipp'],
+    description: 'Fokus pelayanan masyarakat: Mengelola Inovasi Layanan Publik, memverifikasi tiket permohonan layanan publik (Izin Besuk, Legalisasi Putusan), mengelola antrean loket, dan Daftar Informasi Publik (DIP PPID).',
+    allowedModules: ['telemetri', 'whatsapp', 'inovasi', 'ppid', 'jadwal', 'sipp'],
     permissions: {
-      canCreate: (mod) => ['ppid', 'whatsapp'].includes(mod),
-      canEdit: (mod) => ['ppid', 'whatsapp'].includes(mod),
-      canDelete: () => false,
+      canCreate: (mod) => ['inovasi', 'ppid', 'whatsapp'].includes(mod),
+      canEdit: (mod) => ['inovasi', 'ppid', 'whatsapp'].includes(mod),
+      canDelete: (mod) => ['inovasi'].includes(mod),
       canExportDb: false,
       canResetDb: false,
       canManageUsers: false

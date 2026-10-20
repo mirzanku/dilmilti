@@ -89,7 +89,8 @@ import {
   ReformasiEvidenItem,
   PopupAnnouncementConfig,
   WhatsAppFoonteConfig,
-  MakassarSlide
+  MakassarSlide,
+  InovasiQuickAccessItem
 } from '../types';
 import { 
   ROLE_CONFIGS, 
@@ -156,6 +157,28 @@ export default function AdminPortal({ onBackToHome, onOpenAuth, currentUser: pro
   const [slideMakassarHighlight, setSlideMakassarHighlight] = useState('');
   const [slideIconType, setSlideIconType] = useState<'pinisi' | 'losari' | 'ptsp' | 'perma'>('pinisi');
   const [slideBgImage, setSlideBgImage] = useState('');
+
+  // Form fields for Inovasi Layanan Publik
+  const [inovasiList, setInovasiList] = useState<InovasiQuickAccessItem[]>([]);
+  const [selectedInovasi, setSelectedInovasi] = useState<InovasiQuickAccessItem | null>(null);
+  const [isInovasiModalOpen, setIsInovasiModalOpen] = useState(false);
+  const [inovasiModalMode, setInovasiModalMode] = useState<'create' | 'edit'>('create');
+  const [inovasiSearch, setInovasiSearch] = useState('');
+
+  const [inNamaAplikasi, setInNamaAplikasi] = useState('');
+  const [inNamaLengkap, setInNamaLengkap] = useState('');
+  const [inDeskripsi, setInDeskripsi] = useState('');
+  const [inBadge, setInBadge] = useState('INOVASI');
+  const [inKategori, setInKategori] = useState('Pelayanan Publik');
+  const [inUrlTujuan, setInUrlTujuan] = useState('');
+  const [inDomainLabel, setInDomainLabel] = useState('');
+  const [inInstansi, setInInstansi] = useState('Pengadilan Militer Tinggi V Makassar');
+  const [inInternalSection, setInInternalSection] = useState('publik');
+  const [inInternalSubTab, setInInternalSubTab] = useState('');
+  const [inBukaTabBaru, setInBukaTabBaru] = useState(false);
+  const [inIconName, setInIconName] = useState<InovasiQuickAccessItem['iconName']>('Sparkles');
+  const [inStatus, setInStatus] = useState<'Aktif' | 'Maintenance'>('Aktif');
+  const [inUrutan, setInUrutan] = useState<number>(1);
 
   // Filter & Search
   const [searchQuery, setSearchQuery] = useState('');
@@ -805,6 +828,7 @@ try {
     setUsersList(CourtDB.getUsers());
     setAuditLogs(CourtDB.getAuditLogs());
     setSlidesList(CourtDB.getSlides());
+    setInovasiList(CourtDB.getInovasiQuickAccess());
     
     // Only reload form input states on initial mount or when explicitly requested!
     // NEVER overwrite form input values while the admin user is actively typing or editing!
@@ -1075,6 +1099,22 @@ try {
     setUserNomorWa('0812-4455-6677');
     setUserStatus('aktif');
 
+    // Reset Inovasi form
+    setInNamaAplikasi('');
+    setInNamaLengkap('');
+    setInDeskripsi('');
+    setInBadge('INOVASI');
+    setInKategori('Pelayanan Publik');
+    setInUrlTujuan('');
+    setInDomainLabel('dilmilti5-makassar.go.id');
+    setInInstansi('Pengadilan Militer Tinggi V Makassar');
+    setInInternalSection('publik');
+    setInInternalSubTab('');
+    setInBukaTabBaru(false);
+    setInIconName('Sparkles');
+    setInStatus('Aktif');
+    setInUrutan(inovasiList.length + 1);
+
     setIsModalOpen(true);
   };
 
@@ -1188,6 +1228,21 @@ try {
       setUserInstansi(item.instansi || '');
       setUserNomorWa(item.nomorWA || '');
       setUserStatus(item.status || 'aktif');
+    } else if (module === 'inovasi') {
+      setInNamaAplikasi(item.namaAplikasi || '');
+      setInNamaLengkap(item.namaLengkap || '');
+      setInDeskripsi(item.deskripsi || '');
+      setInBadge(item.badge || 'INOVASI');
+      setInKategori(item.kategori || 'Pelayanan Publik');
+      setInUrlTujuan(item.urlTujuan || '');
+      setInDomainLabel(item.domainLabel || '');
+      setInInstansi(item.instansi || 'Pengadilan Militer Tinggi V Makassar');
+      setInInternalSection(item.internalSection || 'publik');
+      setInInternalSubTab(item.internalSubTab || '');
+      setInBukaTabBaru(Boolean(item.bukaTabBaru));
+      setInIconName(item.iconName || 'Sparkles');
+      setInStatus(item.status || 'Aktif');
+      setInUrutan(item.urutan || 1);
     }
 
     setIsModalOpen(true);
@@ -1238,6 +1293,9 @@ try {
       } else if (modalTargetModule === 'slider') {
         CourtDB.deleteSlide(selectedItem.id);
         showToast(`Slide "${selectedItem.title.substring(0, 30)}..." berhasil dihapus.`);
+      } else if (modalTargetModule === 'inovasi') {
+        CourtDB.deleteInovasiQuickAccess(selectedItem.id);
+        showToast(`Inovasi "${selectedItem.namaAplikasi}" berhasil dihapus.`);
       }
       refreshData();
       setIsModalOpen(false);
@@ -1642,6 +1700,48 @@ try {
           ...(userPassword ? { password: userPassword } : {})
         });
         showToast(`Akun pengguna ${userNama} berhasil diperbarui!`);
+      }
+    } else if (modalTargetModule === 'inovasi') {
+      if (!inNamaAplikasi.trim()) {
+        showToast('Nama Aplikasi wajib diisi!', 'error');
+        return;
+      }
+      if (modalType === 'create') {
+        CourtDB.addInovasiQuickAccess({
+          namaAplikasi: inNamaAplikasi.trim(),
+          namaLengkap: inNamaLengkap.trim() || inNamaAplikasi.trim(),
+          deskripsi: inDeskripsi.trim(),
+          badge: inBadge.trim() || 'INOVASI',
+          kategori: inKategori,
+          urlTujuan: inUrlTujuan.trim() || '#',
+          domainLabel: inDomainLabel.trim() || 'dilmilti5-makassar.go.id',
+          instansi: inInstansi.trim() || 'Pengadilan Militer Tinggi V Makassar',
+          internalSection: (inInternalSection as any) || undefined,
+          internalSubTab: inInternalSubTab.trim() || undefined,
+          bukaTabBaru: inBukaTabBaru,
+          iconName: inIconName,
+          status: inStatus,
+          urutan: Number(inUrutan) || 1
+        });
+        showToast(`Aplikasi Inovasi "${inNamaAplikasi}" berhasil ditambahkan!`);
+      } else if (modalType === 'edit' && selectedItem) {
+        CourtDB.updateInovasiQuickAccess(selectedItem.id, {
+          namaAplikasi: inNamaAplikasi.trim(),
+          namaLengkap: inNamaLengkap.trim() || inNamaAplikasi.trim(),
+          deskripsi: inDeskripsi.trim(),
+          badge: inBadge.trim() || 'INOVASI',
+          kategori: inKategori,
+          urlTujuan: inUrlTujuan.trim() || '#',
+          domainLabel: inDomainLabel.trim() || 'dilmilti5-makassar.go.id',
+          instansi: inInstansi.trim() || 'Pengadilan Militer Tinggi V Makassar',
+          internalSection: (inInternalSection as any) || undefined,
+          internalSubTab: inInternalSubTab.trim() || undefined,
+          bukaTabBaru: inBukaTabBaru,
+          iconName: inIconName,
+          status: inStatus,
+          urutan: Number(inUrutan) || 1
+        });
+        showToast(`Aplikasi Inovasi "${inNamaAplikasi}" berhasil diperbarui!`);
       }
     }
 
@@ -2654,6 +2754,25 @@ try {
               <span>Slider Banner</span>
               <span className="px-1.5 py-0.2 rounded-full bg-slate-950/50 text-[10px] font-mono text-amber-300">
                 {slidesList.length}
+              </span>
+            </button>
+          )}
+
+          {allowedTabs.includes('inovasi') && (
+            <button
+              type="button"
+              id="admin-tab-inovasi-btn"
+              onClick={() => setActiveTab('inovasi')}
+              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+                activeTab === 'inovasi'
+                  ? 'bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 shadow-md font-black ring-2 ring-amber-300'
+                  : 'text-amber-300 hover:text-white hover:bg-slate-800 border border-amber-500/30'
+              }`}
+            >
+              <Sparkles className="w-4 h-4 text-amber-400" />
+              <span>Inovasi Layanan Publik</span>
+              <span className="px-1.5 py-0.2 rounded-full bg-slate-950/50 text-[10px] font-mono text-amber-300">
+                {inovasiList.length}
               </span>
             </button>
           )}
@@ -5702,6 +5821,192 @@ try {
                   </div>
                 ))
               )}
+            </div>
+          </div>
+        )}
+
+        {/* TAB: INOVASI LAYANAN PUBLIK */}
+        {activeTab === 'inovasi' && (
+          <div className="space-y-4 animate-in fade-in">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 p-4 bg-slate-900/80 rounded-2xl border border-amber-400/30">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-amber-400/20 text-amber-300 border border-amber-400/40 flex items-center justify-center shrink-0">
+                  <Sparkles className="w-5 h-5 text-amber-400" />
+                </div>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <h3 className="text-sm font-extrabold text-white">Inovasi Layanan Publik</h3>
+                    <span className="px-2 py-0.5 rounded-full bg-amber-400/20 text-amber-300 font-mono text-[10px] font-bold border border-amber-400/30">
+                      {inovasiList.length} APLIKASI
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-slate-400">
+                    Kelola seluruh aplikasi inovasi pelayanan publik, PTSP Online, Cuti Online, e-Berpadu, dan Notifikasi WhatsApp.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+                {onNavigateToSection && (
+                  <button
+                    type="button"
+                    onClick={() => onNavigateToSection('beranda', 'beranda-inovasi-ptsp')}
+                    className="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold border border-slate-700 flex items-center gap-1.5 cursor-pointer"
+                  >
+                    <Eye className="w-3.5 h-3.5 text-amber-400" />
+                    <span>Lihat di Beranda</span>
+                  </button>
+                )}
+
+                {canUserPerform(currentUser, 'inovasi', 'edit') && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (confirm('Kembalikan daftar Inovasi Layanan Publik ke konfigurasi bawaan resmi?')) {
+                        CourtDB.resetInovasiQuickAccess();
+                        refreshData();
+                        showToast('Daftar Inovasi Layanan Publik berhasil direset ke standar awal.');
+                      }
+                    }}
+                    className="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 text-xs font-bold border border-slate-700 flex items-center gap-1 cursor-pointer"
+                  >
+                    <RefreshCw className="w-3.5 h-3.5" />
+                    <span>Reset Standar</span>
+                  </button>
+                )}
+
+                {canUserPerform(currentUser, 'inovasi', 'create') && (
+                  <button
+                    type="button"
+                    onClick={() => openCreateModal('inovasi')}
+                    className="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-slate-950 text-xs font-black flex items-center gap-1.5 cursor-pointer shadow-md"
+                  >
+                    <Plus className="w-4 h-4" />
+                    <span>+ Tambah Inovasi</span>
+                  </button>
+                )}
+              </div>
+            </div>
+
+            {/* Filter & Search Bar */}
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-3 p-3 bg-slate-900/60 rounded-xl border border-slate-800">
+              <div className="relative w-full sm:w-80">
+                <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                <input
+                  type="text"
+                  placeholder="Cari nama aplikasi, instansi, atau kategori..."
+                  value={inovasiSearch}
+                  onChange={(e) => setInovasiSearch(e.target.value)}
+                  className="w-full pl-9 pr-3 py-1.5 bg-slate-950 border border-slate-700 rounded-xl text-xs text-white placeholder-slate-500 focus:border-amber-400"
+                />
+              </div>
+
+              <div className="text-[11px] text-slate-400 font-mono">
+                Menampilkan {inovasiList.filter(i => 
+                  !inovasiSearch.trim() || 
+                  i.namaAplikasi.toLowerCase().includes(inovasiSearch.toLowerCase()) ||
+                  i.namaLengkap.toLowerCase().includes(inovasiSearch.toLowerCase()) ||
+                  i.kategori.toLowerCase().includes(inovasiSearch.toLowerCase())
+                ).length} dari {inovasiList.length} inovasi
+              </div>
+            </div>
+
+            {/* Inovasi Card Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+              {inovasiList
+                .filter(item => 
+                  !inovasiSearch.trim() || 
+                  item.namaAplikasi.toLowerCase().includes(inovasiSearch.toLowerCase()) ||
+                  item.namaLengkap.toLowerCase().includes(inovasiSearch.toLowerCase()) ||
+                  item.kategori.toLowerCase().includes(inovasiSearch.toLowerCase())
+                )
+                .map((item) => (
+                  <div
+                    key={item.id}
+                    className="p-4 bg-slate-900/90 rounded-2xl border border-slate-800 hover:border-amber-400/50 transition-all flex flex-col justify-between gap-3 group relative overflow-hidden"
+                  >
+                    <div className="space-y-2">
+                      <div className="flex items-start justify-between gap-2">
+                        <div className="flex items-center gap-2">
+                          <span className="w-6 h-6 rounded-lg bg-amber-400/20 text-amber-300 font-bold text-xs flex items-center justify-center font-mono">
+                            #{item.urutan}
+                          </span>
+                          <span className="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-mono text-[10px] font-bold border border-emerald-500/30">
+                            {item.badge}
+                          </span>
+                        </div>
+                        <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
+                          item.status === 'Aktif' ? 'bg-emerald-500/20 text-emerald-300' : 'bg-rose-500/20 text-rose-300'
+                        }`}>
+                          {item.status}
+                        </span>
+                      </div>
+
+                      <div>
+                        <h4 className="text-sm font-black text-white group-hover:text-amber-300 transition-colors">
+                          {item.namaAplikasi}
+                        </h4>
+                        <div className="text-[11px] font-semibold text-emerald-300 line-clamp-1">
+                          {item.namaLengkap}
+                        </div>
+                      </div>
+
+                      <p className="text-[11px] text-slate-400 line-clamp-2 leading-relaxed">
+                        {item.deskripsi}
+                      </p>
+
+                      <div className="pt-2 border-t border-slate-800 space-y-1 text-[10px] text-slate-400">
+                        <div className="flex items-center justify-between">
+                          <span className="text-slate-500">Kategori:</span>
+                          <span className="font-semibold text-slate-300">{item.kategori}</span>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <span className="text-slate-500">Domain / URL:</span>
+                          <span className="font-mono text-amber-300 truncate max-w-[180px]">{item.domainLabel || item.urlTujuan}</span>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <span className="text-slate-500">Buka Tab:</span>
+                          <span className="font-semibold text-slate-300">{item.bukaTabBaru ? 'Tab Baru (_blank)' : 'Internal Tab'}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center justify-between gap-2 pt-2 border-t border-slate-800">
+                      <a
+                        href={item.urlTujuan}
+                        target={item.bukaTabBaru ? '_blank' : '_self'}
+                        rel="noopener noreferrer"
+                        className="py-1 px-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-[11px] font-bold flex items-center gap-1 transition-colors"
+                      >
+                        <ExternalLink className="w-3 h-3 text-emerald-400" />
+                        <span>Buka URL</span>
+                      </a>
+
+                      <div className="flex items-center gap-1">
+                        {canUserPerform(currentUser, 'inovasi', 'edit') && (
+                          <button
+                            type="button"
+                            onClick={() => openEditModal('inovasi', item)}
+                            className="p-1.5 rounded-lg bg-slate-800 hover:bg-amber-400 hover:text-slate-950 text-amber-300 transition-colors cursor-pointer"
+                            title="Edit Inovasi"
+                          >
+                            <Edit className="w-3.5 h-3.5" />
+                          </button>
+                        )}
+                        {canUserPerform(currentUser, 'inovasi', 'delete') && (
+                          <button
+                            type="button"
+                            onClick={() => openDeleteModal('inovasi', item)}
+                            className="p-1.5 rounded-lg bg-slate-800 hover:bg-rose-500 hover:text-white text-rose-400 transition-colors cursor-pointer"
+                            title="Hapus Inovasi"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                ))}
             </div>
           </div>
         )}

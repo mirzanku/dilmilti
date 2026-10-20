@@ -194,7 +194,7 @@ export default function InovasiQuickAccessSection({
   const handleResetDefault = () => {
     const restored = CourtDB.resetInovasiQuickAccess();
     setItems(restored);
-    showToast('Daftar Quick Access Aplikasi Inovasi berhasil dikembalikan ke pengaturan awal.');
+    showToast('Daftar Inovasi Layanan Publik berhasil dikembalikan ke pengaturan awal.');
   };
 
   const handlePrimaryAccess = (item: InovasiQuickAccessItem) => {
@@ -370,7 +370,7 @@ export default function InovasiQuickAccessSection({
               type="button"
               onClick={() => onOpenAuth && onOpenAuth()}
               className="px-3 py-2 rounded-xl bg-black/40 hover:bg-black/60 text-amber-300 border border-amber-400/50 font-bold text-xs flex items-center gap-1.5 transition-all cursor-pointer"
-              title="Login sebagai Admin/Petugas untuk mengelola (CRUD) Quick Access Aplikasi Inovasi"
+              title="Login sebagai Admin/Petugas untuk mengelola (CRUD) Inovasi Layanan Publik"
             >
               <Lock className="w-3.5 h-3.5 text-amber-400" />
               <span>Login Admin (CRUD Inovasi)</span>
@@ -379,7 +379,7 @@ export default function InovasiQuickAccessSection({
         </div>
       </div>
 
-      {/* Grid Quick Access Aplikasi Inovasi */}
+      {/* Grid Inovasi Layanan Publik */}
       <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {items.map((item) => {
           const IconComp = ICON_MAP[item.iconName] || Sparkles;
@@ -562,8 +562,8 @@ export default function InovasiQuickAccessSection({
                 <div>
                   <h4 className="text-sm sm:text-base font-black text-white font-serif">
                     {formMode === 'create'
-                      ? 'Tambah Quick Access Aplikasi Inovasi Baru'
-                      : `Edit Aplikasi Inovasi: ${namaAplikasi}`}
+                      ? 'Tambah Inovasi Layanan Publik Baru'
+                      : `Edit Inovasi Layanan Publik: ${namaAplikasi}`}
                   </h4>
                   <p className="text-[11px] text-amber-300">
                     Manajemen CRUD Role Admin • Inovasi Layanan Publik
@@ -797,10 +797,10 @@ export default function InovasiQuickAccessSection({
             <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-slate-700">
               <div>
                 <h4 className="text-base font-black text-white font-serif">
-                  Manajemen Tabel CRUD Quick Access Aplikasi Inovasi
+                  Manajemen Tabel CRUD Inovasi Layanan Publik
                 </h4>
                 <p className="text-[11px] text-slate-400">
-                  Tambah, ubah, atau hapus daftar aplikasi inovasi (PTSP Online, Cuti Online, Notifikasi WhatsApp, dll.)
+                  Tambah, ubah, atau hapus daftar aplikasi inovasi pelayanan publik (PTSP Online, Cuti Online, Notifikasi WhatsApp, dll.)
                 </p>
               </div>
               <div className="flex items-center gap-2">
@@ -930,7 +930,7 @@ export default function InovasiQuickAccessSection({
                   Hapus Aplikasi Inovasi?
                 </h4>
                 <p className="text-xs text-slate-300 mt-0.5">
-                  Anda yakin ingin menghapus <strong>{deleteConfirmItem.namaAplikasi}</strong> dari Quick Access?
+                  Anda yakin ingin menghapus <strong>{deleteConfirmItem.namaAplikasi}</strong> dari Inovasi Layanan Publik?
                 </p>
               </div>
             </div>
