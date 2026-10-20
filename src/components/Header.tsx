@@ -33,6 +33,7 @@ export default function Header({ onNavigate }: HeaderProps) {
 
   const bannerSource = courtIdentity.bannerUrl?.trim() || bannerMakassar;
   const logoSource = courtIdentity.logoUrl?.trim() || logoTransparent;
+  const timestamp = courtIdentity.lastUpdated || Date.now();
 
   return (
     <header id="site-header" className="relative overflow-hidden bg-[#041A0F] text-white border-b-2 border-amber-400 shadow-2xl">
@@ -41,7 +42,7 @@ export default function Header({ onNavigate }: HeaderProps) {
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
         <img
           key={`header-banner-${bannerSource}`}
-          src={getFreshImageUrl(bannerSource)}
+          src={getFreshImageUrl(bannerSource, timestamp)}
           alt="Banner Utama Pengadilan Militer Tinggi V Makassar"
           referrerPolicy="no-referrer"
           className="w-full h-full object-cover object-center opacity-75 sm:opacity-85 scale-100 transition-opacity duration-500"
@@ -83,7 +84,7 @@ export default function Header({ onNavigate }: HeaderProps) {
                 <div className="w-full h-full rounded-[50%] border-3 sm:border-4 border-amber-400 ring-2 ring-amber-300/80 shadow-2xl overflow-hidden bg-[#1b6b2d] flex items-center justify-center p-0">
                   <img
                     key={`header-logo-${logoSource}`}
-                    src={getFreshImageUrl(logoSource)}
+                    src={getFreshImageUrl(logoSource, timestamp)}
                     alt="Lambang Resmi Pengadilan Militer Tinggi V Makassar"
                     referrerPolicy="no-referrer"
                     className="w-full h-full object-cover filter drop-shadow-[0_4px_12px_rgba(0,0,0,0.6)] scale-[1.01] animate-logo-glow"

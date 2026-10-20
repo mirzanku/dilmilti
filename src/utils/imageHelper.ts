@@ -16,19 +16,19 @@ export const appendCacheBuster = (url: string | undefined, timestamp?: number | 
     return url;
   }
   const canonical = cleanCanonicalMediaUrl(url);
-  // Immutable content-addressed /api/upload?id=... URLs already have a unique ID per upload
-  if (canonical.includes('/api/upload')) {
-    return canonical;
-  }
-  // Never generate a dynamic Date.now() during React render, which would change <img src> on every render and abort in-flight requests
+  
+  // If no timestamp, return canonical
   if (!timestamp) {
     return canonical;
   }
-  if (canonical.includes('?t=') || canonical.includes('&t=')) {
+  
+  // If already has version/cache-buster, return canonical
+  if (canonical.includes('?v=') || canonical.includes('&v=') || canonical.includes('?t=') || canonical.includes('&t=')) {
     return canonical;
   }
+  
   const separator = canonical.includes('?') ? '&' : '?';
-  return `${canonical}${separator}t=${timestamp}`;
+  return `${canonical}${separator}v=${timestamp}`;
 };
 
 export const getAssetUrl = (url: string | undefined): string => {
