@@ -27,7 +27,8 @@ import {
   Compass, 
   Award,
   Rss,
-  Headphones
+  Headphones,
+  AlertTriangle
 } from 'lucide-react';
 import { CourtDB } from '../data/courtDatabase';
 import { NewsItem, CourtIdentityData } from '../types';
@@ -35,6 +36,7 @@ import { syncRouteToUrl } from '../utils/urlRouter';
 import RssFeedModal from './RssFeedModal';
 import ArticleTextToSpeechPlayer from './ArticleTextToSpeechPlayer';
 import { GaleriFotoSection } from './GaleriFotoSection';
+import PedomanMedsosSection from './PedomanMedsosSection';
 
 interface BeritaSectionProps {
   initialSubTab?: string;
@@ -595,6 +597,10 @@ Informasi Layanan:
 
   const getActiveSubTitle = () => {
     switch (activeSubTab) {
+      case 'pedoman-medsos':
+      case 'sk-sekma-14106':
+      case 'pedoman-media':
+        return 'Pedoman Pengelolaan Media Massa & Media Sosial (SK Sekma 14106/2026)';
       case 'berita-terkini':
       case 'berita':
         return 'Berita Terkini & Rilis Pers';
@@ -649,6 +655,51 @@ Informasi Layanan:
           </span>
         </div>
       </div>
+
+      {/* Subtab Navigation Menu */}
+      <div className="flex flex-wrap items-center gap-1.5 p-1.5 bg-slate-900/90 rounded-2xl border border-slate-800 shadow-sm">
+        {[
+          { id: 'berita-terkini', label: 'Berita & Rilis Pers', icon: Newspaper },
+          { id: 'pedoman-medsos', label: 'Pedoman Medsos SK 14106/2026', icon: Scale, badge: 'SK MA' },
+          { id: 'artikel-hukum', label: 'Artikel Hukum Militer', icon: BookOpen },
+          { id: 'pengumuman', label: 'Pengumuman Resmi', icon: Megaphone },
+          { id: 'galeri-foto', label: 'Galeri Foto & Video', icon: ImageIcon },
+          { id: 'e-brosur', label: 'E-Brosur Digital', icon: FileText }
+        ].map((tab) => {
+          const Icon = tab.icon;
+          const isActive = activeSubTab === tab.id || (tab.id === 'berita-terkini' && (activeSubTab === 'berita' || activeSubTab === 'semua'));
+          return (
+            <button
+              key={tab.id}
+              type="button"
+              onClick={() => {
+                setActiveSubTab(tab.id);
+                setSelectedArticle(null);
+              }}
+              className={`flex-1 min-w-[130px] sm:min-w-[150px] py-2 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+                isActive
+                  ? 'bg-amber-400 text-slate-950 font-black shadow-md ring-2 ring-amber-300/50'
+                  : 'text-slate-300 hover:text-white hover:bg-slate-800'
+              }`}
+            >
+              <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-slate-950' : 'text-amber-400'}`} />
+              <span>{tab.label}</span>
+              {tab.badge && (
+                <span className={`px-1.5 py-0.2 rounded text-[9px] font-black uppercase tracking-wider ${
+                  isActive ? 'bg-slate-950 text-amber-300' : 'bg-amber-400 text-slate-950'
+                }`}>
+                  {tab.badge}
+                </span>
+              )}
+            </button>
+          );
+        })}
+      </div>
+
+      {/* SUBMENU KHUSUS: PEDOMAN PENGELOLAAN MEDIA MASSA & MEDIA SOSIAL SK SEKMA NO. 14106/2026 */}
+      {(activeSubTab === 'pedoman-medsos' || activeSubTab === 'sk-sekma-14106' || activeSubTab === 'pedoman-media') && (
+        <PedomanMedsosSection onNavigate={onNavigate} />
+      )}
 
       {/* SUBMENU GALERI FOTO & VIDEO */}
       {(activeSubTab === 'galeri-foto' || activeSubTab === 'video-galeri') && (
@@ -882,6 +933,74 @@ Informasi Layanan:
             </div>
           </div>
 
+          {/* AI-Generated Watermark Notice (Bab K SK Sekma No. 14106/2026) */}
+          {selectedArticle.isAiGenerated && (
+            <div className="flex items-center gap-2 p-3 bg-amber-500/10 rounded-xl border border-amber-400/40 text-amber-900 text-xs font-semibold">
+              <Sparkles className="w-4 h-4 text-amber-600 shrink-0" />
+              <span>
+                {selectedArticle.aiWatermarkText || 'Konten ini dibuat dengan bantuan Kecerdasan Buatan (Generative AI) sesuai ketentuan Bab K Lampiran I SK Sekma RI No. 14106/2026.'}
+              </span>
+            </div>
+          )}
+
+          {/* Official PDF Document Card for SK Sekma No. 14106/2026 */}
+          {selectedArticle.siaranPersPdfUrl && (
+            <div className="p-4 rounded-xl bg-gradient-to-r from-[#041A0F] via-[#09321E] to-[#041A0F] border-2 border-amber-400 text-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-lg my-2">
+              <div className="flex items-center gap-3">
+                <div className="p-2.5 rounded-xl bg-amber-400 text-slate-950 font-black shrink-0">
+                  <FileText className="w-6 h-6" />
+                </div>
+                <div>
+                  <span className="text-[10px] font-black tracking-wider uppercase text-amber-300 font-mono">DOKUMEN REGULASI RESMI</span>
+                  <h4 className="text-sm sm:text-base font-black">Salinan SK Sekretaris Mahkamah Agung RI No. 14106/2026</h4>
+                  <p className="text-xs text-emerald-200">Pedoman Pengelolaan Media Massa & Media Sosial di Lingkungan Peradilan</p>
+                </div>
+              </div>
+              <div className="flex flex-wrap items-center gap-2 shrink-0">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setActiveSubTab('pedoman-medsos');
+                    setSelectedArticle(null);
+                  }}
+                  className="px-3.5 py-2 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs transition-all shadow-md cursor-pointer"
+                >
+                  Buka Pedoman Interaktif
+                </button>
+                <a
+                  href={selectedArticle.siaranPersPdfUrl}
+                  download="SK_Sekma_14106_2026_Pedoman_Medsos.pdf"
+                  className="px-3.5 py-2 rounded-xl bg-emerald-700 hover:bg-emerald-600 text-white font-bold text-xs inline-flex items-center gap-1.5 transition-all shadow-md border border-emerald-400/40"
+                >
+                  <Download className="w-4 h-4 text-emerald-200" />
+                  <span>Unduh PDF Resmi</span>
+                </a>
+              </div>
+            </div>
+          )}
+
+          {/* Catatan Koreksi & Ralat Transparan (Bab H SK Sekma 14106/2026) */}
+          {selectedArticle.riwayatKoreksi && selectedArticle.riwayatKoreksi.length > 0 && (
+            <div className="p-3.5 rounded-xl bg-amber-50 border border-amber-300 text-amber-950 space-y-2 text-xs">
+              <div className="flex items-center gap-2 font-black text-amber-900">
+                <AlertTriangle className="w-4 h-4 text-amber-600" />
+                <span>Catatan Koreksi & Ralat Publikasi Resmi (Bab H SK Sekma 14106/2026)</span>
+              </div>
+              {selectedArticle.riwayatKoreksi.map((rk, rIdx) => (
+                <div key={rIdx} className="bg-white p-2.5 rounded-lg border border-amber-200 space-y-1">
+                  <span className="font-bold text-[11px] text-slate-500">{rk.tanggal}:</span>
+                  <p className="text-slate-800">{rk.perbaikan || rk.keterangan}</p>
+                  {rk.perbandinganSebelum && rk.perbandinganSesudah && (
+                    <div className="grid grid-cols-2 gap-2 pt-1 font-mono text-[10px]">
+                      <div className="p-1.5 bg-rose-50 text-rose-800 rounded">Sebelum: {rk.perbandinganSebelum}</div>
+                      <div className="p-1.5 bg-emerald-50 text-emerald-800 rounded">Sesudah: {rk.perbandinganSesudah}</div>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+
           <div className="text-xs sm:text-sm text-slate-700 leading-relaxed space-y-3 pt-2">
             <p className="font-semibold text-slate-800 text-sm sm:text-base leading-relaxed bg-slate-50 p-4 rounded-xl border-l-4 border-[#0E29CD]">
               {selectedArticle.ringkasan}
@@ -907,6 +1026,28 @@ Informasi Layanan:
 
           {/* KOLOM KOMENTAR & DISKUSI PUBLIK (DETAIL BERITA) */}
           <div className="mt-6 pt-6 border-t-2 border-emerald-900/15 space-y-5">
+            {/* Etika Komentar & SIWAS MA-RI Compliance (Bab I SK Sekma 14106/2026) */}
+            <div className="bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs text-slate-600 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+              <div className="space-y-0.5">
+                <span className="font-bold text-slate-800 flex items-center gap-1">
+                  <Shield className="w-3.5 h-3.5 text-emerald-700" />
+                  Etika Komunikasi Publik Peradilan (Bab I SK Sekma No. 14106/2026):
+                </span>
+                <p className="text-[11px] text-slate-500">
+                  Tanggapan dinas pengelola menggunakan format resmi. Kritik & pengaduan keluhan layanan diarahkan ke Sistem Pengawasan (SIWAS) MA-RI. Pengelola dilarang menanggapi materi pokok perkara.
+                </p>
+              </div>
+              <a
+                href="https://siwas.mahkamahagung.go.id"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="shrink-0 px-3 py-1.5 rounded-lg bg-emerald-800 hover:bg-emerald-700 text-amber-300 font-bold text-xs inline-flex items-center gap-1 shadow-xs"
+              >
+                <span>Portal SIWAS MA-RI</span>
+                <ExternalLink className="w-3 h-3" />
+              </a>
+            </div>
+
             <div className="flex flex-wrap items-center justify-between gap-2">
               <div className="flex items-center gap-2">
                 <div className="w-8 h-8 rounded-lg bg-[#0A3D24] text-amber-300 flex items-center justify-center shadow-2xs">

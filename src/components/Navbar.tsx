@@ -540,6 +540,7 @@ export default function Navbar({
                   </div>
                   {[
                     { id: 'berita-terkini', label: 'Berita Terkini & Rilis Pers', icon: <Newspaper className="w-3.5 h-3.5 text-amber-300" /> },
+                    { id: 'pedoman-medsos', label: 'Pedoman Medsos (SK 14106/2026)', icon: <Scale className="w-3.5 h-3.5 text-amber-400" /> },
                     { id: 'artikel-hukum', label: 'Artikel / Karya Tulis Hukum', icon: <BookOpen className="w-3.5 h-3.5 text-cyan-300" /> },
                     { id: 'pengumuman', label: 'Pengumuman Resmi Pengadilan', icon: <Megaphone className="w-3.5 h-3.5 text-emerald-300" /> },
                     { id: 'galeri-foto', label: 'Video Galeri (YouTube) & Foto', icon: <Camera className="w-3.5 h-3.5 text-rose-400" /> }

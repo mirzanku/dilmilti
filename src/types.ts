@@ -395,6 +395,21 @@ export interface NewsItem {
   isFeatured?: boolean;
   gambarUrl?: string;
   comments?: NewsCommentItem[];
+  // Kepatuhan SK Sekma No. 14106/SEK/SK.HM1.1/X/2026
+  leadBerita?: string;
+  ekorBerita?: string;
+  editorPenyunting?: string;
+  isAiGenerated?: boolean;
+  aiWatermarkText?: string;
+  referensiHukum?: string[];
+  riwayatKoreksi?: Array<{
+    tanggal: string;
+    keterangan: string;
+    perbaikan: string;
+    perbandinganSebelum?: string;
+    perbandinganSesudah?: string;
+  }>;
+  siaranPersPdfUrl?: string;
 }
 
 export interface PTSPQueueItem {

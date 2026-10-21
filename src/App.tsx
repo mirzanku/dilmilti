@@ -327,6 +327,10 @@ export default function App() {
       normalizedTab = 'hukum';
       subTab = 'panduan-hukum';
     }
+    else if (tab === 'pedoman-medsos' || tab === 'sk-sekma-14106' || tab === 'pedoman-media' || tab === 'medsos') {
+      normalizedTab = 'berita';
+      subTab = 'pedoman-medsos';
+    }
     else if (tab === 'ecourt') {
       normalizedTab = 'ecourt';
     }

@@ -3,6 +3,7 @@ export type RegulatoryCategory =
   | 'PERMA'
   | 'SEMA'
   | 'SK_KMA'
+  | 'SK_SEKMA'
   | 'SK_DIRJEN'
   | 'PEDOMAN_TEKNIS';
 
@@ -538,6 +539,68 @@ export const REGULATORY_DATABASE: RegulatoryDocument[] = [
     ],
     tautanResmi: 'https://jdih.mahkamahagung.go.id',
     kataKunci: ['perma 8 tahun 2022', 'perma 6 tahun 2022', 'kasasi elektronik', 'pk elektronik', 'berkas digital ma', 'sipermari']
+  },
+  // 13. SK Sekma 14106/SEK/SK.HM1.1/X/2026 - Pedoman Media Massa & Media Sosial
+  {
+    id: 'reg-sk-sekma-14106-2026',
+    category: 'SK_SEKMA',
+    categoryLabel: 'Keputusan Sekretaris Mahkamah Agung RI',
+    nomor: 'SK Sekma Nomor 14106/SEK/SK.HM1.1/X/2026',
+    tentang: 'Pedoman Pengelolaan Media Massa dan Media Sosial di Lingkungan Mahkamah Agung dan Badan Peradilan yang Berada di Bawahnya',
+    tahun: 2026,
+    status: 'Berlaku (Ditetapkan 9 Oktober 2026)',
+    ringkasan: 'Regulasi resmi Mahkamah Agung RI yang mengatur secara komprehensif pedoman kehumasan, tata kelola media massa dan akun media sosial resmi pengadilan, alur verifikasi konten berjenjang, etika interaksi dan penanganan komentar, tata kelola pemanfaatan Kecerdasan Buatan (Artificial Intelligence) dengan prinsip Human-in-the-Loop, serta 11 Langkah Standar Operasional Prosedur (SOP) Publikasi Media Sosial.',
+    substansiPenting: [
+      'Struktur Tim Pengelola Media Massa & Medsos Pengadilan Tingkat Banding: Pembina (Hakim/Jubir), Penanggung Jawab (Sekretaris Pengadilan), Koordinator (Kepala Bagian), Tim Produksi Konten, Administrator Media Massa, dan Administrator Media Sosial.',
+      'Ketentuan Penulisan Artikel: Wajib memenuhi 5W+1H, struktur Lead, Isi, dan Ekor berita. Artikel hukum minimal 2 referensi ilmiah dan 800-1500 kata.',
+      'Tata Kelola Kecerdasan Buatan (AI) Bab K: Wajib Human-in-the-Loop, dilarang merekayasa logo resmi dan foto pimpinan/aparatur, wajib mencantumkan keterangan/watermark pada materi visual generatif AI, wajib mengaburkan wajah pihak/anak, dan larangan mutlak deepfake.',
+      'SOP Publikasi Media Sosial 11 Tahapan (Lampiran II): Perencanaan (2h), Instruksi (1h), Konsep (1h), Bahan (1h), Produksi (3h), Penyuntingan (1h), Koreksi (2h), Persetujuan (1h), Posting (1h), Laporan (1h), Evaluasi (1h).',
+      'Mekanisme Koreksi & Ralat Transparan (Bab H): Pencantuman ralat/koreksi di akhir konten serta penyandingan informasi sebelum vs sesudah.',
+      'Etika Interaksi & Komentar (Bab I): Format jawaban resmi [Jawaban/Tanggapan], kritik keluhan diarahkan ke SIWAS MA-RI (siwas.mahkamahagung.go.id), tidak menanggapi pokok perkara di media sosial, dan penutupan/penghapusan komentar hanya untuk hoax/SARA/fitnah/spam.',
+      'Keamanan Akun Resmi (Bab F.6): Wajib menggunakan surel dan nomor dinas instansi, penggunaan logo resmi/gedung kantor, serta kewajiban mengaktifkan Autentikasi Dua Langkah (2FA).'
+    ],
+    pasalPasalKunci: [
+      {
+        pasal: 'Lampiran I Bab D',
+        judul: 'Struktur Tim Pengelola Media Massa dan Medsos Pengadilan',
+        isi: 'Pengadilan tingkat banding: Pembina dijabat oleh hakim atau juru bicara pengadilan, Penanggung jawab dijabat oleh Sekretaris Pengadilan, Koordinator dijabat oleh Kepala Bagian, dibantu Tim Produksi Konten (Perancang Infografis/Videografis, Fotografer/Videografer, Penulis Naskah, Editor Naskah, Penyusun Konten), Administrator Media Massa, dan Administrator Media Sosial.'
+      },
+      {
+        pasal: 'Lampiran I Bab E & H',
+        judul: 'Standar Penulisan Berita & Mekanisme Koreksi Transparan',
+        isi: 'Artikel berita memuat 5W+1H dengan struktur Lead, Isi, dan Ekor berita. Jika terjadi kekeliruan, dilakukan koreksi transparan dengan mencantumkan keterangan ralat di akhir berita atau penyandingan informasi sebelum dan sesudah perbaikan.'
+      },
+      {
+        pasal: 'Lampiran I Bab I',
+        judul: 'Etika Interaksi, Tanggapan Resmi & Kanal SIWAS',
+        isi: 'Pengelola merespons pertanyaan dengan format resmi Jawaban/Tanggapan. Kritik dan keluhan diarahkan ke Sistem Pengawasan (SIWAS) Mahkamah Agung. Dilarang menanggapi substansi perkara/putusan hakim di media sosial.'
+      },
+      {
+        pasal: 'Lampiran I Bab K',
+        judul: 'Tata Kelola Pemanfaatan Kecerdasan Buatan (AI)',
+        isi: 'AI hanya sebagai alat bantu (tidak menggantikan kewenangan pejabat). Dilarang merekayasa logo resmi dan foto pimpinan. Wajib Human-in-the-Loop, wajib mencantumkan keterangan/watermark pada materi visual generatif AI, wajib mengaburkan wajah pihak/anak, serta larangan deepfake.'
+      },
+      {
+        pasal: 'Lampiran II',
+        judul: 'SOP Publikasi Media Sosial (11 Tahapan Kerja)',
+        isi: 'Alur kerja baku publikasi: 1. Perencanaan (2h) -> 2. Instruksi (1h) -> 3. Konsep (1h) -> 4. Bahan (1h) -> 5. Produksi (3h) -> 6. Penyuntingan (1h) -> 7. Koreksi (2h) -> 8. Persetujuan (1h) -> 9. Posting (1h) -> 10. Laporan (1h) -> 11. Evaluasi (1h).'
+      }
+    ],
+    tautanResmi: '/assets/aistudio/2026sk-sekma14106_a0e8391d.pdf',
+    kataKunci: [
+      'sk sekma 14106',
+      '14106/sek/sk.hm1.1/x/2026',
+      'pedoman media massa',
+      'media sosial pengadilan',
+      'sop medsos',
+      'tata kelola ai peradilan',
+      'kecerdasan buatan ma',
+      'human in the loop',
+      'etika komentar siwas',
+      'koreksi berita',
+      'humas pengadilan',
+      'sobandi'
+    ]
   }
 ];
 

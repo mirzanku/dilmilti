@@ -38,6 +38,8 @@ const SLUG_TO_TAB: Record<string, string> = {
   berita: 'berita',
   galeri: 'berita',
   'galeri-foto': 'berita',
+  'pedoman-medsos': 'berita',
+  'sk-sekma-14106': 'berita',
   'reformasi-birokrasi': 'reformasi',
   reformasi: 'reformasi',
   zi: 'reformasi',
@@ -160,6 +162,7 @@ export const SUBTAB_LABELS: Record<string, string> = {
 
   // Berita
   'berita-terkini': 'Berita Terkini',
+  'pedoman-medsos': 'Pedoman Medsos SK 14106/2026',
   pengumuman: 'Pengumuman Resmi',
   'artikel-hukum': 'Artikel Hukum',
   'galeri-foto': 'Galeri Kegiatan & Video',

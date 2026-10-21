@@ -4724,7 +4724,16 @@ class CourtDatabaseEngine {
   public getNews(): NewsItem[] {
     try {
       const data = localStorage.getItem(STORAGE_KEYS.NEWS);
-      return data ? JSON.parse(data) : SAMPLE_NEWS_ITEMS;
+      if (!data) return SAMPLE_NEWS_ITEMS;
+      const parsed: NewsItem[] = JSON.parse(data);
+      if (!parsed.some(n => n.id === 'news-sk-sekma-14106-2026')) {
+        const sekmaNews = SAMPLE_NEWS_ITEMS.find(n => n.id === 'news-sk-sekma-14106-2026');
+        if (sekmaNews) {
+          parsed.unshift(sekmaNews);
+          localStorage.setItem(STORAGE_KEYS.NEWS, JSON.stringify(parsed));
+        }
+      }
+      return parsed;
     } catch {
       return SAMPLE_NEWS_ITEMS;
     }
