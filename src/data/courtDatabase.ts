@@ -2291,19 +2291,37 @@ const COURT_SYNC_WORKER_SOURCE = `
     };
 
     const rawEntries = payload.rawEntries || {};
+    const localParsedData = parseRawEntries(rawEntries);
     const { changedEntries, hasChanges } = computeChangedEntries(json.data, rawEntries);
 
-    const mergedData = { ...parseRawEntries(rawEntries) };
+    const mergedData = { ...localParsedData };
     Object.entries(json.data).forEach(([k, v]) => {
       if (k.startsWith('dilmilti5_') && k !== CURRENT_USER_KEY) {
+        let serverVal = v;
         if (typeof v === 'string') {
           try {
-            mergedData[k] = JSON.parse(v);
-          } catch {
-            mergedData[k] = v;
+            serverVal = JSON.parse(v);
+          } catch {}
+        }
+        const localVal = mergedData[k];
+        if (localVal) {
+          if (k === 'dilmilti5_court_identity') {
+            const localTs = localVal.lastUpdated || 0;
+            const serverTsIdentity = serverVal.lastUpdated || 0;
+            mergedData[k] = {
+              ...serverVal,
+              ...localVal,
+              logoUrl: (localVal.logoUrl && localVal.logoUrl !== '/images/dilmilti_v_logo_transparent.png') ? localVal.logoUrl : (serverVal.logoUrl || localVal.logoUrl),
+              bannerUrl: (localVal.bannerUrl && localVal.bannerUrl !== '/images/makassar_court_banner_1789442426023.jpg') ? localVal.bannerUrl : (serverVal.bannerUrl || localVal.bannerUrl),
+              lastUpdated: Math.max(localTs, serverTsIdentity, Date.now())
+            };
+          } else if (localVal.lastUpdated && serverVal.lastUpdated && localVal.lastUpdated > serverVal.lastUpdated) {
+            mergedData[k] = localVal;
+          } else {
+            mergedData[k] = serverVal;
           }
         } else {
-          mergedData[k] = v;
+          mergedData[k] = serverVal;
         }
       }
     });
@@ -3673,10 +3691,10 @@ class CourtDatabaseEngine {
     if (Date.now() - this.lastSyncCompleteTime < 3500) {
       return;
     }
-    if (!force && (this.isLocalDirty || (Date.now() - this.lastLocalWriteTime < 3500))) {
+    if (!force && (this.isLocalDirty || (Date.now() - this.lastLocalWriteTime < 15000))) {
       return;
     }
-    if (force && (this.isLocalDirty || (Date.now() - this.lastLocalWriteTime < 2500))) {
+    if (force && (this.isLocalDirty || (Date.now() - this.lastLocalWriteTime < 10000))) {
       return;
     }
 
