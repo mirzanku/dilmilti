@@ -22,11 +22,7 @@ export const appendCacheBuster = (url: string | undefined, timestamp?: number | 
     return canonical;
   }
   
-  // If already has version/cache-buster, return canonical
-  if (canonical.includes('?v=') || canonical.includes('&v=') || canonical.includes('?t=') || canonical.includes('&t=')) {
-    return canonical;
-  }
-  
+  // Always append new timestamp
   const separator = canonical.includes('?') ? '&' : '?';
   return `${canonical}${separator}v=${timestamp}`;
 };
