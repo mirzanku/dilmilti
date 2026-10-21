@@ -323,6 +323,13 @@ export default function BeritaSection({ initialSubTab = 'berita-terkini', onNavi
   const [courtIdentity, setCourtIdentity] = useState<CourtIdentityData>(() => CourtDB.getCourtIdentity());
   const [newsList, setNewsList] = useState<NewsItem[]>([]);
   const [activeSubTab, setActiveSubTab] = useState<string>(initialSubTab || 'berita-terkini');
+
+  useEffect(() => {
+    if (initialSubTab) {
+      setActiveSubTab(initialSubTab);
+    }
+  }, [initialSubTab]);
+
   const [isRssModalOpen, setIsRssModalOpen] = useState<boolean>(false);
   const [selectedArticle, setSelectedArticle] = useState<NewsItem | null>(null);
   const [commentInputs, setCommentInputs] = useState<Record<string, { name: string; role: string; text: string }>>({});

@@ -1,15 +1,15 @@
-# Rencana Audit & Perbaikan Sinkronisasi Data Identitas
+# Rencana Perbaikan Sinkronisasi Antar Perangkat
 
-Tujuan: Mengatasi masalah di mana logo dan banner yang diunggah pengguna kembali ke default setelah beberapa menit akibat sinkronisasi otomatis dari server.
+Masalah: Perubahan identitas (logo/banner) pada perangkat admin tidak segera tercermin pada perangkat klien meskipun sudah tersambung dan dilakukan hard refresh setelah lebih dari 5 menit.
 
-## Audit yang akan dilakukan:
-1.  **Analisis Database (CourtDB)**: Memastikan bahwa logika `updateCourtIdentity` di `src/data/courtDatabase.ts` benar-benar memprioritaskan data lokal dan tidak terpengaruh oleh *payload* yang tidak lengkap dari server.
-2.  **Mekanisme Sync/Pull**: Memeriksa apakah `fetchFromCentralServer` atau `checkServerVersionAndUpdate` di `src/data/courtDatabase.ts` melakukan penimpaan (*overwrite*) penuh pada objek `court_identity` alih-alih melakukan *merge* (penggabungan) properti secara selektif.
-3.  **Audit Worker SyncManager**: Memastikan bahwa *worker* tidak memiliki logika *fallback* yang memaksa kembali ke *seed* data awal saat sinkronisasi.
+## Analisis Masalah:
+- Perangkat klien menunjukkan status "Tersambung" namun tidak mendapatkan pembaruan data `court_identity`.
+- Log server menunjukkan sinkronisasi data terjadi.
+- Mekanisme sinkronisasi saat ini mengandalkan `setInterval` (120 detik) dan peristiwa `focus`/`visibilitychange` untuk memicu `checkServerVersionAndUpdate`.
 
-## Langkah Perbaikan:
-1.  **Penguatan Smart Merge**: Memastikan fungsi `applyWorkerSerializedArtifacts` (atau fungsi *merge* terkait di `courtDatabase.ts`) di masa depan akan secara eksplisit memproteksi `logoUrl` dan `bannerUrl` jika sudah ada kustomisasi lokal.
-2.  **Pembaruan Status Penulisan**: Menambahkan logika verifikasi pada sinkronisasi server untuk memeriksa apakah nilai yang akan ditimpa adalah URL gambar kustom sebelum menerapkan perubahan dari server.
-3.  **Verifikasi Cache**: Memastikan `getFreshImageUrl` bekerja optimal dengan *timestamp* yang dihasilkan setelah proses penyimpanan sukses.
+## Rencana Perbaikan:
+1.  **Optimasi BroadcastChannel**: Memastikan pesan `DB_UPDATED` benar-benar dikirim dari server/worker ke *client* saat pembaruan identitas terjadi, sehingga perangkat klien mendapatkan notifikasi *real-time* untuk melakukan *pull* ulang tanpa menunggu *polling* 2 menit.
+2.  **Pemaksaan Verifikasi Versi (Force Version Check)**: Meningkatkan sensitivitas `checkServerVersionAndUpdate` pada perangkat klien untuk memastikan bahwa saat terjadi sinkronisasi basis data, versi lokal benar-benar disinkronkan dengan versi terbaru di server, meskipun versi server yang terdeteksi secara lokal mungkin tampak sama karena masalah *caching* pada respons API `GET /api/court-db/version`.
+3.  **Audit `syncManager`**: Memastikan `syncManager` tidak memblokir *pull* data identitas karena dianggap sebagai pembaruan "prioritas rendah".
 
-Kami akan melakukan audit kode dan menerapkan perbaikan pada logika penggabungan data.
+Kami akan melakukan audit dan perbaikan pada logika `checkServerVersionAndUpdate` serta mekanisme *broadcast* pembaruan data agar sinkronisasi antar perangkat lebih responsif.

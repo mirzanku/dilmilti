@@ -1,6 +1,6 @@
 {
-  "summary":  "Rencana audit dan perbaikan mekanisme sinkronisasi data identitas (logo/banner) untuk mencegah penimpaan data dari server.",
-  "updatedAt":  "2026-10-21T06:45:13.761170531Z",
+  "summary":  "Rencana perbaikan sinkronisasi antar perangkat untuk masalah keterlambatan pembaruan tampilan (data identity).",
+  "updatedAt":  "2026-10-21T09:22:42.967954597Z",
   "requestFeedback":  true,
   "userFacing":  true
 }
