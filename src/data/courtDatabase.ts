@@ -3033,7 +3033,29 @@ class CourtDatabaseEngine {
       Object.entries(result.changedEntries).forEach(([key, strVal]) => {
         if (!key.startsWith('dilmilti5_') || key === STORAGE_KEYS.CURRENT_USER) return;
         if (typeof strVal === 'string') {
-          this.safeSetLocalStorage(key, strVal);
+          if (key === STORAGE_KEYS.COURT_IDENTITY) {
+            try {
+              const serverData = JSON.parse(strVal);
+              const localRaw = localStorage.getItem(key);
+              if (localRaw) {
+                const localData = JSON.parse(localRaw);
+                const merged = {
+                  ...serverData,
+                  ...localData,
+                  logoUrl: (localData.logoUrl && localData.logoUrl !== '/images/dilmilti_v_logo_transparent.png') ? localData.logoUrl : (serverData.logoUrl || localData.logoUrl),
+                  bannerUrl: (localData.bannerUrl && localData.bannerUrl !== '/images/makassar_court_banner_1789442426023.jpg') ? localData.bannerUrl : (serverData.bannerUrl || localData.bannerUrl),
+                  lastUpdated: Math.max(localData.lastUpdated || 0, serverData.lastUpdated || 0, Date.now())
+                };
+                this.safeSetLocalStorage(key, JSON.stringify(merged));
+              } else {
+                this.safeSetLocalStorage(key, strVal);
+              }
+            } catch {
+              this.safeSetLocalStorage(key, strVal);
+            }
+          } else {
+            this.safeSetLocalStorage(key, strVal);
+          }
           hasChanges = true;
         }
       });
@@ -3043,7 +3065,29 @@ class CourtDatabaseEngine {
       Object.entries(result.reconciledEntriesForLocal).forEach(([key, strVal]) => {
         if (!key.startsWith('dilmilti5_') || key === STORAGE_KEYS.CURRENT_USER) return;
         if (typeof strVal === 'string') {
-          this.safeSetLocalStorage(key, strVal);
+          if (key === STORAGE_KEYS.COURT_IDENTITY) {
+            try {
+              const serverData = JSON.parse(strVal);
+              const localRaw = localStorage.getItem(key);
+              if (localRaw) {
+                const localData = JSON.parse(localRaw);
+                const merged = {
+                  ...serverData,
+                  ...localData,
+                  logoUrl: (localData.logoUrl && localData.logoUrl !== '/images/dilmilti_v_logo_transparent.png') ? localData.logoUrl : (serverData.logoUrl || localData.logoUrl),
+                  bannerUrl: (localData.bannerUrl && localData.bannerUrl !== '/images/makassar_court_banner_1789442426023.jpg') ? localData.bannerUrl : (serverData.bannerUrl || localData.bannerUrl),
+                  lastUpdated: Math.max(localData.lastUpdated || 0, serverData.lastUpdated || 0, Date.now())
+                };
+                this.safeSetLocalStorage(key, JSON.stringify(merged));
+              } else {
+                this.safeSetLocalStorage(key, strVal);
+              }
+            } catch {
+              this.safeSetLocalStorage(key, strVal);
+            }
+          } else {
+            this.safeSetLocalStorage(key, strVal);
+          }
           hasChanges = true;
         }
       });

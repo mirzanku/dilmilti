@@ -1,16 +1,15 @@
-# Implementation Plan: Image Cache Busting
+# Rencana Audit & Perbaikan Sinkronisasi Data Identitas
 
-I will implement cache busting for all image requests to ensure they always fetch the latest version.
+Tujuan: Mengatasi masalah di mana logo dan banner yang diunggah pengguna kembali ke default setelah beberapa menit akibat sinkronisasi otomatis dari server.
 
-## Tasks:
+## Audit yang akan dilakukan:
+1.  **Analisis Database (CourtDB)**: Memastikan bahwa logika `updateCourtIdentity` di `src/data/courtDatabase.ts` benar-benar memprioritaskan data lokal dan tidak terpengaruh oleh *payload* yang tidak lengkap dari server.
+2.  **Mekanisme Sync/Pull**: Memeriksa apakah `fetchFromCentralServer` atau `checkServerVersionAndUpdate` di `src/data/courtDatabase.ts` melakukan penimpaan (*overwrite*) penuh pada objek `court_identity` alih-alih melakukan *merge* (penggabungan) properti secara selektif.
+3.  **Audit Worker SyncManager**: Memastikan bahwa *worker* tidak memiliki logika *fallback* yang memaksa kembali ke *seed* data awal saat sinkronisasi.
 
-1.  **Modify `src/utils/imageHelper.ts`**:
-    *   Update `getFreshImageUrl` to always append a `?v=<timestamp>` query parameter to all image URLs, regardless of whether they are standard URLs, base64 data, or `/api/upload` paths.
-    *   Ensure the timestamp is generated to be stable but unique enough when updates occur.
+## Langkah Perbaikan:
+1.  **Penguatan Smart Merge**: Memastikan fungsi `applyWorkerSerializedArtifacts` (atau fungsi *merge* terkait di `courtDatabase.ts`) di masa depan akan secara eksplisit memproteksi `logoUrl` dan `bannerUrl` jika sudah ada kustomisasi lokal.
+2.  **Pembaruan Status Penulisan**: Menambahkan logika verifikasi pada sinkronisasi server untuk memeriksa apakah nilai yang akan ditimpa adalah URL gambar kustom sebelum menerapkan perubahan dari server.
+3.  **Verifikasi Cache**: Memastikan `getFreshImageUrl` bekerja optimal dengan *timestamp* yang dihasilkan setelah proses penyimpanan sukses.
 
-2.  **Verify UI Components**:
-    *   Check `src/components/Header.tsx`, `src/components/SliderBanner.tsx`, and other components to ensure they use `getFreshImageUrl` for all image tags.
-
-3.  **Testing**:
-    *   Verify that images update immediately after an admin change without requiring a hard refresh.
-    *   Check for any potential performance regressions caused by disabling image caching.
+Kami akan melakukan audit kode dan menerapkan perbaikan pada logika penggabungan data.
