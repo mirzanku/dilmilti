@@ -473,6 +473,7 @@ export interface CourtIdentityData {
   yurisdiksi: string;
   logoUrl?: string;
   bannerUrl?: string;
+  lastUpdated?: number;
   slogan?: string;
   primaryColor?: string;
   secondaryColor?: string;

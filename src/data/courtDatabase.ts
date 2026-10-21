@@ -5501,7 +5501,8 @@ class CourtDatabaseEngine {
     const current = this.getCourtIdentity();
     const updated: CourtIdentityData = {
       ...current,
-      ...updates
+      ...updates,
+      lastUpdated: Date.now()
     };
     this.lastLocalWriteTime = Date.now();
     localStorage.setItem(STORAGE_KEYS.COURT_IDENTITY, JSON.stringify(updated));

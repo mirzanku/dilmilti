@@ -38,7 +38,7 @@ export default function Footer({ onNavigate }: FooterProps) {
             <div className="flex items-center gap-3">
               <div className="w-12 h-[63px] rounded-[50%] border-2 border-amber-400 ring-1 ring-amber-300/80 shadow-md overflow-hidden bg-[#1b6b2d] flex items-center justify-center shrink-0 p-0">
                 <img
-                  src={getFreshImageUrl(identity.logoUrl || logoTransparent)}
+                  src={getFreshImageUrl(identity.logoUrl || logoTransparent, identity.lastUpdated)}
                   alt="Logo Dilmilti V Makassar"
                   referrerPolicy="no-referrer"
                   className="w-full h-full object-cover scale-[1.01] filter drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]"
