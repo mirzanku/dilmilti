@@ -136,6 +136,7 @@ export default function App() {
   const [currentUser, setCurrentUser] = useState<UserAccount | null>(() => CourtDB.getCurrentSession());
   const [courtIdentity, setCourtIdentity] = useState<CourtIdentityData>(() => CourtDB.getCourtIdentity());
   const lastDbVersionRef = useRef(CourtDB.serverVersion);
+  const appMountTimestamp = useRef(Date.now());
 
   // Reactive data for homepage widgets
   const [perkaraList, setPerkaraList] = useState<PerkaraSIPP[]>(() => CourtDB.getSippList());
@@ -215,7 +216,10 @@ export default function App() {
     const unsubscribeFirestore = subscribeToFirestoreChanges();
 
     let pushTimer: any = null;
-    const handleDbUpdate = () => {
+    const handleDbUpdate = (e: Event) => {
+      const customEvt = e as CustomEvent<{ source?: string }>;
+      const isFromCloud = customEvt?.detail?.source === 'cloud';
+
       const currentVersion = CourtDB.serverVersion;
       lastDbVersionRef.current = currentVersion;
       
@@ -225,11 +229,13 @@ export default function App() {
       setCurrentUser(CourtDB.getCurrentSession());
       setCourtIdentity(CourtDB.getCourtIdentity());
 
-      // Debounce push to Firestore to batch rapid successive edits
-      if (pushTimer) clearTimeout(pushTimer);
-      pushTimer = setTimeout(() => {
-        pushAllToFirestore();
-      }, 500);
+      // Only push to Firestore if mutation originated locally and after initial app startup window (8s)
+      if (!isFromCloud && Date.now() - appMountTimestamp.current > 8000) {
+        if (pushTimer) clearTimeout(pushTimer);
+        pushTimer = setTimeout(() => {
+          pushAllToFirestore();
+        }, 2000);
+      }
     };
 
     window.addEventListener('dilmilti_db_updated', handleDbUpdate);

@@ -61,6 +61,7 @@ import ECourtSection from './ECourtSection';
 import MenuContentEditModal from './admin/MenuContentEditModal';
 import { CourtDB } from '../data/courtDatabase';
 import { SyncStatusIndicator } from './SyncStatusIndicator';
+import { pushAllToFirestore, hydrateFromFirestore } from '../services/firestoreSync';
 import { sendWhatsAppMessage } from '../utils/whatsappHelper';
 const logoTransparent = '/images/dilmilti_v_logo_transparent.png';
 const logoHijau = '/images/logo_hijau_1789544657906.jpg';
@@ -1771,12 +1772,15 @@ try {
     setIsServerSyncing(true);
     try {
       await CourtDB.syncAllToServer();
-      const res = await fetch(`/api/court-db/version?_t=${Date.now()}`, { cache: 'no-store' });
-      const data = await res.json();
-      setServerVersionInfo(data);
-      showToast('Seluruh data berhasil disimpan dan disinkronkan ke Server Pusat!');
+      await pushAllToFirestore();
+      try {
+        const res = await fetch(`/api/court-db/version?_t=${Date.now()}`, { cache: 'no-store' });
+        const data = await res.json();
+        setServerVersionInfo(data);
+      } catch {}
+      showToast('Seluruh data berhasil dicadangkan dan disinkronkan ke Cloud Firestore & Server!');
     } catch {
-      showToast('Gagal sinkronisasi ke server pusat', 'error');
+      showToast('Gagal sinkronisasi ke cloud', 'error');
     } finally {
       setIsServerSyncing(false);
     }
@@ -1785,13 +1789,17 @@ try {
   const handleManualSyncPull = async () => {
     setIsServerSyncing(true);
     try {
+      await hydrateFromFirestore();
       await CourtDB.fetchFromCentralServer(true);
-      const res = await fetch(`/api/court-db/version?_t=${Date.now()}`, { cache: 'no-store' });
-      const data = await res.json();
-      setServerVersionInfo(data);
-      showToast('Pembaruan data terbaru berhasil diambil dari Server Pusat!');
+      refreshData();
+      try {
+        const res = await fetch(`/api/court-db/version?_t=${Date.now()}`, { cache: 'no-store' });
+        const data = await res.json();
+        setServerVersionInfo(data);
+      } catch {}
+      showToast('Pembaruan data terbaru berhasil diambil dari Cloud Firestore!');
     } catch {
-      showToast('Gagal mengambil data dari server pusat', 'error');
+      showToast('Gagal mengambil data dari cloud', 'error');
     } finally {
       setIsServerSyncing(false);
     }
