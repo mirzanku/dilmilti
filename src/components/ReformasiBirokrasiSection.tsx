@@ -31,6 +31,7 @@ import { CourtDB } from '../data/courtDatabase';
 import { ReformasiEvidenItem, UserAccount } from '../types';
 import { isStaffUser, ROLE_CONFIGS } from '../utils/rbac';
 import { syncRouteToUrl } from '../utils/urlRouter';
+import { getFreshImageUrl, handleImageFallback, DEFAULT_OFFICIAL_AVATAR } from '../utils/imageHelper';
 
 interface ReformasiBirokrasiSectionProps {
   currentUser?: UserAccount | null;
@@ -530,8 +531,11 @@ export default function ReformasiBirokrasiSection({
                       className="bg-white p-4 rounded-xl border-2 border-emerald-900/15 hover:border-amber-400 transition-all shadow-xs flex flex-col sm:flex-row items-center sm:items-start gap-4"
                     >
                       <img
-                        src={item.fotoUrl}
+                        src={getFreshImageUrl(item.fotoUrl)}
                         alt={item.nama}
+                        onError={(e) => handleImageFallback(e, DEFAULT_OFFICIAL_AVATAR)}
+                        loading="lazy"
+                        decoding="async"
                         className="w-20 h-28 rounded-xl object-cover object-top border-2 border-amber-400 shrink-0 bg-slate-100"
                       />
                       <div className="space-y-1.5 text-center sm:text-left">

@@ -25,7 +25,7 @@ import {
 } from 'lucide-react';
 import { CourtDB } from '../../data/courtDatabase';
 import { MenuContentItem, RoleModelAndAgentItem } from '../../types';
-import { compressImage, getFreshImageUrl } from '../../utils/imageHelper';
+import { compressImage, getFreshImageUrl, handleImageFallback, DEFAULT_OFFICIAL_AVATAR } from '../../utils/imageHelper';
 
 interface MenuContentEditModalProps {
   isOpen: boolean;
@@ -1230,8 +1230,11 @@ export default function MenuContentEditModal({
                           {/* Foto Profile & Upload Button */}
                           <div className="flex flex-col items-center gap-2 shrink-0 w-full sm:w-28">
                             <img
-                              src={getFreshImageUrl(item.fotoUrl || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&auto=format&fit=crop&q=80')}
+                              src={getFreshImageUrl(item.fotoUrl)}
                               alt={item.nama}
+                              onError={(e) => handleImageFallback(e, DEFAULT_OFFICIAL_AVATAR)}
+                              loading="lazy"
+                              decoding="async"
                               className="w-24 h-28 object-cover rounded-lg border-2 border-amber-400/60 shadow-md bg-slate-950"
                             />
                             <label className="w-full text-center px-2 py-1.5 bg-amber-400 hover:bg-amber-300 text-slate-950 rounded-lg text-[10px] font-bold cursor-pointer flex items-center justify-center gap-1 transition-colors">

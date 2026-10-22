@@ -41,7 +41,7 @@ import {
 } from '../types';
 import { DEFAULT_MENU_CONTENTS } from './defaultMenuContents';
 import { DEFAULT_DOCUMENT_TEMPLATES } from './defaultTemplatesData';
-import { compressImage } from '../utils/imageHelper';
+import { compressImage, DEFAULT_OFFICIAL_AVATAR } from '../utils/imageHelper';
 import { db } from '../firebase';
 import { collection, getDocs, doc, setDoc } from 'firebase/firestore';
 const bannerMakassar = '/images/makassar_court_banner_1789442426023.jpg';
@@ -3055,6 +3055,27 @@ class CourtDatabaseEngine {
             } catch {
               this.safeSetLocalStorage(key, strVal);
             }
+          } else if (key === STORAGE_KEYS.PERSONNEL) {
+            try {
+              const serverList: PersonnelItem[] = JSON.parse(strVal);
+              const localRaw = localStorage.getItem(key);
+              if (localRaw && Array.isArray(serverList)) {
+                const localList: PersonnelItem[] = JSON.parse(localRaw);
+                const merged = serverList.map(sp => {
+                  const lp = Array.isArray(localList) ? localList.find(l => l.id === sp.id || (l.nama && sp.nama && l.nama.toLowerCase() === sp.nama.toLowerCase())) : null;
+                  const finalFoto = (sp.fotoUrl && sp.fotoUrl.trim()) ? sp.fotoUrl.trim() : (lp?.fotoUrl || sp.fotoUrl);
+                  return {
+                    ...sp,
+                    fotoUrl: finalFoto
+                  };
+                });
+                this.safeSetLocalStorage(key, JSON.stringify(merged));
+              } else {
+                this.safeSetLocalStorage(key, strVal);
+              }
+            } catch {
+              this.safeSetLocalStorage(key, strVal);
+            }
           } else {
             this.safeSetLocalStorage(key, strVal);
           }
@@ -3080,6 +3101,27 @@ class CourtDatabaseEngine {
                   bannerUrl: (localData.bannerUrl && localData.bannerUrl !== '/images/makassar_court_banner_1789442426023.jpg') ? localData.bannerUrl : (serverData.bannerUrl || localData.bannerUrl),
                   lastUpdated: Math.max(localData.lastUpdated || 0, serverData.lastUpdated || 0, Date.now())
                 };
+                this.safeSetLocalStorage(key, JSON.stringify(merged));
+              } else {
+                this.safeSetLocalStorage(key, strVal);
+              }
+            } catch {
+              this.safeSetLocalStorage(key, strVal);
+            }
+          } else if (key === STORAGE_KEYS.PERSONNEL) {
+            try {
+              const serverList: PersonnelItem[] = JSON.parse(strVal);
+              const localRaw = localStorage.getItem(key);
+              if (localRaw && Array.isArray(serverList)) {
+                const localList: PersonnelItem[] = JSON.parse(localRaw);
+                const merged = serverList.map(sp => {
+                  const lp = Array.isArray(localList) ? localList.find(l => l.id === sp.id || (l.nama && sp.nama && l.nama.toLowerCase() === sp.nama.toLowerCase())) : null;
+                  const finalFoto = (sp.fotoUrl && sp.fotoUrl.trim()) ? sp.fotoUrl.trim() : (lp?.fotoUrl || sp.fotoUrl);
+                  return {
+                    ...sp,
+                    fotoUrl: finalFoto
+                  };
+                });
                 this.safeSetLocalStorage(key, JSON.stringify(merged));
               } else {
                 this.safeSetLocalStorage(key, strVal);
@@ -4553,7 +4595,24 @@ class CourtDatabaseEngine {
   public getPersonnel(): PersonnelItem[] {
     try {
       const data = localStorage.getItem(STORAGE_KEYS.PERSONNEL);
-      return data ? JSON.parse(data) : OFFICIAL_PERSONNEL_INITIAL;
+      const parsed: PersonnelItem[] = data ? JSON.parse(data) : OFFICIAL_PERSONNEL_INITIAL;
+      if (!Array.isArray(parsed) || parsed.length === 0) {
+        return OFFICIAL_PERSONNEL_INITIAL;
+      }
+      return parsed.map((item, idx) => {
+        if (!item) return item;
+        const initialMatch = OFFICIAL_PERSONNEL_INITIAL.find(init => 
+          init.id === item.id || 
+          (init.nama && item.nama && init.nama.toLowerCase() === item.nama.toLowerCase())
+        );
+        const validFotoUrl = (item.fotoUrl && typeof item.fotoUrl === 'string' && item.fotoUrl.trim())
+          ? item.fotoUrl.trim()
+          : (initialMatch?.fotoUrl || OFFICIAL_PERSONNEL_INITIAL[idx % OFFICIAL_PERSONNEL_INITIAL.length]?.fotoUrl || DEFAULT_OFFICIAL_AVATAR);
+        return {
+          ...item,
+          fotoUrl: validFotoUrl
+        };
+      });
     } catch {
       return OFFICIAL_PERSONNEL_INITIAL;
     }
@@ -4670,6 +4729,9 @@ class CourtDatabaseEngine {
       personnel[idx] = { 
         ...personnel[idx], 
         ...updates,
+        fotoUrl: (updates.fotoUrl && typeof updates.fotoUrl === 'string' && updates.fotoUrl.trim())
+          ? updates.fotoUrl.trim()
+          : personnel[idx].fotoUrl,
         id: personnel[idx].id || id
       };
       this.savePersonnelStorage(personnel);

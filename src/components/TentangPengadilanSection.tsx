@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { compressImage, getFreshImageUrl } from '../utils/imageHelper';
+import { compressImage, getFreshImageUrl, handleImageFallback, DEFAULT_OFFICIAL_AVATAR } from '../utils/imageHelper';
 import { 
   Building2, 
   Target, 
@@ -612,7 +612,14 @@ export default function TentangPengadilanSection({ initialSubTab = 'sambutan', o
                 <div className="flex flex-col items-center shrink-0">
                   <div className="w-36 h-48 sm:w-44 sm:h-56 bg-gradient-to-b from-[#0A3D24] to-[#041C11] rounded-2xl p-1.5 shadow-xl shrink-0 flex flex-col items-center justify-center text-center text-white border-2 border-amber-400 overflow-hidden relative group">
                     {pimpinanFoto ? (
-                      <img src={getFreshImageUrl(pimpinanFoto)} alt={pimpinanNama} className="w-full h-full object-cover rounded-xl" />
+                      <img 
+                        src={getFreshImageUrl(pimpinanFoto)} 
+                        alt={pimpinanNama} 
+                        onError={(e) => handleImageFallback(e, DEFAULT_OFFICIAL_AVATAR)}
+                        loading="lazy"
+                        decoding="async"
+                        className="w-full h-full object-cover rounded-xl" 
+                      />
                     ) : (
                       <>
                         <span className="text-3xl mb-1">🎖️</span>
@@ -1937,6 +1944,9 @@ export default function TentangPengadilanSection({ initialSubTab = 'sambutan', o
                     <img
                       src={getFreshImageUrl(item.fotoUrl)}
                       alt={item.nama}
+                      onError={(e) => handleImageFallback(e, DEFAULT_OFFICIAL_AVATAR)}
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-full rounded-xl object-cover object-top bg-slate-100"
                     />
                   </div>
@@ -2035,6 +2045,9 @@ export default function TentangPengadilanSection({ initialSubTab = 'sambutan', o
                     <img
                       src={getFreshImageUrl(item.fotoUrl)}
                       alt={item.nama}
+                      onError={(e) => handleImageFallback(e, DEFAULT_OFFICIAL_AVATAR)}
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-full rounded-xl object-cover object-top bg-slate-100"
                     />
                   </div>
@@ -2215,8 +2228,11 @@ export default function TentangPengadilanSection({ initialSubTab = 'sambutan', o
                   <div className="relative shrink-0">
                     <div className="w-32 h-44 sm:w-36 sm:h-48 rounded-2xl p-1 bg-gradient-to-b from-amber-400 via-[#0D4A2B] to-[#051F12] shadow-lg group-hover:shadow-amber-500/20 transition-all overflow-hidden">
                       <img
-                        src={getFreshImageUrl(p.fotoUrl || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400')}
+                        src={getFreshImageUrl(p.fotoUrl)}
                         alt={p.nama}
+                        onError={(e) => handleImageFallback(e, DEFAULT_OFFICIAL_AVATAR)}
+                        loading="lazy"
+                        decoding="async"
                         className="w-full h-full rounded-xl object-cover object-top bg-slate-200 group-hover:scale-105 transition-transform duration-500"
                       />
                     </div>
@@ -2376,8 +2392,10 @@ export default function TentangPengadilanSection({ initialSubTab = 'sambutan', o
                 <div className="flex flex-col items-center gap-2.5 shrink-0">
                   <div className="w-44 h-56 sm:w-48 sm:h-64 rounded-2xl p-1.5 bg-gradient-to-b from-amber-400 via-[#0D4A2B] to-[#041C11] shadow-xl">
                     <img
-                      src={getFreshImageUrl(selectedPersonnel.fotoUrl || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500')}
+                      src={getFreshImageUrl(selectedPersonnel.fotoUrl)}
                       alt={selectedPersonnel.nama}
+                      onError={(e) => handleImageFallback(e, DEFAULT_OFFICIAL_AVATAR)}
+                      decoding="async"
                       className="w-full h-full rounded-xl object-cover object-top bg-slate-200"
                     />
                   </div>
@@ -2709,8 +2727,9 @@ export default function TentangPengadilanSection({ initialSubTab = 'sambutan', o
               <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 flex items-center gap-3">
                 <div className="shrink-0">
                   <img
-                    src={photoPreviewUrl || photoInputUrl || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100'}
+                    src={photoPreviewUrl || photoInputUrl || DEFAULT_OFFICIAL_AVATAR}
                     alt="Pratinjau Foto"
+                    onError={(e) => handleImageFallback(e, DEFAULT_OFFICIAL_AVATAR)}
                     className="w-16 h-20 rounded-xl object-cover border-2 border-emerald-600/40 shadow-xs bg-slate-200"
                   />
                 </div>
@@ -2955,8 +2974,9 @@ export default function TentangPengadilanSection({ initialSubTab = 'sambutan', o
                     </label>
                     <div className="flex items-center gap-3">
                       <img
-                        src={crudFotoUrl || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100'}
+                        src={crudFotoUrl || DEFAULT_OFFICIAL_AVATAR}
                         alt="Foto"
+                        onError={(e) => handleImageFallback(e, DEFAULT_OFFICIAL_AVATAR)}
                         className="w-14 h-16 rounded-xl object-cover border border-slate-300 bg-white shrink-0"
                       />
                       <div className="flex-1 space-y-1.5">

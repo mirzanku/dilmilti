@@ -63,9 +63,7 @@ import { CourtDB } from '../data/courtDatabase';
 import { SyncStatusIndicator } from './SyncStatusIndicator';
 import { pushAllToFirestore, hydrateFromFirestore } from '../services/firestoreSync';
 import { sendWhatsAppMessage } from '../utils/whatsappHelper';
-const logoTransparent = '/images/dilmilti_v_logo_transparent.png';
-const logoHijau = '/images/logo_hijau_1789544657906.jpg';
-import { compressImage, getFreshImageUrl } from '../utils/imageHelper';
+import { compressImage, getFreshImageUrl, handleImageFallback, DEFAULT_OFFICIAL_AVATAR, logoTransparent, logoHijau } from '../utils/imageHelper';
 
 const PERS_PHOTO_PRESETS = [
   { label: 'Pamen Militer 1', url: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&auto=format&fit=crop&q=80' },
@@ -3366,8 +3364,11 @@ try {
                           <div className="flex items-center gap-2.5">
                             <div className="relative group/foto shrink-0">
                               <img
-                                src={p.fotoUrl || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100'}
+                                src={getFreshImageUrl(p.fotoUrl)}
                                 alt={p.nama}
+                                onError={(e) => handleImageFallback(e, DEFAULT_OFFICIAL_AVATAR)}
+                                loading="lazy"
+                                decoding="async"
                                 className="w-9 h-11 rounded-lg object-cover border border-emerald-500/30"
                               />
                               {canUserPerform(currentUser, 'personel', 'edit') && (
@@ -6693,8 +6694,9 @@ try {
                         <label className="block font-bold text-slate-300">Foto Resmi Pegawai</label>
                         <div className="flex items-center gap-3">
                           <img
-                            src={getFreshImageUrl(persFotoUrl || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200')}
+                            src={getFreshImageUrl(persFotoUrl)}
                             alt="Preview"
+                            onError={(e) => handleImageFallback(e, DEFAULT_OFFICIAL_AVATAR)}
                             className="w-16 h-20 rounded-xl object-cover border-2 border-emerald-500/50 shrink-0 bg-slate-900 shadow-md"
                           />
                           <div className="space-y-1.5 flex-1 min-w-0">

@@ -1,6 +1,6 @@
 {
-  "version": 1790512104117,
-  "lastUpdated": "2026-09-30T08:47:19.421Z",
+  "version": 1792637850005,
+  "lastUpdated": "2026-10-20T01:59:42.622Z",
   "data": {
     "dilmilti5_db_personnel_v2": [
       {
@@ -113,7 +113,7 @@
         "matra": "ASN MA-RI",
         "pendidikan": "Magister Manajemen (M.M.)",
         "riwayatSingkat": "Kepala Bagian Perencanaan, TI, Organisasi, dan Kepegawaian.",
-        "fotoUrl": "/api/upload?id=img_1790561347612_59znay"
+        "fotoUrl": "/api/upload?id=img_1790561293343_jgy56b"
       },
       {
         "id": "pers-9",
@@ -241,7 +241,7 @@
         "status": "aktif",
         "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80",
         "createdAt": "2026-01-01 08:00:00",
-        "lastLogin": "2026-09-30 16:34:01"
+        "lastLogin": "2026-10-20 09:53:45"
       },
       {
         "id": "user-2",
@@ -336,23 +336,7 @@
         "isi": "MAKASSAR - Ketua Mahkamah Agung Republik Indonesia, Prof. Dr. H. Sunarto, S.H., M.H., meresmikan operasional Pengadilan Militer Tinggi V Makassar yang dipusatkan di Gedung Pengadilan Tata Usaha Negara (PTUN) Makassar, Jalan Metro Tanjung Bunga Kompleks Mall Phinisi Point Makassar, Sulawesi Selatan pada Kamis, 9 Juli 2026.\n\nPeresmian ini merupakan bentuk tindak lanjut dan implementasi nyata dari Peraturan Pemerintah Nomor 22 Tahun 2025 tentang Pembentukan Pengadilan Militer Tinggi IV Balikpapan dan Pengadilan Militer Tinggi V Makassar, serta Peraturan Pemerintah Nomor 23 Tahun 2025.\n\nLIMA SATUAN KERJA BARU DIRESMIKAN SERENTAK:\nDalam momentum bersejarah tersebut, Ketua Mahkamah Agung RI meresmikan 5 (lima) satuan kerja peradilan militer baru secara serentak, yaitu:\n1. Pengadilan Militer Tinggi V Makassar\n2. Pengadilan Militer Tinggi IV Balikpapan\n3. Pengadilan Militer I-03 Pekanbaru\n4. Pengadilan Militer V-18 Kendari\n5. Pengadilan Militer V-21 Manokwari\n\nYURISDIKSI LUAS DI INDONESIA TIMUR:\nBerdasarkan Pasal 2 ayat (2) PP No. 22 Tahun 2025, daerah hukum Pengadilan Militer Tinggi V Makassar mencakup 12 (dua belas) provinsi di Indonesia Timur, yaitu: Provinsi Sulawesi Utara, Gorontalo, Sulawesi Tengah, Sulawesi Barat, Sulawesi Tenggara, Sulawesi Selatan, Maluku Utara, Maluku, Papua Barat Daya, Papua Barat, Papua Tengah, Papua Pegunungan, Papua, dan Papua Selatan.\n\nGedung kantor Pengadilan Militer Tinggi V Makassar berlokasi di Jl. Perintis Kemerdekaan KM. 13, Kel. Daya, Kec. Biringkanaya, Kota Makassar, Sulawesi Selatan 90243, dengan email resmi dilmiti5makassar@gmail.com.\n\nDengan diresmikannya operasional ini, Pengadilan Militer Tinggi V Makassar siap menyelenggarakan peradilan militer tingkat banding dan sengketa tata usaha militer yang agung, berkeadilan, dan modern bagi prajurit TNI serta pencari keadilan.",
         "gambarUrl": "/images/makassar_court_banner_1789442426023.jpg",
         "views": "1420",
-        "isFeatured": true,
-        "comments": [
-          {
-            "id": "cmt-seed-1",
-            "authorName": "Kapten Inf Andi Baso Pallawa, S.T.Han.",
-            "authorRole": "Prajurit TNI AD (Kodam XIV/Hasanuddin)",
-            "content": "Selamat atas diresmikannya operasional Pengadilan Militer Tinggi V Makassar. Kehadiran satker banding di Makassar sangat memudahkan akses keadilan dan koordinasi hukum bagi satuan di wilayah Indonesia Timur.",
-            "createdAt": "10 Jul 2026 • 09:15 WITA"
-          },
-          {
-            "id": "cmt-seed-2",
-            "authorName": "M. Ramli Syam, S.H., M.H.",
-            "authorRole": "Advokat & Praktisi Hukum",
-            "content": "Apresiasi tinggi atas transparansi informasi perkara dan layanan PTSP digital yang terintegrasi. Semoga terus mempertahankan predikat pelayanan prima.",
-            "createdAt": "12 Jul 2026 • 14:20 WITA"
-          }
-        ]
+        "isFeatured": true
       }
     ],
     "dilmilti5_db_sipp_v2": [
@@ -726,6 +710,204 @@
     ],
     "dilmilti5_db_audit_logs_v2": [
       {
+        "id": "log-1792461380560-92ef",
+        "timestamp": "2026-10-20 09:56:20",
+        "userName": "Sultan, S.H. (Wakadilmilti V)",
+        "userRole": "SUPER_ADMIN",
+        "action": "UPDATE",
+        "module": "SISTEM",
+        "details": "Memperbarui profil identitas & kontak resmi pengadilan."
+      },
+      {
+        "id": "log-1792461380344-hi4t",
+        "timestamp": "2026-10-20 09:56:20",
+        "userName": "Sultan, S.H. (Wakadilmilti V)",
+        "userRole": "SUPER_ADMIN",
+        "action": "UPDATE",
+        "module": "SISTEM",
+        "details": "Memperbarui profil identitas & kontak resmi pengadilan."
+      },
+      {
+        "id": "log-1792461380129-15m2",
+        "timestamp": "2026-10-20 09:56:20",
+        "userName": "Sultan, S.H. (Wakadilmilti V)",
+        "userRole": "SUPER_ADMIN",
+        "action": "UPDATE",
+        "module": "SISTEM",
+        "details": "Memperbarui profil identitas & kontak resmi pengadilan."
+      },
+      {
+        "id": "log-1792461379800-aneo",
+        "timestamp": "2026-10-20 09:56:19",
+        "userName": "Sultan, S.H. (Wakadilmilti V)",
+        "userRole": "SUPER_ADMIN",
+        "action": "UPDATE",
+        "module": "SISTEM",
+        "details": "Memperbarui profil identitas & kontak resmi pengadilan."
+      },
+      {
+        "id": "log-1792461379384-gs7t",
+        "timestamp": "2026-10-20 09:56:19",
+        "userName": "Sultan, S.H. (Wakadilmilti V)",
+        "userRole": "SUPER_ADMIN",
+        "action": "UPDATE",
+        "module": "SISTEM",
+        "details": "Memperbarui profil identitas & kontak resmi pengadilan."
+      },
+      {
+        "id": "log-1792461379176-c3l8",
+        "timestamp": "2026-10-20 09:56:19",
+        "userName": "Sultan, S.H. (Wakadilmilti V)",
+        "userRole": "SUPER_ADMIN",
+        "action": "UPDATE",
+        "module": "SISTEM",
+        "details": "Memperbarui profil identitas & kontak resmi pengadilan."
+      },
+      {
+        "id": "log-1792461378950-d12y",
+        "timestamp": "2026-10-20 09:56:18",
+        "userName": "Sultan, S.H. (Wakadilmilti V)",
+        "userRole": "SUPER_ADMIN",
+        "action": "UPDATE",
+        "module": "SISTEM",
+        "details": "Memperbarui profil identitas & kontak resmi pengadilan."
+      },
+      {
+        "id": "log-1792461378293-tv6t",
+        "timestamp": "2026-10-20 09:56:18",
+        "userName": "Sultan, S.H. (Wakadilmilti V)",
+        "userRole": "SUPER_ADMIN",
+        "action": "UPDATE",
+        "module": "SISTEM",
+        "details": "Memperbarui profil identitas & kontak resmi pengadilan."
+      },
+      {
+        "id": "log-1792461378092-h5o8",
+        "timestamp": "2026-10-20 09:56:18",
+        "userName": "Sultan, S.H. (Wakadilmilti V)",
+        "userRole": "SUPER_ADMIN",
+        "action": "UPDATE",
+        "module": "SISTEM",
+        "details": "Memperbarui profil identitas & kontak resmi pengadilan."
+      },
+      {
+        "id": "log-1792461377870-dlvo",
+        "timestamp": "2026-10-20 09:56:17",
+        "userName": "Sultan, S.H. (Wakadilmilti V)",
+        "userRole": "SUPER_ADMIN",
+        "action": "UPDATE",
+        "module": "SISTEM",
+        "details": "Memperbarui profil identitas & kontak resmi pengadilan."
+      },
+      {
+        "id": "log-1792461376914-vwxd",
+        "timestamp": "2026-10-20 09:56:16",
+        "userName": "Sultan, S.H. (Wakadilmilti V)",
+        "userRole": "SUPER_ADMIN",
+        "action": "UPDATE",
+        "module": "SISTEM",
+        "details": "Memperbarui profil identitas & kontak resmi pengadilan."
+      },
+      {
+        "id": "log-1792461372694-7410",
+        "timestamp": "2026-10-20 09:56:12",
+        "userName": "Sultan, S.H. (Wakadilmilti V)",
+        "userRole": "SUPER_ADMIN",
+        "action": "UPDATE",
+        "module": "SISTEM",
+        "details": "Memperbarui profil identitas & kontak resmi pengadilan."
+      },
+      {
+        "id": "log-1791539179517-h44d",
+        "timestamp": "2026-10-09 17:46:19",
+        "userName": "Sultan, S.H. (Wakadilmilti V)",
+        "userRole": "SUPER_ADMIN",
+        "action": "LOGIN",
+        "module": "USERS",
+        "details": "Pengguna Sultan, S.H. (Wakadilmilti V) keluar dari sistem."
+      },
+      {
+        "id": "log-1791539163628-8jm1",
+        "timestamp": "2026-10-09 17:46:03",
+        "userName": "Sultan, S.H. (Wakadilmilti V)",
+        "userRole": "SUPER_ADMIN",
+        "action": "UPDATE",
+        "module": "SISTEM",
+        "details": "Memperbarui Quick Access Layanan: UU No. 31/1997"
+      },
+      {
+        "id": "log-1791538079504-dstp",
+        "timestamp": "2026-10-09 17:27:59",
+        "userName": "Sultan, S.H. (Wakadilmilti V)",
+        "userRole": "SUPER_ADMIN",
+        "action": "UPDATE",
+        "module": "SISTEM",
+        "details": "Memperbarui konten halaman menu 'Laporan Survei Kepuasan Masyarakat (IKM) & IPAK' (lp7) oleh Sultan, S.H. (Wakadilmilti V)"
+      },
+      {
+        "id": "log-1791538079502-bv22",
+        "timestamp": "2026-10-09 17:27:59",
+        "userName": "Sultan, S.H. (Wakadilmilti V)",
+        "userRole": "SUPER_ADMIN",
+        "action": "UPDATE",
+        "module": "SISTEM",
+        "details": "Memperbarui profil identitas & kontak resmi pengadilan."
+      },
+      {
+        "id": "log-1791538072961-kxly",
+        "timestamp": "2026-10-09 17:27:52",
+        "userName": "Sultan, S.H. (Wakadilmilti V)",
+        "userRole": "SUPER_ADMIN",
+        "action": "UPDATE",
+        "module": "SISTEM",
+        "details": "Memperbarui konten halaman menu 'Laporan Survei Kepuasan Masyarakat (IKM) & IPAK' (lp7) oleh Sultan, S.H. (Wakadilmilti V)"
+      },
+      {
+        "id": "log-1791538072959-mcb6",
+        "timestamp": "2026-10-09 17:27:52",
+        "userName": "Sultan, S.H. (Wakadilmilti V)",
+        "userRole": "SUPER_ADMIN",
+        "action": "UPDATE",
+        "module": "SISTEM",
+        "details": "Memperbarui profil identitas & kontak resmi pengadilan."
+      },
+      {
+        "id": "log-1791535343799-n4fb",
+        "timestamp": "2026-10-09 16:42:23",
+        "userName": "Sultan, S.H. (Wakadilmilti V)",
+        "userRole": "SUPER_ADMIN",
+        "action": "LOGIN",
+        "module": "USERS",
+        "details": "Pengguna Sultan, S.H. (Wakadilmilti V) keluar dari sistem."
+      },
+      {
+        "id": "log-1791534208716-a3lq",
+        "timestamp": "2026-10-09 16:23:28",
+        "userName": "Pengguna Publik",
+        "userRole": "TAMU",
+        "action": "UPDATE",
+        "module": "SISTEM",
+        "details": "Memperbarui Quick Access Layanan: MonEksTUN"
+      },
+      {
+        "id": "log-1791363708918-nmze",
+        "timestamp": "2026-10-07 17:01:48",
+        "userName": "Sultan, S.H. (Wakadilmilti V)",
+        "userRole": "SUPER_ADMIN",
+        "action": "LOGIN",
+        "module": "USERS",
+        "details": "Pengguna Sultan, S.H. (Wakadilmilti V) keluar dari sistem."
+      },
+      {
+        "id": "log-1791189866819-ofzz",
+        "timestamp": "2026-10-05 16:44:26",
+        "userName": "Sultan, S.H. (Wakadilmilti V)",
+        "userRole": "SUPER_ADMIN",
+        "action": "LOGIN",
+        "module": "USERS",
+        "details": "Pengguna Sultan, S.H. (Wakadilmilti V) keluar dari sistem."
+      },
+      {
         "id": "log-1790755445153-6txu",
         "timestamp": "2026-09-30 16:04:05",
         "userName": "Sultan, S.H. (Wakadilmilti V)",
@@ -1043,7 +1225,7 @@
         "no": 5,
         "kelompok": "Kesekretariatan",
         "jabatan": "Bagian Perencanaan & Kepegawaian",
-        "namaPejabat": "M. Arfah Afendi, S.E., M.M.",
+        "namaPejabat": "Muhammad Arfah Afendi, S.E., M.M.",
         "pangkatNip": "NIP: 197611302006041002",
         "tugasFungsi": "Koordinator Bagian Perencanaan, Kepegawaian, TI & Ortala"
       },
@@ -1052,7 +1234,7 @@
         "no": 6,
         "kelompok": "Kesekretariatan",
         "jabatan": "Bagian Umum & Keuangan",
-        "namaPejabat": "Herna Dian P. Napan, S.T.",
+        "namaPejabat": "Herna Dian Prihatiny Napan, S.T.",
         "pangkatNip": "NIP: 198509022009122004",
         "tugasFungsi": "Koordinator Bagian Umum, Pengelolaan Keuangan DIPA & BMN"
       },
@@ -1070,7 +1252,7 @@
         "no": 8,
         "kelompok": "Kesekretariatan",
         "jabatan": "Subbag Rencana Program & Anggaran",
-        "namaPejabat": "M. Imam S, S.H.",
+        "namaPejabat": "Muhammad Imam S, S.H.",
         "pangkatNip": "NIP: 199205302019031006",
         "tugasFungsi": "Penyusunan Rencana Kerja, Program DIPA & Evaluasi Anggaran"
       },
@@ -1141,8 +1323,8 @@
       "email": "dilmiti5makassar@gmail.com",
       "website": "https://dilmilti5-makassar.go.id",
       "yurisdiksi": "Daerah Hukum Pengadilan Militer Tinggi V Makassar Berdasarkan Peraturan Pemerintah Nomor 22 Tahun 2025 Meliputi 12 Provinsi di Indonesia Timur: Sulawesi Utara, Gorontalo, Sulawesi Tengah, Sulawesi Barat, Sulawesi Tenggara, Sulawesi Selatan, Maluku Utara, Maluku, Papua Barat Daya, Papua Barat, Papua Tengah, Papua Pegunungan, Papua, dan Papua Selatan; Serta Membawahi 6 Pengadilan Militer Tingkat Pertama: Dilmil V-17 Makassar, Dilmil V-18 Kendari, Dilmil V-19 Manado, Dilmil V-20 Ambon, Dilmil V-21 Manokwari, dan Dilmil V-22 Jayapura.",
-      "logoUrl": "/api/upload?id=img_1790650904410_c7m4h4",
-      "bannerUrl": "/api/upload?id=img_auto_2a3u4sk0zlz_38jj",
+      "logoUrl": "/images/dilmilti_makassar_logo_badge_1789442475459.jpg",
+      "bannerUrl": "/api/upload?id=img_1792461579429_uje46e",
       "slogan": "REWAKO (Responsif, Energik, Wibawa, Adaptif, Kolaboratif, Objektif)",
       "primaryColor": "#0D4A2B",
       "secondaryColor": "#166534",
@@ -1164,7 +1346,7 @@
       "sambutanPangkatNrp": "Wakil Kepala Pengadilan Militer Tinggi V Makassar • NRP: 11980017760771",
       "sambutanQuote": "Assalamu'alaikum Warahmatullahi Wabarakatuh, Salam Sejahtera bagi Kita Semua, Om Swastiastu, Namo Buddhaya, Salam Kebajikan. Puji syukur kita panjatkan ke hadirat Tuhan Yang Maha Esa atas hadirnya pembaruan situs resmi Pengadilan Militer Tinggi V Makassar sesuai Pedoman Standarisasi Website Ditjen Badilmiltun MA-RI SK No. 593/DJMT/SK.TI2.1.1/VII/2026 dan PERMA No. 1 Tahun 2017.",
       "sambutanParagraph1": "\"Assalamu'alaikum Warahmatullahi Wabarakatuh, Salam Sejahtera bagi Kita Semua, Om Swastiastu, Namo Buddhaya, Salam Kebajikan. Puji syukur kita panjatkan ke hadirat Tuhan Yang Maha Esa atas hadirnya pembaruan situs resmi Pengadilan Militer Tinggi V Makassar sesuai Pedoman Standarisasi Website Ditjen Badilmiltun MA-RI SK No. 593/DJMT/SK.TI2.1.1/VII/2026 dan PERMA No. 1 Tahun 2017.\"",
-      "sambutanParagraph2": "",
+      "sambutanParagraph2": "Dengan semangat kearifan bahari Sulawesi Selatan dan filosofi luhur Sulapa Eppa (Kejujuran, Kecerdasan, Keberanian, dan Keteguhan Hukum) serta Motto REWAKO (Responsif, Energik, Wibawa, Adaptif, Kolaboratif, Objektif), kami siap memberikan pelayanan hukum terbaik bebas dari gratifikasi menuju predikat Wilayah Birokrasi Bersih dan Melayani (WBBM).",
       "visiText": "Terwujudnya Pengadilan Militer Tinggi V Makassar yang Agung, Modern, Akuntabel dan Berkeadilan",
       "misi1Title": "1. Menjaga Kemandirian Peradilan Militer:",
       "misi1Desc": "Menjaga independensi lembaga peradilan militer bebas dari intervensi pihak manapun dalam memeriksa dan memutus perkara banding & pamen.",
@@ -1180,7 +1362,10 @@
       "pangkatKadilmil": "Kolonel Chk",
       "nrpKadilmil": "11980017760771",
       "sambutanKadilmil": "\"Assalamu'alaikum Warahmatullahi Wabarakatuh, Salam Sejahtera bagi Kita Semua, Om Swastiastu, Namo Buddhaya, Salam Kebajikan. Puji syukur kita panjatkan ke hadirat Tuhan Yang Maha Esa atas hadirnya pembaruan situs resmi Pengadilan Militer Tinggi V Makassar sesuai Pedoman Standarisasi Website Ditjen Badilmiltun MA-RI SK No. 593/DJMT/SK.TI2.1.1/VII/2026 dan PERMA No. 1 Tahun 2017.\"",
-      "baganStrukturUrl": "/api/upload?id=img_1790758036120_tuf4bv"
+      "baganStrukturUrl": "/api/upload?id=img_1790758036120_tuf4bv",
+      "profIkmSkor": "3.92 / 4.00 (Sangat Baik / 98%)",
+      "profIpakSkor": "3.96 / 4.00 (Sangat Bersih / 99%)",
+      "profSurveiUrl": "https://survei.djmt.id/dilmilti_makassar"
     },
     "dilmilti5_db_jurisdiction_courts_v2": [
       {
@@ -1814,9 +1999,9 @@
       {
         "id": "ap-1",
         "tipe": "Agen Perubahan",
-        "nama": "Letkol Chk S. Haryanto, S.H., M.H.",
+        "nama": "Kolonel Kum M. Nirwan Said, S.H., M.H.",
         "jabatan": "Panitera Pengadilan Militer Tinggi V Makassar",
-        "pangkatNip": "Letkol Chk / NRP 11020023410882",
+        "pangkatNip": "Kolonel Kum / NRP 524418",
         "komitmenKerja": "Mendorong inovasi layanan kepaniteraan digital berbasis e-Court, MonEksTUN, dan PTSP Online.",
         "kontribusiReformasi": "Penyusunan SOP PTSP 6 Meja dan percepatan penyelesaian perkara banding.",
         "rencanaProgramKerja": "Pengembangan Portal E-Brosur interaktif, layanan publik inklusif disabilitas, dan edukasi publik.",
@@ -1873,7 +2058,7 @@
         "subJudul": "Wakil Kepala Pengadilan Militer Tinggi V Makassar",
         "dasarHukum": "Peraturan Pemerintah Nomor 22 Tahun 2025 & Peraturan Pemerintah Nomor 23 Tahun 2025",
         "skNomor": "PP No. 22/2025 jo PP No. 23/2025",
-        "kontenUtama": "\"Assalamu'alaikum Warahmatullahi Wabarakatuh, Salam Sejahtera bagi Kita Semua, Om Swastiastu, Namo Buddhaya, Salam Kebajikan. Puji syukur kita panjatkan ke hadirat Tuhan Yang Maha Esa atas hadirnya pembaruan situs resmi Pengadilan Militer Tinggi V Makassar sesuai Pedoman Standarisasi Website Ditjen Badilmiltun MA-RI SK No. 593/DJMT/SK.TI2.1.1/VII/2026 dan PERMA No. 1 Tahun 2017.\"",
+        "kontenUtama": "\"Assalamu'alaikum Warahmatullahi Wabarakatuh, Salam Sejahtera bagi Kita Semua, Om Swastiastu, Namo Buddhaya, Salam Kebajikan. Puji syukur kita panjatkan ke hadirat Tuhan Yang Maha Esa atas hadirnya pembaruan situs resmi Pengadilan Militer Tinggi V Makassar sesuai Pedoman Standarisasi Website Ditjen Badilmiltun MA-RI SK No. 593/DJMT/SK.TI2.1.1/VII/2026 dan PERMA No. 1 Tahun 2017.\"\n\n\"Assalamu'alaikum Warahmatullahi Wabarakatuh, Salam Sejahtera bagi Kita Semua, Om Swastiastu, Namo Buddhaya, Salam Kebajikan. Puji syukur kita panjatkan ke hadirat Tuhan Yang Maha Esa atas hadirnya pembaruan situs resmi Pengadilan Militer Tinggi V Makassar sesuai Pedoman Standarisasi Website Ditjen Badilmiltun MA-RI SK No. 593/DJMT/SK.TI2.1.1/VII/2026 dan PERMA No. 1 Tahun 2017.\"\n\nDengan semangat kearifan bahari Sulawesi Selatan dan filosofi luhur Sulapa Eppa (Kejujuran, Kecerdasan, Keberanian, dan Keteguhan Hukum) serta Motto REWAKO (Responsif, Energik, Wibawa, Adaptif, Kolaboratif, Objektif), kami siap memberikan pelayanan hukum terbaik bebas dari gratifikasi menuju predikat Wilayah Birokrasi Bersih dan Melayani (WBBM).",
         "poinPoin": [
           "Penyelenggaraan peradilan militer yang agung, independen, transparan, dan akuntabel.",
           "Sesuai Pedoman Standarisasi Website Ditjen Badilmiltun MA-RI SK No. 593/DJMT/SK.TI2.1.1/VII/2026 dan PERMA No. 1 Tahun 2017.",
@@ -2307,15 +2492,19 @@
         "linkDokumen": "https://dilmilti5-makassar.go.id/dokumen/laporan-hasil-survei-ikm-ipak-tw1-2026.pdf",
         "linkEksternal": "https://survei.badilmiltun.mahkamahagung.go.id",
         "petugasPenanggungJawab": "Tim Pengelola Survei & Penjaminan Mutu",
-        "tanggalUpdate": "2026-09-20",
+        "tanggalUpdate": "2026-10-09",
         "status": "Aktif",
         "badge": "Survei Triwulanan",
         "iconName": "Award",
         "customFields": {
           "nilaiIKMTerbaru": "3.92 / 4.00 (Sangat Baik / 98%)",
           "nilaiIPAKTerbaru": "3.96 / 4.00 (Sangat Bersih / 99%)",
-          "linkSurveiOnline": "https://survei.badilmiltun.mahkamahagung.go.id"
-        }
+          "linkSurveiOnline": "https://survei.djmt.id/dilmilti_makassar"
+        },
+        "type": "sub_menu",
+        "targetSection": "publik",
+        "targetSubTab": "",
+        "isCustomCreated": false
       },
       {
         "id": "lp8",
@@ -2951,7 +3140,7 @@
         "ukuranFile": "94 KB",
         "jumlahDiunduh": 412,
         "tanggalUpdate": "2026-08-19",
-        "teksTemplate": "PUTUSAN\nNomor [01]-K/PMT.V/BDG/[AD/AL/AU]/[I]/2026\n(Untuk Perkara Khusus/Koneksitas/Keberatan: Nomor [01]-Sus/PMT.V/BDG/[I]/2026)\n\nDEMI KEADILAN BERDASARKAN KETUHANAN YANG MAHA ESA\n\nPengadilan Militer Tinggi V Makassar yang memeriksa dan mengadili perkara pidana militer pada tingkat banding telah menjatuhkan putusan sebagaimana tercantum di bawah ini dalam perkara Terdakwa:\n\nI. IDENTITAS TERDAKWA (Komponen 3)\n1. Nama Lengkap      : [Nama Lengkap Terdakwa]\n2. Pangkat / NRP     : [Pangkat] / [NRP]\n3. Jabatan           : [Jabatan Terdakwa]\n4. Kesatuan          : [Kesatuan TNI AD / TNI AL / TNI AU]\n5. Tempat, Tgl Lahir : [Tempat, Tanggal Lahir / Umur]\n6. Jenis Kelamin     : [Laki-laki / Perempuan]\n7. Kewarganegaraan   : Indonesia\n8. Agama             : [Agama]\n9. Tempat Tinggal    : [Alamat Kesatuan / Tempat Tinggal]\n\nII. STATUS & RIWAYAT PENAHANAN (Komponen 4)\nTerdakwa ditahan oleh:\n1. Ankum selama 20 hari sejak tanggal [Tanggal] s.d. [Tanggal];\n2. Perpanjangan Papera (Tahap I s.d. VI, maks. 180 hari) sejak tanggal [Tanggal] s.d. [Tanggal];\n3. Hakim Ketua Majelis Tingkat Pertama (30 hari) & Kepala Pengadilan (60 hari);\n4. Hakim Ketua Majelis Tingkat Banding (30 hari) & Kepala Pengadilan Militer Tinggi V Makassar (maks. 60 hari) berdasarkan Penetapan Nomor [Nomor Penetapan Penahanan].\n\nIII. SUSUNAN SISTEMATIKA PUTUSAN BAKU (29 KOMPONEN SK KMA 159/KMA/SK.HK2/VIII/2026 HAL. 1029-1030)\n1. Nomor Putusan (Sesuai Nomor e-Register SIPP: [01]-K/PMT.V/BDG/[AD]/[I]/2026)\n2. Kepala Putusan / Irah-irah: DEMI KEADILAN BERDASARKAN KETUHANAN YANG MAHA ESA\n3. Identitas Terdakwa / Para Terdakwa\n4. Riwayat Penahanan* (Jika ditahan)\n5. Tuntutan Pidana (Requisitoir) Oditur Militer / Oditur Militer Tinggi\n6. Pembelaan (Pleidoi) atau Permohonan Keringanan (Clementie)*\n7. Replik Oditur Militer*\n8. Duplik Penasihat Hukum / Terdakwa*\n9. Surat Dakwaan (Tunggal / Kumulatif / Subsidairitas / Alternatif / Kombinasi)\n10. Keberatan (Eksepsi) Terdakwa / Penasihat Hukum*\n11. Tanggapan Oditur Militer atas Eksepsi*\n12. Putusan Sela*\n13. Keterangan Para Saksi di bawah Sumpah / Pembacaan BAP Saksi\n14. Keterangan Ahli*\n15. Keterangan Terdakwa / Para Terdakwa\n16. Pemeriksaan Barang Bukti\n17. Fakta Hukum di Persidangan\n18. Pertimbangan Hukum Majelis Hakim\n19. Pembuktian Unsur-Unsur Pasal Dakwaan\n20. Pernyataan Kesalahan Terdakwa / Para Terdakwa\n21. Keadaan-keadaan yang Memberatkan dan yang Meringankan\n22. Peraturan Perundang-undangan yang Menjadi Dasar Pertimbangan:\n    - UU Nomor 31 Tahun 1997 tentang Peradilan Militer\n    - Kitab Undang-Undang Hukum Pidana Militer (KUHPM)\n    - UU Nomor 1 Tahun 2023 tentang KUHP & UU Nomor 1 Tahun 2026 tentang Penyesuaian Pidana\n    - UU Nomor 20 Tahun 2025 tentang KUHAP\n23. Kualifikasi Tindak Pidana dan Pemidanaan\n24. Status Tahanan Terdakwa / Para Terdakwa\n25. Penetapan Pengurangan Masa Tahanan\n26. Penentuan Status Barang Bukti (Dikembalikan / Dirampas untuk Negara / Dimusnahkan / Dilekatkan dalam Berkas)\n27. Pembebanan Biaya Perkara (Beban Terdakwa bila dipidana / Beban Negara bila diputus bebas, lepas, pidana mati, atau seumur hidup)\n28. Hari dan Tanggal Musyawarah Majelis Hakim serta Tanggal Pengucapan Putusan\n29. Nama Majelis Hakim (Pangkat Lokal ditulis \"Lok\", Pangkat Tituler ditulis \"Tit\"), Oditur Militer Tinggi, Panitera Pengganti, dan Penasihat Hukum\n\nMENGADILI:\n1. Menyatakan permohonan banding dari Pemohon Banding [Nama / Oditur Militer] secara formal dapat diterima;\n2. Menguatkan / Mengubah / Membatalkan Putusan Pengadilan Militer [Nama Dilmil Pengaju] Nomor [Nomor Putusan Tk. Pertama];\n3. Memerintahkan Terdakwa tetap ditahan / dibebaskan dari tahanan;\n4. Membebankan biaya perkara tingkat banding kepada [Terdakwa sejumlah Rp ___ / Negara].\n\nDemikian diputuskan dalam rapat permusyawaratan Majelis Hakim Pengadilan Militer Tinggi V Makassar pada hari [Hari], tanggal [Tanggal Musyawarah] oleh kami [Nama Ketua Majelis], [Pangkat] NRP [NRP] sebagai Hakim Ketua Majelis, serta diucapkan dalam sidang terbuka untuk umum pada hari [Hari], tanggal [Tanggal Pengucapan] dengan dibantu oleh [Nama Panitera Pengganti], [Pangkat] NRP [NRP] sebagai Panitera Pengganti."
+        "teksTemplate": "PUTUSAN\nNomor [01]-K/PMT.V/BDG/[AD/AL/AU]/[I]/2026\n(Untuk Perkara Khusus/Koneksitas/Keberatan: Nomor [01]-Sus/PMT.V/BDG/[I]/2026)\n\nDEMI KEADILAN BERDASARKAN KETUHANAN YANG MAHA ESA\n\nPengadilan Militer Tinggi V Makassar yang memeriksa dan mengadili perkara pidana militer pada tingkat banding telah menjatuhkan putusan sebagaimana tercantum di bawah ini dalam perkara Terdakwa:\n\nI. IDENTITAS TERDAKWA (Komponen 3)\n1. Nama Lengkap      : [Nama Lengkap Terdakwa]\n2. Pangkat / NRP     : [Pangkat] / [NRP]\n3. Jabatan           : [Jabatan Terdakwa]\n4. Kesatuan          : [Kesatuan TNI AD / TNI AL / TNI AU]\n5. Tempat, Tgl Lahir : [Tempat, Tanggal Lahir / Umur]\n6. Jenis Kelamin     : [Laki-laki / Perempuan]\n7. Kewarganegaraan   : Indonesia\n8. Agama             : [Agama]\n9. Tempat Tinggal    : [Alamat Kesatuan / Tempat Tinggal]\n\nII. STATUS & RIWAYAT PENAHANAN (Komponen 4)\nTerdakwa ditahan oleh:\n1. Ankum selama 20 hari sejak tanggal [Tanggal] s.d. [Tanggal];\n2. Perpanjangan Papera (Tahap I s.d. VI, maks. 180 hari) sejak tanggal [Tanggal] s.d. [Tanggal];\n3. Hakim Ketua Majelis Tingkat Pertama (30 hari) & Kepala Pengadilan (60 hari);\n4. Hakim Ketua Majelis Tingkat Banding (30 hari) & Kepala Pengadilan Militer Tinggi V Makassar (maks. 60 hari) berdasarkan Penetapan Nomor [Nomor Penetapan Penahanan].\n\nIII. SUSUNAN SISTEMATIKA PUTUSAN BAKU (29 KOMPONEN SK KMA 159/KMA/SK.HK2/VIII/2026)\n1. Nomor Putusan (Sesuai Nomor e-Register SIPP: [01]-K/PMT.V/BDG/[AD]/[I]/2026)\n2. Kepala Putusan / Irah-irah: DEMI KEADILAN BERDASARKAN KETUHANAN YANG MAHA ESA\n3. Identitas Terdakwa / Para Terdakwa\n4. Riwayat Penahanan* (Jika ditahan)\n5. Tuntutan Pidana (Requisitoir) Oditur Militer / Oditur Militer Tinggi\n6. Pembelaan (Pleidoi) atau Permohonan Keringanan (Clementie)*\n7. Replik Oditur Militer*\n8. Duplik Penasihat Hukum / Terdakwa*\n9. Surat Dakwaan (Tunggal / Kumulatif / Subsidairitas / Alternatif / Kombinasi)\n10. Keberatan (Eksepsi) Terdakwa / Penasihat Hukum*\n11. Tanggapan Oditur Militer atas Eksepsi*\n12. Putusan Sela*\n13. Keterangan Para Saksi di bawah Sumpah / Pembacaan BAP Saksi\n14. Keterangan Ahli*\n15. Keterangan Terdakwa / Para Terdakwa\n16. Pemeriksaan Barang Bukti\n17. Fakta Hukum di Persidangan\n18. Pertimbangan Hukum Majelis Hakim\n19. Pembuktian Unsur-Unsur Pasal Dakwaan\n20. Pernyataan Kesalahan Terdakwa / Para Terdakwa\n21. Keadaan-keadaan yang Memberatkan dan yang Meringankan\n22. Peraturan Perundang-undangan yang Menjadi Dasar Pertimbangan:\n    - UU Nomor 31 Tahun 1997 tentang Peradilan Militer\n    - Kitab Undang-Undang Hukum Pidana Militer (KUHPM)\n    - UU Nomor 1 Tahun 2023 tentang KUHP & UU Nomor 1 Tahun 2026 tentang Penyesuaian Pidana\n    - UU Nomor 20 Tahun 2025 tentang KUHAP\n23. Kualifikasi Tindak Pidana dan Pemidanaan\n24. Status Tahanan Terdakwa / Para Terdakwa\n25. Penetapan Pengurangan Masa Tahanan\n26. Penentuan Status Barang Bukti (Dikembalikan / Dirampas untuk Negara / Dimusnahkan / Dilekatkan dalam Berkas)\n27. Pembebanan Biaya Perkara (Beban Terdakwa bila dipidana / Beban Negara bila diputus bebas, lepas, pidana mati, atau seumur hidup)\n28. Hari dan Tanggal Musyawarah Majelis Hakim serta Tanggal Pengucapan Putusan\n29. Nama Majelis Hakim (Pangkat Lokal ditulis \"Lok\", Pangkat Tituler ditulis \"Tit\"), Oditur Militer Tinggi, Panitera Pengganti, dan Penasihat Hukum\n\nMENGADILI:\n1. Menyatakan permohonan banding dari Pemohon Banding [Nama / Oditur Militer] secara formal dapat diterima;\n2. Menguatkan / Mengubah / Membatalkan Putusan Pengadilan Militer [Nama Dilmil Pengaju] Nomor [Nomor Putusan Tk. Pertama];\n3. Memerintahkan Terdakwa tetap ditahan / dibebaskan dari tahanan;\n4. Membebankan biaya perkara tingkat banding kepada [Terdakwa sejumlah Rp ___ / Negara].\n\nDemikian diputuskan dalam rapat permusyawaratan Majelis Hakim Pengadilan Militer Tinggi V Makassar pada hari [Hari], tanggal [Tanggal Musyawarah] oleh kami [Nama Ketua Majelis], [Pangkat] NRP [NRP] sebagai Hakim Ketua Majelis, serta diucapkan dalam sidang terbuka untuk umum pada hari [Hari], tanggal [Tanggal Pengucapan] dengan dibantu oleh [Nama Panitera Pengganti], [Pangkat] NRP [NRP] sebagai Panitera Pengganti."
       },
       {
         "id": "tmpl-buku2-bundel-ab-01",
@@ -2964,7 +3153,7 @@
         "ukuranFile": "78 KB",
         "jumlahDiunduh": 356,
         "tanggalUpdate": "2026-08-19",
-        "teksTemplate": "DAFTAR PERIKSA (CHECKLIST) KELENGKAPAN BERKAS PERKARA (BUNDEL A & BUNDEL B)\nPENGADILAN MILITER TINGGI V MAKASSAR\nBerdasarkan Lampiran III SK KMA Nomor 159/KMA/SK.HK2/VIII/2026 (Halaman 935, 975-980 & 988-993)\n================================================================================\n\nNomor Register Perkara : [01]-K/PMT.V/BDG/[AD/AL/AU]/[Bulan Romawi]/2026\nPengadilan Pengaju     : [Pengadilan Militer III-16 Makassar / III-17 Manado / III-18 Ambon / III-19 Jayapura]\nMetode Pelimpahan      : [ ] Elektronik (e-Berpadu / SIPP)   [ ] Manual (PTSP & Aplikasi e-Simpan Terintegrasi)\nNama Terdakwa          : [Nama Terdakwa, Pangkat, NRP, Kesatuan]\n\nI. SUSUNAN BERKAS BUNDEL A (24 DOKUMEN WAJIB - HAL. 975-976)\n[ ] a. Berkas Perkara Penyidik Polisi Militer:\n       [ ] (1) Berita Acara Pemeriksaan (BAP)\n       [ ] (2) Daftar Barang Bukti\n       [ ] (3) Surat-surat bukti terlampir (Visum et Repertum, dll.)\n       [ ] (4) Surat Kuasa Khusus Penasihat Hukum & Surat Perintah/Izin Papera\n[ ] b. Berita Acara Pendapat (BAPendapat) Oditur Militer\n[ ] c. Berita Acara Pendapat Bersama Jaksa Penuntut Umum & Oditur Militer (Khusus Koneksitas)*\n[ ] d. Surat Pendapat Hukum (SPH) Kepala Oditurat Militer\n[ ] e. Keputusan Penyerahan Perkara (Keppera) dari Papera\n[ ] f. Surat Dakwaan Oditur Militer\n[ ] g. Surat Pelimpahan Perkara\n[ ] h. Penetapan Hakim (Tapkim)\n[ ] i. Penunjukan Panitera Pengganti (Juktera)\n[ ] j. Penetapan Hari Sidang (Tapsid)\n[ ] k. Surat Panggilan dan Surat Keterangan (Relaas)\n[ ] l. Keberatan (Eksepsi) dari Penasihat Hukum / Terdakwa*\n[ ] m. Tanggapan Oditur Militer atas Eksepsi*\n[ ] n. Putusan Sela*\n[ ] o. Surat Permohonan Penggabungan Gugatan Ganti Rugi, Restitusi & Kompensasi*\n[ ] p. Penetapan Ketua Majelis tentang Penggabungan Gugatan Ganti Rugi / Restitusi*\n[ ] q. Surat Tuntutan (Requisitoir) Oditur Militer\n[ ] r. Pembelaan (Pleidoi) atau Permohonan Keringanan (Clementie)*\n[ ] s. Tanggapan atas Pembelaan (Replik)*\n[ ] t. Sanggahan atas Tanggapan Pembelaan (Duplik)*\n[ ] u. Putusan Pengadilan Tingkat Pertama\n[ ] v. Petikan Putusan\n[ ] w. Berita Acara Sidang (BAS)\n[ ] x. Surat-surat lainnya yang berkaitan\n\nII. SUSUNAN BERKAS BUNDEL B UPAYA HUKUM BANDING (11 DOKUMEN WAJIB - HAL. 977)\n[ ] a. Surat Pengantar dan Daftar Isi Berkas Perkara Banding\n[ ] b. Akta Permohonan Banding (Diajukan maks. 7 hari sesudah putusan diucapkan/diberitahukan)\n[ ] c. Akta Pemberitahuan Permohonan Banding kepada Pihak Lawan\n[ ] d. Memori Banding* (Wajib bagi Oditur Militer dalam 7 hari; jika lewat waktu dinyatakan gugur)\n[ ] e. Akta Pemberitahuan dan Penyerahan Memori Banding*\n[ ] f. Kontra Memori Banding*\n[ ] g. Akta Pemberitahuan dan Penyerahan Kontra Memori Banding*\n[ ] h. Surat Pemberitahuan Mempelajari Berkas Perkara (Inzage selambat-lambatnya 7 hari sebelum dikirim)\n[ ] i. Berita Acara / Akta Memeriksa Berkas Perkara (atau Akta Tidak Mempelajari Berkas Perkara)\n[ ] j. Salinan Putusan Pengadilan Tingkat Pertama\n[ ] k. Dokumen Elektronik (Soft Copy) berisi: Salinan Putusan, Memori Banding, Kontra Memori Banding, Dakwaan, dan Tuntutan\n\nIII. BERKAS TAMBAHAN PADA PENGADILAN MILITER TINGGI (TINGKAT BANDING - HAL. 993)\n[ ] 1. Bundel B yang diterima dari Pengadilan Tingkat Pertama\n[ ] 2. Berita Acara Sidang (BAS) dan Putusan Tingkat Banding\n[ ] 3. Surat Pemberitahuan Mempelajari Berkas Perkara di Dilmilti (dalam waktu 7 hari)*\n[ ] 4. Akta Mempelajari Berkas Perkara*\n[ ] 5. Akta Meneliti Keaslian Berkas Perkara*\n\nMakassar, [Tanggal Verifikasi]\nPetugas PTSP Kepaniteraan / Panitera Muda Pidana,\n\n(________________________)\n[Nama & Pangkat / NRP]"
+        "teksTemplate": "DAFTAR PERIKSA (CHECKLIST) KELENGKAPAN BERKAS PERKARA (BUNDEL A & BUNDEL B)\nPENGADILAN MILITER TINGGI V MAKASSAR\nBerdasarkan Lampiran III SK KMA Nomor 159/KMA/SK.HK2/VIII/2026\n================================================================================\n\nNomor Register Perkara : [01]-K/PMT.V/BDG/[AD/AL/AU]/[Bulan Romawi]/2026\nPengadilan Pengaju     : [Pengadilan Militer III-16 Makassar / III-17 Manado / III-18 Ambon / III-19 Jayapura]\nMetode Pelimpahan      : [ ] Elektronik (e-Berpadu / SIPP)   [ ] Manual (PTSP & Aplikasi e-Simpan Terintegrasi)\nNama Terdakwa          : [Nama Terdakwa, Pangkat, NRP, Kesatuan]\n\nI. SUSUNAN BERKAS BUNDEL A (24 DOKUMEN WAJIB)\n[ ] a. Berkas Perkara Penyidik Polisi Militer:\n       [ ] (1) Berita Acara Pemeriksaan (BAP)\n       [ ] (2) Daftar Barang Bukti\n       [ ] (3) Surat-surat bukti terlampir (Visum et Repertum, dll.)\n       [ ] (4) Surat Kuasa Khusus Penasihat Hukum & Surat Perintah/Izin Papera\n[ ] b. Berita Acara Pendapat (BAPendapat) Oditur Militer\n[ ] c. Berita Acara Pendapat Bersama Jaksa Penuntut Umum & Oditur Militer (Khusus Koneksitas)*\n[ ] d. Surat Pendapat Hukum (SPH) Kepala Oditurat Militer\n[ ] e. Keputusan Penyerahan Perkara (Keppera) dari Papera\n[ ] f. Surat Dakwaan Oditur Militer\n[ ] g. Surat Pelimpahan Perkara\n[ ] h. Penetapan Hakim (Tapkim)\n[ ] i. Penunjukan Panitera Pengganti (Juktera)\n[ ] j. Penetapan Hari Sidang (Tapsid)\n[ ] k. Surat Panggilan dan Surat Keterangan (Relaas)\n[ ] l. Keberatan (Eksepsi) dari Penasihat Hukum / Terdakwa*\n[ ] m. Tanggapan Oditur Militer atas Eksepsi*\n[ ] n. Putusan Sela*\n[ ] o. Surat Permohonan Penggabungan Gugatan Ganti Rugi, Restitusi & Kompensasi*\n[ ] p. Penetapan Ketua Majelis tentang Penggabungan Gugatan Ganti Rugi / Restitusi*\n[ ] q. Surat Tuntutan (Requisitoir) Oditur Militer\n[ ] r. Pembelaan (Pleidoi) atau Permohonan Keringanan (Clementie)*\n[ ] s. Tanggapan atas Pembelaan (Replik)*\n[ ] t. Sanggahan atas Tanggapan Pembelaan (Duplik)*\n[ ] u. Putusan Pengadilan Tingkat Pertama\n[ ] v. Petikan Putusan\n[ ] w. Berita Acara Sidang (BAS)\n[ ] x. Surat-surat lainnya yang berkaitan\n\nII. SUSUNAN BERKAS BUNDEL B UPAYA HUKUM BANDING (11 DOKUMEN WAJIB)\n[ ] a. Surat Pengantar dan Daftar Isi Berkas Perkara Banding\n[ ] b. Akta Permohonan Banding (Diajukan maks. 7 hari sesudah putusan diucapkan/diberitahukan)\n[ ] c. Akta Pemberitahuan Permohonan Banding kepada Pihak Lawan\n[ ] d. Memori Banding* (Wajib bagi Oditur Militer dalam 7 hari; jika lewat waktu dinyatakan gugur)\n[ ] e. Akta Pemberitahuan dan Penyerahan Memori Banding*\n[ ] f. Kontra Memori Banding*\n[ ] g. Akta Pemberitahuan dan Penyerahan Kontra Memori Banding*\n[ ] h. Surat Pemberitahuan Mempelajari Berkas Perkara (Inzage selambat-lambatnya 7 hari sebelum dikirim)\n[ ] i. Berita Acara / Akta Memeriksa Berkas Perkara (atau Akta Tidak Mempelajari Berkas Perkara)\n[ ] j. Salinan Putusan Pengadilan Tingkat Pertama\n[ ] k. Dokumen Elektronik (Soft Copy) berisi: Salinan Putusan, Memori Banding, Kontra Memori Banding, Dakwaan, dan Tuntutan\n\nIII. BERKAS TAMBAHAN PADA PENGADILAN MILITER TINGGI (TINGKAT BANDING)\n[ ] 1. Bundel B yang diterima dari Pengadilan Tingkat Pertama\n[ ] 2. Berita Acara Sidang (BAS) dan Putusan Tingkat Banding\n[ ] 3. Surat Pemberitahuan Mempelajari Berkas Perkara di Dilmilti (dalam waktu 7 hari)*\n[ ] 4. Akta Mempelajari Berkas Perkara*\n[ ] 5. Akta Meneliti Keaslian Berkas Perkara*\n\nMakassar, [Tanggal Verifikasi]\nPetugas PTSP Kepaniteraan / Panitera Muda Pidana,\n\n(________________________)\n[Nama & Pangkat / NRP]"
       },
       {
         "id": "tmpl-buku2-akta-banding-01",
@@ -2975,48 +3164,48 @@
         "format": "DOCX",
         "fileUrl": "/uploads/Format_Akta_Banding_Inzage_BHT_SK_KMA_159_2026.docx",
         "ukuranFile": "68 KB",
-        "jumlahDiunduh": 299,
+        "jumlahDiunduh": 298,
         "tanggalUpdate": "2026-08-19",
-        "teksTemplate": "AKTA PERMOHONAN BANDING & ADMINISTRASI UPAYA HUKUM\nPENGADILAN MILITER TINGGI V MAKASSAR\nSesuai Lampiran III SK KMA Nomor 159/KMA/SK.HK2/VIII/2026 (Halaman 938-944 & 989-993)\n================================================================================\n\nA. AKTA PERMOHONAN BANDING\nNomor: [Nomor Akta]/AKTA.BDG/[Bulan Romawi]/2026\n\nPada hari ini, [Hari], tanggal [Tanggal] bulan [Bulan] tahun Dua Ribu Dua Puluh Enam, telah menghadap kepada saya:\nNama Panitera : [Nama Panitera / Panitera Pengganti]\nPangkat / NRP : [Pangkat / NRP]\nJabatan       : Panitera pada [Nama Pengadilan]\n\nSeorang Pemohon Banding:\nNama          : [Nama Terdakwa / Penasihat Hukum / Oditur Militer]\nPangkat / NRP : [Pangkat / NRP]\nKesatuan      : [Kesatuan]\n\nYang menyatakan mengajukan upaya hukum BANDING terhadap Putusan Nomor: [Nomor Putusan] tanggal [Tanggal Putusan] dalam tenggang waktu maksimal 7 (tujuh) hari sesudah putusan diucapkan/diberitahukan (atau 14 hari secara elektronik dalam keadaan khusus).\n\nB. LAPORAN BANDING STATUS PENAHANAN (MENDAHULUI BUNDEL A & B - HAL. 940 & 991)\n- Sejak diajukannya permohonan banding, kewenangan penahanan beralih ke Pengadilan Militer Tinggi V Makassar.\n- Ketua Majelis Hakim Tingkat Banding dalam waktu 3 (tiga) hari sejak menerima berkas perkara banding wajib menetapkan sikap apakah Terdakwa perlu ditahan atau tidak.\n\nC. AKTA MEMPELAJARI / MENELITI KEASLIAN BERKAS PERKARA (INZAGE - HAL. 941 & 990)\n- Kepada Pemohon Banding / Termohon Banding diberikan kesempatan mempelajari berkas perkara (Inzage) selama 7 (tujuh) hari dengan didampingi petugas kepaniteraan.\n- Tembusan surat pemberitahuan disampaikan kepada Atasan yang Berhak Menghukum (Ankum) Terdakwa.\n\nD. PENGIRIMAN PUTUSAN BANDING & AKTA BHT (HAL. 943 & 993)\n- Minutasi perkara wajib selesai selambat-lambatnya 14 (empat belas) hari sejak putusan diucapkan, dan publikasi putusan wajib dilaksanakan pada hari yang sama (One Day Publish).\n- Dalam waktu 7 (tujuh) hari sesudah putusan banding diucapkan, Panitera Pengadilan Militer Tinggi V Makassar mengirimkan petikan dan salinan putusan beserta Bundel A kepada pengadilan tingkat pertama pengaju.\n\nMakassar, [Tanggal]\nPanitera Pengadilan Militer Tinggi V Makassar,\n\n(________________________)\nKolonel Kum M. Nirwan Said, S.H., M.H."
+        "teksTemplate": "AKTA PERMOHONAN BANDING & ADMINISTRASI UPAYA HUKUM\nPENGADILAN MILITER TINGGI V MAKASSAR\nSesuai Lampiran III SK KMA Nomor 159/KMA/SK.HK2/VIII/2026\n================================================================================\n\nA. AKTA PERMOHONAN BANDING\nNomor: [Nomor Akta]/AKTA.BDG/[Bulan Romawi]/2026\n\nPada hari ini, [Hari], tanggal [Tanggal] bulan [Bulan] tahun Dua Ribu Dua Puluh Enam, telah menghadap kepada saya:\nNama Panitera : [Nama Panitera / Panitera Pengganti]\nPangkat / NRP : [Pangkat / NRP]\nJabatan       : Panitera pada [Nama Pengadilan]\n\nSeorang Pemohon Banding:\nNama          : [Nama Terdakwa / Penasihat Hukum / Oditur Militer]\nPangkat / NRP : [Pangkat / NRP]\nKesatuan      : [Kesatuan]\n\nYang menyatakan mengajukan upaya hukum BANDING terhadap Putusan Nomor: [Nomor Putusan] tanggal [Tanggal Putusan] dalam tenggang waktu maksimal 7 (tujuh) hari sesudah putusan diucapkan/diberitahukan (atau 14 hari secara elektronik dalam keadaan khusus).\n\nB. LAPORAN BANDING STATUS PENAHANAN (MENDAHULUI BUNDEL A & B)\n- Sejak diajukannya permohonan banding, kewenangan penahanan beralih ke Pengadilan Militer Tinggi V Makassar.\n- Ketua Majelis Hakim Tingkat Banding dalam waktu 3 (tiga) hari sejak menerima berkas perkara banding wajib menetapkan sikap apakah Terdakwa perlu ditahan atau tidak.\n\nC. AKTA MEMPELAJARI / MENELITI KEASLIAN BERKAS PERKARA (INZAGE)\n- Kepada Pemohon Banding / Termohon Banding diberikan kesempatan mempelajari berkas perkara (Inzage) selama 7 (tujuh) hari dengan didampingi petugas kepaniteraan.\n- Tembusan surat pemberitahuan disampaikan kepada Atasan yang Berhak Menghukum (Ankum) Terdakwa.\n\nD. PENGIRIMAN PUTUSAN BANDING & AKTA BHT\n- Minutasi perkara wajib selesai selambat-lambatnya 14 (empat belas) hari sejak putusan diucapkan, dan publikasi putusan wajib dilaksanakan pada hari yang sama (One Day Publish).\n- Dalam waktu 7 (tujuh) hari sesudah putusan banding diucapkan, Panitera Pengadilan Militer Tinggi V Makassar mengirimkan petikan dan salinan putusan beserta Bundel A kepada pengadilan tingkat pertama pengaju.\n\nMakassar, [Tanggal]\nPanitera Pengadilan Militer Tinggi V Makassar,\n\n(________________________)\nKolonel Kum M. Nirwan Said, S.H., M.H."
       },
       {
         "id": "tmpl-buku2-register-laporan-01",
         "kodeDoc": "BUKU-II-REGISTER-LAPORAN-2026",
         "judul": "Format Penutupan e-Register SIPP (10 Rincian) & Laporan Berkala Bulanan/Triwulan/Tahunan (SK KMA 159/2026)",
         "kategori": "SAKIP & Laporan",
-        "deskripsi": "Format standar penutupan Register Elektronik (e-Register SIPP) akhir bulan/tahun serta format Laporan Bulanan, Triwulan, dan Tahunan Pengadilan Militer Tinggi sesuai SK KMA No. 159/KMA/SK.HK2/VIII/2026 Hal. 981-985 & 993-996.",
+        "deskripsi": "Format standar penutupan Register Elektronik (e-Register SIPP) akhir bulan/tahun serta format Laporan Bulanan, Triwulan, dan Tahunan Pengadilan Militer Tinggi sesuai SK KMA No. 159/KMA/SK.HK2/VIII/2026.",
         "format": "DOCX",
         "fileUrl": "/uploads/Format_Penutupan_eRegister_dan_Laporan_Berkala_SK_KMA_159_2026.docx",
         "ukuranFile": "82 KB",
         "jumlahDiunduh": 334,
         "tanggalUpdate": "2026-08-19",
-        "teksTemplate": "BERITA ACARA PENUTUPAN REGISTER ELEKTRONIK (e-REGISTER SIPP)\nDAN REKAPITULASI LAPORAN BERKALA PENGADILAN MILITER TINGGI V MAKASSAR\nBerdasarkan Lampiran III SK KMA Nomor 159/KMA/SK.HK2/VIII/2026 (Halaman 981-985 & 993-996)\n================================================================================\n\nPeriode Laporan : Bulan [Bulan] / Triwulan [I/II/III/IV] / Tahun Anggaran [2026]\nBatas Pengiriman: Diterima Ditjen Badilmiltun paling lambat tanggal 5 bulan berikutnya (Tembusan: Kadilmiltama)\n\nI. DAFTAR 11 REGISTER ELEKTRONIK (e-REGISTER SIPP) PENGADILAN MILITER TINGGI (HAL. 993-994)\n1. Register Induk Perkara Pidana\n2. Register Induk Perkara Khusus (Sus)\n3. Register Perkara Pelanggaran Lalu Lintas\n4. Register Tapkim (Penetapan Majelis Hakim)\n5. Register Juktera (Penunjukan Panitera Pengganti)\n6. Register Tapsid (Penetapan Hari Sidang)\n7. Register Putusan\n8. Register Putusan Sela\n9. Register Perkara Permohonan Banding\n10. Register Penahanan\n11. Register Pengembalian Berkas Perkara\n\nII. FORMAT BAKU PENUTUPAN REGISTER BULANAN & TAHUNAN (10 RINCIAN WAJIB - HAL. 994-995)\n(1) Sisa bulan / tahun lalu   : [___] perkara\n(2) Masuk bulan / tahun ini   : [___] perkara\n(3) Putus                     : [___] perkara\n(4) Sisa bulan / tahun ini    : [___] perkara\n(5) Sudah dikirim             : [___] perkara\n(6) Belum dikirim             : [___] perkara (Sebutkan alasan pada kolom keterangan)\n(7) Sudah diminutasi          : [___] perkara\n(8) Belum diminutasi          : [___] perkara\n(9) Sudah diunggah (SIPP)     : [___] perkara\n(10) Belum diunggah           : [___] perkara\n\nIII. KOMPONEN LAPORAN BERKALA PERADILAN MILITER (HAL. 983-984 & 995)\nA. Laporan Bulanan Pengadilan Militer Tinggi:\n   1. Laporan Keadaan Perkara Tingkat Banding & Sengketa Kewenangan Mengadili\n   2. Laporan Kinerja Hakim dan Panitera Pengganti (Nomor & Tanggal Putusan, Nama Majelis, Nama PP)\n   3. Laporan Jenis Perkara Pidana\nB. Laporan Triwulanan & Tahunan Pengadilan Militer Tinggi:\n   1. Laporan Keadaan Perkara (Pertama, Banding, Kasasi, PK, Grasi)\n   2. Pelaksanaan Sidang Keliling / di Luar Gedung Pengadilan\n   3. Penyelesaian Perkara melalui Pendekatan Keadilan Restoratif (Restorative Justice)\n   4. Penyelesaian Perkara Perempuan yang Berhadapan dengan Hukum\n   5. Laporan Kinerja Hakim dan Panitera Pengganti\n   6. Pelaksanaan Tugas Hakim Pengawas dan Pengamat (Kimwasmat)\n   7. Laporan Jenis Perkara Pidana\n   8. Laporan Keuangan (Sesuai Buku Keuangan Perkara & DIPA), Personel, dan Materiil\nC. Pelaporan Perkara Melebihi Batas Waktu (Hal. 985 & 993):\n   - Perkara tingkat banding yang belum diputus dalam waktu 3 (tiga) bulan (atau tingkat pertama dalam waktu 5 bulan) wajib dilaporkan kepada Ketua Mahkamah Agung dengan tembusan Kadilmilti dan Kadilmiltama beserta alasan penyebabnya.\n\nMakassar, [Tanggal Akhir Bulan/Tahun]\nMengetahui,                                       Panitera Pengadilan Militer Tinggi V Makassar,\nKepala Pengadilan Militer Tinggi V Makassar,\n\n(________________________)                        (________________________)\n[Tanda Tangan Elektronik BSrE]                    [Tanda Tangan Elektronik BSrE]"
+        "teksTemplate": "BERITA ACARA PENUTUPAN REGISTER ELEKTRONIK (e-REGISTER SIPP)\nDAN REKAPITULASI LAPORAN BERKALA PENGADILAN MILITER TINGGI V MAKASSAR\nBerdasarkan Lampiran III SK KMA Nomor 159/KMA/SK.HK2/VIII/2026\n================================================================================\n\nPeriode Laporan : Bulan [Bulan] / Triwulan [I/II/III/IV] / Tahun Anggaran [2026]\nBatas Pengiriman: Diterima Ditjen Badilmiltun paling lambat tanggal 5 bulan berikutnya (Tembusan: Kadilmiltama)\n\nI. DAFTAR 11 REGISTER ELEKTRONIK (e-REGISTER SIPP) PENGADILAN MILITER TINGGI\n1. Register Induk Perkara Pidana\n2. Register Induk Perkara Khusus (Sus)\n3. Register Perkara Pelanggaran Lalu Lintas\n4. Register Tapkim (Penetapan Majelis Hakim)\n5. Register Juktera (Penunjukan Panitera Pengganti)\n6. Register Tapsid (Penetapan Hari Sidang)\n7. Register Putusan\n8. Register Putusan Sela\n9. Register Perkara Permohonan Banding\n10. Register Penahanan\n11. Register Pengembalian Berkas Perkara\n\nII. FORMAT BAKU PENUTUPAN REGISTER BULANAN & TAHUNAN (10 RINCIAN WAJIB)\n(1) Sisa bulan / tahun lalu   : [___] perkara\n(2) Masuk bulan / tahun ini   : [___] perkara\n(3) Putus                     : [___] perkara\n(4) Sisa bulan / tahun ini    : [___] perkara\n(5) Sudah dikirim             : [___] perkara\n(6) Belum dikirim             : [___] perkara (Sebutkan alasan pada kolom keterangan)\n(7) Sudah diminutasi          : [___] perkara\n(8) Belum diminutasi          : [___] perkara\n(9) Sudah diunggah (SIPP)     : [___] perkara\n(10) Belum diunggah           : [___] perkara\n\nIII. KOMPONEN LAPORAN BERKALA PERADILAN MILITER\nA. Laporan Bulanan Pengadilan Militer Tinggi:\n   1. Laporan Keadaan Perkara Tingkat Banding & Sengketa Kewenangan Mengadili\n   2. Laporan Kinerja Hakim dan Panitera Pengganti (Nomor & Tanggal Putusan, Nama Majelis, Nama PP)\n   3. Laporan Jenis Perkara Pidana\nB. Laporan Triwulanan & Tahunan Pengadilan Militer Tinggi:\n   1. Laporan Keadaan Perkara (Pertama, Banding, Kasasi, PK, Grasi)\n   2. Pelaksanaan Sidang Keliling / di Luar Gedung Pengadilan\n   3. Penyelesaian Perkara melalui Pendekatan Keadilan Restoratif (Restorative Justice)\n   4. Penyelesaian Perkara Perempuan yang Berhadapan dengan Hukum\n   5. Laporan Kinerja Hakim dan Panitera Pengganti\n   6. Pelaksanaan Tugas Hakim Pengawas dan Pengamat (Kimwasmat)\n   7. Laporan Jenis Perkara Pidana\n   8. Laporan Keuangan (Sesuai Buku Keuangan Perkara & DIPA), Personel, dan Materiil\nC. Pelaporan Perkara Melebihi Batas Waktu:\n   - Perkara tingkat banding yang belum diputus dalam waktu 3 (tiga) bulan (atau tingkat pertama dalam waktu 5 bulan) wajib dilaporkan kepada Ketua Mahkamah Agung dengan tembusan Kadilmilti dan Kadilmiltama beserta alasan penyebabnya.\n\nMakassar, [Tanggal Akhir Bulan/Tahun]\nMengetahui,                                       Panitera Pengadilan Militer Tinggi V Makassar,\nKepala Pengadilan Militer Tinggi V Makassar,\n\n(________________________)                        (________________________)\n[Tanda Tangan Elektronik BSrE]                    [Tanda Tangan Elektronik BSrE]"
       },
       {
         "id": "tmpl-buku2-keberatan-gantirugi-01",
         "kodeDoc": "BUKU-II-KEBERATAN-GANTIRUGI-2026",
         "judul": "Formulir Penggabungan Gugatan Ganti Rugi / Restitusi & Keberatan Pihak Ketiga Beriktikad Baik (SK KMA 159/2026)",
         "kategori": "Persidangan & Perkara",
-        "deskripsi": "Format permohonan penggabungan gugatan ganti rugi/restitusi korban tindak pidana (Perma 1/2022) serta permohonan keberatan pihak ketiga yang beriktikad baik atas perampasan barang perkara Tipikor (SEMA 2/2022 & SK KMA 159/2026 Hal. 1036 & 1047-1051).",
+        "deskripsi": "Format permohonan penggabungan gugatan ganti rugi/restitusi korban tindak pidana (Perma 1/2022) serta permohonan keberatan pihak ketiga yang beriktikad baik atas perampasan barang perkara Tipikor (SEMA 2/2022 & SK KMA 159/2026).",
         "format": "DOCX",
         "fileUrl": "/uploads/Formulir_Ganti_Rugi_Restitusi_dan_Keberatan_Pihak_Ketiga_SK_KMA_159_2026.docx",
         "ukuranFile": "62 KB",
         "jumlahDiunduh": 204,
         "tanggalUpdate": "2026-08-19",
-        "teksTemplate": "SURAT PERMOHONAN PENGGABUNGAN GUGATAN GANTI RUGI / RESTITUSI\nATAU KEBERATAN PIHAK KETIGA YANG BERIKTIKAD BAIK (REGISTER KODE: SUS)\nBerdasarkan Lampiran III SK KMA Nomor 159/KMA/SK.HK2/VIII/2026 (Halaman 989, 1036-1037 & 1047-1051)\n================================================================================\n\nNomor Register Perkara Khusus : [01]-Sus/PMT.V/BDG/[Bulan Romawi]/2026\n\nKepada Yth.\nKetua Majelis Hakim / Kepala Pengadilan Militer Tinggi V Makassar\ndi Makassar\n\nSaya yang bertanda tangan di bawah ini:\nNama Pemohon     : [Nama Korban / LPSK / Pihak Ketiga Beriktikad Baik]\nNIK / Identitas  : [Nomor KTP / Identitas]\nAlamat           : [Alamat Lengkap]\nNo. Telepon / WA : [Nomor WhatsApp Aktif]\nKedudukan Hukum  : [ ] Saksi Korban / LPSK (Penggabungan Gugatan Ganti Rugi / Restitusi)\n                   [ ] Pihak Ketiga Beriktikad Baik (Keberatan atas Perampasan Barang Perkara Tipikor)\n\nI. KETENTUAN PENGGABUNGAN GUGATAN GANTI RUGI / RESTITUSI (HAL. 966 & 1036-1037)\n1. Diajukan paling lambat sebelum Oditur Militer / Oditur Militer Tinggi mengajukan Tuntutan Pidana (Requisitoir).\n2. Dalam hal restitusi belum diajukan di tahap penyidikan/penuntutan, LPSK dapat mengajukan permohonan restitusi melalui Oditur Militer selama persidangan berlangsung sebelum putusan dijatuhkan.\n3. Rincian Kerugian Materiil yang Dimohonkan: Rp [Nominal Ganti Rugi / Restitusi].\n\nII. KETENTUAN KEBERATAN PIHAK KETIGA BERIKTIKAD BAIK (HAL. 1047-1051)\n1. Objek Barang yang Dimohonkan: [Uraian Rinci Barang yang Dirampas dalam Putusan Tipikor].\n2. Bukti Kepemilikan Sah & Itikad Baik:\n   [ ] Pemohon memperoleh hak atas barang sebelum dilakukan penyidikan/penyitaan\n   [ ] Pemohon memperoleh hak atas barang berdasarkan itikad baik\n   [ ] Pemohon tidak terkait dengan tindak pidana korupsi yang dilakukan Terdakwa\n3. Majelis Hakim memutus permohonan keberatan dalam bentuk Penetapan paling lama 60 (enam puluh) hari sejak sidang pertama.\n4. Upaya hukum Kasasi atas Penetapan Keberatan diajukan paling lambat 14 (empat belas) hari beserta Memori Kasasi (softcopy & hardcopy).\n5. Pelaksanaan Penetapan yang telah BHT dilaksanakan oleh Oditur Militer/Tinggi dan Kementerian Keuangan dalam waktu 30 (tiga puluh) hari.\n\nMakassar, [Tanggal Permohonan]\nPemohon / Kuasa Hukum,\n\n(________________________)\n[Nama Terang Pemohon]"
+        "teksTemplate": "SURAT PERMOHONAN PENGGABUNGAN GUGATAN GANTI RUGI / RESTITUSI\nATAU KEBERATAN PIHAK KETIGA YANG BERIKTIKAD BAIK (REGISTER KODE: SUS)\nBerdasarkan Lampiran III SK KMA Nomor 159/KMA/SK.HK2/VIII/2026\n================================================================================\n\nNomor Register Perkara Khusus : [01]-Sus/PMT.V/BDG/[Bulan Romawi]/2026\n\nKepada Yth.\nKetua Majelis Hakim / Kepala Pengadilan Militer Tinggi V Makassar\ndi Makassar\n\nSaya yang bertanda tangan di bawah ini:\nNama Pemohon     : [Nama Korban / LPSK / Pihak Ketiga Beriktikad Baik]\nNIK / Identitas  : [Nomor KTP / Identitas]\nAlamat           : [Alamat Lengkap]\nNo. Telepon / WA : [Nomor WhatsApp Aktif]\nKedudukan Hukum  : [ ] Saksi Korban / LPSK (Penggabungan Gugatan Ganti Rugi / Restitusi)\n                   [ ] Pihak Ketiga Beriktikad Baik (Keberatan atas Perampasan Barang Perkara Tipikor)\n\nI. KETENTUAN PENGGABUNGAN GUGATAN GANTI RUGI / RESTITUSI\n1. Diajukan paling lambat sebelum Oditur Militer / Oditur Militer Tinggi mengajukan Tuntutan Pidana (Requisitoir).\n2. Dalam hal restitusi belum diajukan di tahap penyidikan/penuntutan, LPSK dapat mengajukan permohonan restitusi melalui Oditur Militer selama persidangan berlangsung sebelum putusan dijatuhkan.\n3. Rincian Kerugian Materiil yang Dimohonkan: Rp [Nominal Ganti Rugi / Restitusi].\n\nII. KETENTUAN KEBERATAN PIHAK KETIGA BERIKTIKAD BAIK\n1. Objek Barang yang Dimohonkan: [Uraian Rinci Barang yang Dirampas dalam Putusan Tipikor].\n2. Bukti Kepemilikan Sah & Itikad Baik:\n   [ ] Pemohon memperoleh hak atas barang sebelum dilakukan penyidikan/penyitaan\n   [ ] Pemohon memperoleh hak atas barang berdasarkan itikad baik\n   [ ] Pemohon tidak terkait dengan tindak pidana korupsi yang dilakukan Terdakwa\n3. Majelis Hakim memutus permohonan keberatan dalam bentuk Penetapan paling lama 60 (enam puluh) hari sejak sidang pertama.\n4. Upaya hukum Kasasi atas Penetapan Keberatan diajukan paling lambat 14 (empat belas) hari beserta Memori Kasasi (softcopy & hardcopy).\n5. Pelaksanaan Penetapan yang telah BHT dilaksanakan oleh Oditur Militer/Tinggi dan Kementerian Keuangan dalam waktu 30 (tiga puluh) hari.\n\nMakassar, [Tanggal Permohonan]\nPemohon / Kuasa Hukum,\n\n(________________________)\n[Nama Terang Pemohon]"
       },
       {
         "id": "tmpl-buku2-penahanan-stuiting-01",
         "kodeDoc": "BUKU-II-PENAHANAN-STUITING-2026",
         "judul": "Format Permohonan Penangguhan Penahanan (Jaminan Papera) & Pembantaran / Stuiting (SK KMA 159/2026)",
         "kategori": "Persidangan & Perkara",
-        "deskripsi": "Format resmi permohonan penangguhan penahanan dengan surat jaminan Papera, permohonan perpanjangan penahanan (H-10), serta penetapan pembantaran (Stuiting) rawat inap rumah sakit sesuai SK KMA No. 159/KMA/SK.HK2/VIII/2026 Hal. 1040-1044.",
+        "deskripsi": "Format resmi permohonan penangguhan penahanan dengan surat jaminan Papera, permohonan perpanjangan penahanan (H-10), serta penetapan pembantaran (Stuiting) rawat inap rumah sakit sesuai SK KMA No. 159/KMA/SK.HK2/VIII/2026.",
         "format": "DOCX",
         "fileUrl": "/uploads/Format_Penangguhan_Penahanan_dan_Pembantaran_Stuiting_SK_KMA_159_2026.docx",
         "ukuranFile": "58 KB",
         "jumlahDiunduh": 187,
         "tanggalUpdate": "2026-08-19",
-        "teksTemplate": "SURAT PERMOHONAN PENANGGUHAN PENAHANAN / PEMBANTARAN (STUITING)\nBerdasarkan Lampiran III SK KMA Nomor 159/KMA/SK.HK2/VIII/2026 (Halaman 1040-1044)\n================================================================================\n\nKepada Yth.\nKetua Majelis Hakim Pemeriksa Perkara Nomor: [Nomor Perkara]\npada Pengadilan Militer Tinggi V Makassar\ndi Makassar\n\nI. IDENTITAS TERDAKWA\nNama Lengkap      : [Nama Terdakwa]\nPangkat / NRP     : [Pangkat / NRP]\nJabatan / Kesatuan: [Jabatan / Kesatuan TNI]\nTempat Penahanan  : [Instalasi Tahanan Militer / Staltahtibmil / Lemasmil]\n\nII. JENIS PERMOHONAN (Pilih salah satu sesuai SK KMA 159/2026 Hal. 1042-1043):\n[ ] 1. PERMOHONAN PENANGGUHAN PENAHANAN (Huruf O Hal. 1042)\n       - Diajukan oleh Terdakwa dengan melampirkan SURAT JAMINAN DARI PAPERA Nomor: [Nomor Surat Jaminan Papera].\n       - Terdakwa berjanji tidak akan melarikan diri, tidak merusak/menghilangkan barang bukti, tidak mengulangi tindak pidana, dan tidak mempersulit jalannya pemeriksaan persidangan.\n[ ] 2. PERMOHONAN PEMBANTARAN / STUITING RAWAT INAP (Huruf P Hal. 1043)\n       - Didasarkan pada Surat Keterangan Dokter Rumah Sakit [Nama RS Militer / RS Rujukan] Nomor: [Nomor Surat Dokter].\n       - Waktu penahanan dibantar terhitung sejak tanggal Terdakwa dirawat inap di rumah sakit sampai dengan Terdakwa kembali ke instalasi tahanan militer/lemasmil.\n\nIII. KETENTUAN BATAS WAKTU PENAHANAN TINGKAT BANDING (HURUF M & N HAL. 1041-1043)\n- Penahanan Ketua Majelis Tingkat Banding: Paling lama 30 (tiga puluh) hari.\n- Perpanjangan Kepala Pengadilan Militer Tinggi: Paling lama 60 (enam puluh) hari (bertahap 2 x 30 hari).\n- Sesudah 90 (sembilan puluh) hari, Terdakwa harus dikeluarkan dari tahanan demi hukum (kecuali perpanjangan Pasal 138 ayat (1) UU 31/1997).\n- Permohonan perpanjangan penahanan wajib disampaikan selambat-lambatnya 10 (sepuluh) hari sebelum masa penahanan berakhir.\n\nMakassar, [Tanggal Permohonan]\nPemohon (Terdakwa / Penasihat Hukum),\n\n(________________________)\nMengetahui / Menjamin:\nPerwira Penyerah Perkara (Papera),\n\n(________________________)"
+        "teksTemplate": "SURAT PERMOHONAN PENANGGUHAN PENAHANAN / PEMBANTARAN (STUITING)\nBerdasarkan Lampiran III SK KMA Nomor 159/KMA/SK.HK2/VIII/2026\n================================================================================\n\nKepada Yth.\nKetua Majelis Hakim Pemeriksa Perkara Nomor: [Nomor Perkara]\npada Pengadilan Militer Tinggi V Makassar\ndi Makassar\n\nI. IDENTITAS TERDAKWA\nNama Lengkap      : [Nama Terdakwa]\nPangkat / NRP     : [Pangkat / NRP]\nJabatan / Kesatuan: [Jabatan / Kesatuan TNI]\nTempat Penahanan  : [Instalasi Tahanan Militer / Staltahtibmil / Lemasmil]\n\nII. JENIS PERMOHONAN (Pilih salah satu sesuai ketentuan):\n[ ] 1. PERMOHONAN PENANGGUHAN PENAHANAN\n       - Diajukan oleh Terdakwa dengan melampirkan SURAT JAMINAN DARI PAPERA Nomor: [Nomor Surat Jaminan Papera].\n       - Terdakwa berjanji tidak akan melarikan diri, tidak merusak/menghilangkan barang bukti, tidak mengulangi tindak pidana, dan tidak mempersulit jalannya pemeriksaan persidangan.\n[ ] 2. PERMOHONAN PEMBANTARAN / STUITING RAWAT INAP\n       - Didasarkan pada Surat Keterangan Dokter Rumah Sakit [Nama RS Militer / RS Rujukan] Nomor: [Nomor Surat Dokter].\n       - Waktu penahanan dibantar terhitung sejak tanggal Terdakwa dirawat inap di rumah sakit sampai dengan Terdakwa kembali ke instalasi tahanan militer/lemasmil.\n\nIII. KETENTUAN BATAS WAKTU PENAHANAN TINGKAT BANDING\n- Penahanan Ketua Majelis Tingkat Banding: Paling lama 30 (tiga puluh) hari.\n- Perpanjangan Kepala Pengadilan Militer Tinggi: Paling lama 60 (enam puluh) hari (bertahap 2 x 30 hari).\n- Sesudah 90 (sembilan puluh) hari, Terdakwa harus dikeluarkan dari tahanan demi hukum (kecuali perpanjangan Pasal 138 ayat (1) UU 31/1997).\n- Permohonan perpanjangan penahanan wajib disampaikan selambat-lambatnya 10 (sepuluh) hari sebelum masa penahanan berakhir.\n\nMakassar, [Tanggal Permohonan]\nPemohon (Terdakwa / Penasihat Hukum),\n\n(________________________)\nMengetahui / Menjamin:\nPerwira Penyerah Perkara (Papera),\n\n(________________________)"
       },
       {
         "id": "tmpl-ppid-01",
@@ -3062,13 +3251,13 @@
         "kodeDoc": "FORM-POSBAKUM-01",
         "judul": "Surat Permohonan Bantuan Hukum Posbakum / Prodeo & Penunjukan Penasihat Hukum (SK KMA 159/2026)",
         "kategori": "Posbakum & Prodeo",
-        "deskripsi": "Template permohonan pendampingan hukum, penunjukan Penasihat Hukum wajib (ancaman pidana mati / >= 15 tahun sesuai Hal. 1033 SK KMA 159/2026), dan pembebasan biaya perkara (Prodeo).",
+        "deskripsi": "Template permohonan pendampingan hukum, penunjukan Penasihat Hukum wajib (ancaman pidana mati / >= 15 tahun sesuai SK KMA 159/2026), dan pembebasan biaya perkara (Prodeo).",
         "format": "DOCX",
         "fileUrl": "/uploads/FORM_POSBAKUM_01_Permohonan_Prodeo.docx",
         "ukuranFile": "55 KB",
         "jumlahDiunduh": 420,
         "tanggalUpdate": "2026-09-10",
-        "teksTemplate": "SURAT PERMOHONAN BANTUAN HUKUM POSBAKUM / PENUNJUKAN PENASIHAT HUKUM\nDAN PEMBEBASAN BIAYA PERKARA (PRODEO)\nBerdasarkan PERMA No. 1 Tahun 2014 & Lampiran III SK KMA Nomor 159/KMA/SK.HK2/VIII/2026 (Halaman 961-963 & 1033-1034)\n\nKepada Yth.\nKepala Pengadilan Militer Tinggi V Makassar\ndi Makassar\n\nSaya yang bertanda tangan di bawah ini:\nNama Lengkap      : [Nama Pemohon / Terdakwa]\nPangkat / NRP/NIK : [Pangkat & NRP TNI / Nomor KTP]\nAlamat / Kesatuan : [Alamat Lengkap / Kesatuan TNI]\nStatus Terdakwa   : [ ] Prajurit TNI Aktif   [ ] Purnawirawan TNI   [ ] Pihak Sipil (Koneksitas/TUN)\n\nDengan ini mengajukan permohonan Bantuan Hukum Posbakum / Pendampingan Penasihat Hukum untuk perkara:\nNomor Register    : [01]-K/PMT.V/BDG/[AD/AL/AU]/[I]/2026\nJenis Perkara     : [Banding Pidana Militer / Tingkat Pertama Pamen / Sengketa Tata Usaha Militer]\n\nKelengkapan Dokumen Pendampingan sesuai SK KMA Nomor 159/KMA/SK.HK2/VIII/2026 (Hal. 962 & 1033):\n1. [ ] Wajib Didampingi Penasihat Hukum (Untuk tindak pidana dengan ancaman pidana mati atau pidana penjara 15 tahun atau lebih);\n2. [ ] Bagi Prajurit TNI Aktif dengan Penasihat Hukum Dinas Hukum TNI: Surat Perintah dari Papera/Pejabat yang ditunjuk & Surat Kuasa Khusus dari Terdakwa;\n3. [ ] Bagi Prajurit TNI Aktif dengan Advokat luar Dinas Hukum TNI: Surat Izin Papera/Dinas Hukum Angkatan & Surat Kuasa Khusus dari Terdakwa;\n4. [ ] Bagi Terdakwa Purnawirawan: Tanpa Izin Papera, cukup melampirkan Surat Izin Beracara Advokat & Surat Kuasa Khusus;\n5. [ ] Surat Keterangan Tidak Mampu (SKTM) / Keterangan Kesatuan No: [_______] (Khusus layanan Prodeo).\n\nMakassar, [Tanggal]\nPemohon,\n\n(________________________)"
+        "teksTemplate": "SURAT PERMOHONAN BANTUAN HUKUM POSBAKUM / PENUNJUKAN PENASIHAT HUKUM\nDAN PEMBEBASAN BIAYA PERKARA (PRODEO)\nBerdasarkan PERMA No. 1 Tahun 2014 & Lampiran III SK KMA Nomor 159/KMA/SK.HK2/VIII/2026\n\nKepada Yth.\nKepala Pengadilan Militer Tinggi V Makassar\ndi Makassar\n\nSaya yang bertanda tangan di bawah ini:\nNama Lengkap      : [Nama Pemohon / Terdakwa]\nPangkat / NRP/NIK : [Pangkat & NRP TNI / Nomor KTP]\nAlamat / Kesatuan : [Alamat Lengkap / Kesatuan TNI]\nStatus Terdakwa   : [ ] Prajurit TNI Aktif   [ ] Purnawirawan TNI   [ ] Pihak Sipil (Koneksitas/TUN)\n\nDengan ini mengajukan permohonan Bantuan Hukum Posbakum / Pendampingan Penasihat Hukum untuk perkara:\nNomor Register    : [01]-K/PMT.V/BDG/[AD/AL/AU]/[I]/2026\nJenis Perkara     : [Banding Pidana Militer / Tingkat Pertama Pamen / Sengketa Tata Usaha Militer]\n\nKelengkapan Dokumen Pendampingan sesuai SK KMA Nomor 159/KMA/SK.HK2/VIII/2026:\n1. [ ] Wajib Didampingi Penasihat Hukum (Untuk tindak pidana dengan ancaman pidana mati atau pidana penjara 15 tahun atau lebih);\n2. [ ] Bagi Prajurit TNI Aktif dengan Penasihat Hukum Dinas Hukum TNI: Surat Perintah dari Papera/Pejabat yang ditunjuk & Surat Kuasa Khusus dari Terdakwa;\n3. [ ] Bagi Prajurit TNI Aktif dengan Advokat luar Dinas Hukum TNI: Surat Izin Papera/Dinas Hukum Angkatan & Surat Kuasa Khusus dari Terdakwa;\n4. [ ] Bagi Terdakwa Purnawirawan: Tanpa Izin Papera, cukup melampirkan Surat Izin Beracara Advokat & Surat Kuasa Khusus;\n5. [ ] Surat Keterangan Tidak Mampu (SKTM) / Keterangan Kesatuan No: [_______] (Khusus layanan Prodeo).\n\nMakassar, [Tanggal]\nPemohon,\n\n(________________________)"
       },
       {
         "id": "tmpl-lra-01",
@@ -3079,7 +3268,7 @@
         "format": "DOCX",
         "fileUrl": "/uploads/TEMPLATE_LRA_Realisasi_Anggaran.docx",
         "ukuranFile": "64 KB",
-        "jumlahDiunduh": 198,
+        "jumlahDiunduh": 199,
         "tanggalUpdate": "2026-09-15",
         "teksTemplate": "LAPORAN REALISASI ANGGARAN (LRA)\nPENGADILAN MILITER TINGGI V MAKASSAR\nPERIODE: TRIWULAN [I/II/III/IV] TAHUN 2026\n\nI. REKAPITULASI DIPA 01 (BADAN URUSAN ADMINISTRASI)\n1. Belanja Pegawai (51) : Pagu Rp [_______] | Realisasi Rp [_______] | % [___]%\n2. Belanja Barang (52)  : Pagu Rp [_______] | Realisasi Rp [_______] | % [___]%\n3. Belanja Modal (53)   : Pagu Rp [_______] | Realisasi Rp [_______] | % [___]%\n\nII. REKAPITULASI DIPA 05 (BADILMILTUN / POSBAKUM & PRODEO)\n1. Perkara Prodeo     : Pagu Rp [_______] | Realisasi Rp [_______] | Sisa Perkara [___]\n2. Pos Bantuan Hukum : Pagu Rp [_______] | Realisasi Rp [_______] | Jam Layanan [___] Jam\n3. Sidang Keliling   : Pagu Rp [_______] | Realisasi Rp [_______] | Lokasi Sidang [___]\n\nMakassar, [Tanggal Laporan]\nKuasa Pengguna Anggaran (KPA),\n\n(________________________)\nNIP. [_______]"
       },
@@ -3101,13 +3290,13 @@
         "kodeDoc": "TEMPLATE-SALINAN-PUTUSAN",
         "judul": "Formulir Permohonan Salinan Resmi Putusan / Petikan Putusan (SK KMA 159/2026)",
         "kategori": "Persidangan & Perkara",
-        "deskripsi": "Formulir permohonan penerbitan salinan/petikan putusan perkara sesuai ketentuan distribusi salinan putusan Buku II SK KMA No. 159/KMA/SK.HK2/VIII/2026 Hal. 943, 968 & 1031.",
+        "deskripsi": "Formulir permohonan penerbitan salinan/petikan putusan perkara sesuai ketentuan distribusi salinan putusan Buku II SK KMA No. 159/KMA/SK.HK2/VIII/2026.",
         "format": "DOCX",
         "fileUrl": "/uploads/FORM_Permohonan_Salinan_Putusan.docx",
         "ukuranFile": "45 KB",
         "jumlahDiunduh": 530,
         "tanggalUpdate": "2026-09-20",
-        "teksTemplate": "SURAT PERMOHONAN SALINAN RESMI PUTUSAN / PETIKAN PUTUSAN PERKARA\nBerdasarkan Lampiran III SK KMA Nomor 159/KMA/SK.HK2/VIII/2026 (Halaman 943, 968 & 1031)\n\nKepada Yth.\nKepala / Panitera Pengadilan Militer Tinggi V Makassar\ndi Makassar\n\nSaya yang bertanda tangan di bawah ini:\nNama Pemohon   : [Nama Pemohon / Terdakwa / Penasihat Hukum / Oditur / Papera / Ankum]\nPangkat / NRP  : [Pangkat / NRP / NIK]\nKedudukan      : [ ] Terdakwa / Penasihat Hukum (Diberikan atas permintaan)\n                 [ ] Papera / Oditur Militer / Polisi Militer / Ankum (Diberikan secara jabatan)\n                 [ ] Pihak Lain (Wajib Seizin Kepala Pengadilan setelah mempertimbangkan kepentingan)\nNomor Perkara  : [01]-K/PMT.V/BDG/[AD/AL/AU]/[I]/2026\n\nDengan ini memohon agar diberikan Salinan Resmi Putusan / Petikan Putusan (Elektronik / Cetak) atas Perkara Nomor: [Nomor Perkara] tanggal [Tanggal Putusan] yang telah diucapkan dalam sidang terbuka untuk umum dan diunggah pada SIPP / Direktori Putusan (teranonimisasi sesuai SK KMA 2-144/KMA/SK/VIII/2022).\n\nGuna Keperluan : [Tujuan penggunaan salinan putusan]\n\nMakassar, [Tanggal]\nPemohon,\n\n(________________________)"
+        "teksTemplate": "SURAT PERMOHONAN SALINAN RESMI PUTUSAN / PETIKAN PUTUSAN PERKARA\nBerdasarkan Lampiran III SK KMA Nomor 159/KMA/SK.HK2/VIII/2026\n\nKepada Yth.\nKepala / Panitera Pengadilan Militer Tinggi V Makassar\ndi Makassar\n\nSaya yang bertanda tangan di bawah ini:\nNama Pemohon   : [Nama Pemohon / Terdakwa / Penasihat Hukum / Oditur / Papera / Ankum]\nPangkat / NRP  : [Pangkat / NRP / NIK]\nKedudukan      : [ ] Terdakwa / Penasihat Hukum (Diberikan atas permintaan)\n                 [ ] Papera / Oditur Militer / Polisi Militer / Ankum (Diberikan secara jabatan)\n                 [ ] Pihak Lain (Wajib Seizin Kepala Pengadilan setelah mempertimbangkan kepentingan)\nNomor Perkara  : [01]-K/PMT.V/BDG/[AD/AL/AU]/[I]/2026\n\nDengan ini memohon agar diberikan Salinan Resmi Putusan / Petikan Putusan (Elektronik / Cetak) atas Perkara Nomor: [Nomor Perkara] tanggal [Tanggal Putusan] yang telah diucapkan dalam sidang terbuka untuk umum dan diunggah pada SIPP / Direktori Putusan (teranonimisasi sesuai SK KMA 2-144/KMA/SK/VIII/2022).\n\nGuna Keperluan : [Tujuan penggunaan salinan putusan]\n\nMakassar, [Tanggal]\nPemohon,\n\n(________________________)"
       },
       {
         "id": "tmpl-izin-01",
@@ -5796,8 +5985,8 @@
     ],
     "dilmilti5_test_ping": "pong_123",
     "dilmilti5_db_ptsp_electronic_v1": {
-      "version": 21,
-      "lastSyncAt": "2026-09-27T12:28:23.909Z",
+      "version": 645,
+      "lastSyncAt": "2026-10-16T05:20:47.726Z",
       "mysqlBridgeUrl": "http://localhost/ptsp_dilmilti5/sync.php",
       "mysqlBridgeEnabled": false,
       "ptsp_applications": [
@@ -5934,6 +6123,223 @@
       ],
       "queue_tickets": [
         {
+          "id": "q-1792114284128",
+          "nomor_antrean": "A-004",
+          "kode_loket": "A",
+          "meja_id": 1,
+          "meja_nama": "Meja 1: Kepaniteraan Pidana Militer",
+          "nama_pemohon": "Pengunjung Kios Mandiri PTSP",
+          "kategori_pemohon": "Prajurit TNI / Masyarakat",
+          "kesatuan_instansi": "Pengunjung Langsung Dilmilti V",
+          "no_wa": "-",
+          "keperluan": "Banding, Kasasi, PK, Grasi & Perkara Koneksitas",
+          "waktu_ambil": "09:31 WITA",
+          "estimasi_panggil": "09:41 WITA",
+          "status": "Dipanggil",
+          "loket_tujuan": "Loket Meja 1",
+          "called_count": 1,
+          "updated_at": "2026-10-16T05:20:26.052Z",
+          "petugas_panggil": "Petugas Meja 1"
+        },
+        {
+          "id": "q-1792114283543",
+          "nomor_antrean": "B-003",
+          "kode_loket": "B",
+          "meja_id": 2,
+          "meja_nama": "Meja 2: Kepaniteraan Hukum",
+          "nama_pemohon": "Pengunjung Kios Mandiri PTSP",
+          "kategori_pemohon": "Prajurit TNI / Masyarakat",
+          "kesatuan_instansi": "Pengunjung Langsung Dilmilti V",
+          "no_wa": "-",
+          "keperluan": "Legalisasi, Waarmerking, Penelitian Ilmiah & SK Tidak Pernah Dipidana",
+          "waktu_ambil": "09:31 WITA",
+          "estimasi_panggil": "09:41 WITA",
+          "status": "Menunggu",
+          "loket_tujuan": "Loket Meja 2",
+          "called_count": 0,
+          "updated_at": "2026-10-16T01:31:23.543Z"
+        },
+        {
+          "id": "q-1792114282593",
+          "nomor_antrean": "C-003",
+          "kode_loket": "C",
+          "meja_id": 3,
+          "meja_nama": "Meja 3: Kesekretariatan / Umum & Keuangan",
+          "nama_pemohon": "Pengunjung Kios Mandiri PTSP",
+          "kategori_pemohon": "Prajurit TNI / Masyarakat",
+          "kesatuan_instansi": "Pengunjung Langsung Dilmilti V",
+          "no_wa": "-",
+          "keperluan": "Surat Masuk Kedinasan, Pengadaan Barang/Jasa & Layanan Keuangan",
+          "waktu_ambil": "09:31 WITA",
+          "estimasi_panggil": "09:41 WITA",
+          "status": "Menunggu",
+          "loket_tujuan": "Loket Meja 3",
+          "called_count": 0,
+          "updated_at": "2026-10-16T01:31:22.593Z"
+        },
+        {
+          "id": "q-1792114281273",
+          "nomor_antrean": "F-003",
+          "kode_loket": "F",
+          "meja_id": 6,
+          "meja_nama": "Meja 6: Informasi, Pengaduan & Posbakum",
+          "nama_pemohon": "Pengunjung Kios Mandiri PTSP",
+          "kategori_pemohon": "Prajurit TNI / Masyarakat",
+          "kesatuan_instansi": "Pengunjung Langsung Dilmilti V",
+          "no_wa": "-",
+          "keperluan": "Layanan PPID (SK KMA 2-144), Pengaduan SIWAS MA-RI & Posbakum Gratis",
+          "waktu_ambil": "09:31 WITA",
+          "estimasi_panggil": "09:41 WITA",
+          "status": "Menunggu",
+          "loket_tujuan": "Loket Meja 6",
+          "called_count": 0,
+          "updated_at": "2026-10-16T01:31:21.273Z"
+        },
+        {
+          "id": "q-1792114280383",
+          "nomor_antrean": "E-002",
+          "kode_loket": "E",
+          "meja_id": 5,
+          "meja_nama": "Meja 5: Perencanaan, TI & Pelaporan (PTIP)",
+          "nama_pemohon": "Pengunjung Kios Mandiri PTSP",
+          "kategori_pemohon": "Prajurit TNI / Masyarakat",
+          "kesatuan_instansi": "Pengunjung Langsung Dilmilti V",
+          "no_wa": "-",
+          "keperluan": "Permintaan Data Statistik Perkara, SAKIP, DIPA & LHKPN/LHKASN",
+          "waktu_ambil": "09:31 WITA",
+          "estimasi_panggil": "09:41 WITA",
+          "status": "Menunggu",
+          "loket_tujuan": "Loket Meja 5",
+          "called_count": 0,
+          "updated_at": "2026-10-16T01:31:20.383Z"
+        },
+        {
+          "id": "q-1792114278503",
+          "nomor_antrean": "D-001",
+          "kode_loket": "D",
+          "meja_id": 4,
+          "meja_nama": "Meja 4: Kepegawaian, Organisasi & Tata Laksana",
+          "nama_pemohon": "Pengunjung Kios Mandiri PTSP",
+          "kategori_pemohon": "Prajurit TNI / Masyarakat",
+          "kesatuan_instansi": "Pengunjung Langsung Dilmilti V",
+          "no_wa": "-",
+          "keperluan": "Kenaikan Pangkat, Mutasi, Izin/Cuti & Layanan Aparatur",
+          "waktu_ambil": "09:31 WITA",
+          "estimasi_panggil": "09:41 WITA",
+          "status": "Menunggu",
+          "loket_tujuan": "Loket Meja 4",
+          "called_count": 0,
+          "updated_at": "2026-10-16T01:31:18.503Z"
+        },
+        {
+          "id": "q-1792114277383",
+          "nomor_antrean": "F-002",
+          "kode_loket": "F",
+          "meja_id": 6,
+          "meja_nama": "Meja 6: Informasi, Pengaduan & Posbakum",
+          "nama_pemohon": "Pengunjung Kios Mandiri PTSP",
+          "kategori_pemohon": "Prajurit TNI / Masyarakat",
+          "kesatuan_instansi": "Pengunjung Langsung Dilmilti V",
+          "no_wa": "-",
+          "keperluan": "Layanan PPID (SK KMA 2-144), Pengaduan SIWAS MA-RI & Posbakum Gratis",
+          "waktu_ambil": "09:31 WITA",
+          "estimasi_panggil": "09:41 WITA",
+          "status": "Menunggu",
+          "loket_tujuan": "Loket Meja 6",
+          "called_count": 0,
+          "updated_at": "2026-10-16T01:31:17.383Z"
+        },
+        {
+          "id": "q-1792114272678",
+          "nomor_antrean": "E-001",
+          "kode_loket": "E",
+          "meja_id": 5,
+          "meja_nama": "Meja 5: Perencanaan, TI & Pelaporan (PTIP)",
+          "nama_pemohon": "Pengunjung Kios Mandiri PTSP",
+          "kategori_pemohon": "Prajurit TNI / Masyarakat",
+          "kesatuan_instansi": "Pengunjung Langsung Dilmilti V",
+          "no_wa": "-",
+          "keperluan": "Permintaan Data Statistik Perkara, SAKIP, DIPA & LHKPN/LHKASN",
+          "waktu_ambil": "09:31 WITA",
+          "estimasi_panggil": "09:41 WITA",
+          "status": "Menunggu",
+          "loket_tujuan": "Loket Meja 5",
+          "called_count": 0,
+          "updated_at": "2026-10-16T01:31:12.678Z"
+        },
+        {
+          "id": "q-1792114271658",
+          "nomor_antrean": "A-003",
+          "kode_loket": "A",
+          "meja_id": 1,
+          "meja_nama": "Meja 1: Kepaniteraan Pidana Militer",
+          "nama_pemohon": "Pengunjung Kios Mandiri PTSP",
+          "kategori_pemohon": "Prajurit TNI / Masyarakat",
+          "kesatuan_instansi": "Pengunjung Langsung Dilmilti V",
+          "no_wa": "-",
+          "keperluan": "Banding, Kasasi, PK, Grasi & Perkara Koneksitas",
+          "waktu_ambil": "09:31 WITA",
+          "estimasi_panggil": "09:41 WITA",
+          "status": "Menunggu",
+          "loket_tujuan": "Loket Meja 1",
+          "called_count": 0,
+          "updated_at": "2026-10-16T01:31:11.658Z"
+        },
+        {
+          "id": "q-1792114270954",
+          "nomor_antrean": "C-002",
+          "kode_loket": "C",
+          "meja_id": 3,
+          "meja_nama": "Meja 3: Kesekretariatan / Umum & Keuangan",
+          "nama_pemohon": "Pengunjung Kios Mandiri PTSP",
+          "kategori_pemohon": "Prajurit TNI / Masyarakat",
+          "kesatuan_instansi": "Pengunjung Langsung Dilmilti V",
+          "no_wa": "-",
+          "keperluan": "Surat Masuk Kedinasan, Pengadaan Barang/Jasa & Layanan Keuangan",
+          "waktu_ambil": "09:31 WITA",
+          "estimasi_panggil": "09:41 WITA",
+          "status": "Menunggu",
+          "loket_tujuan": "Loket Meja 3",
+          "called_count": 0,
+          "updated_at": "2026-10-16T01:31:10.954Z"
+        },
+        {
+          "id": "q-1792114269553",
+          "nomor_antrean": "B-002",
+          "kode_loket": "B",
+          "meja_id": 2,
+          "meja_nama": "Meja 2: Kepaniteraan Hukum",
+          "nama_pemohon": "Pengunjung Kios Mandiri PTSP",
+          "kategori_pemohon": "Prajurit TNI / Masyarakat",
+          "kesatuan_instansi": "Pengunjung Langsung Dilmilti V",
+          "no_wa": "-",
+          "keperluan": "Legalisasi, Waarmerking, Penelitian Ilmiah & SK Tidak Pernah Dipidana",
+          "waktu_ambil": "09:31 WITA",
+          "estimasi_panggil": "09:41 WITA",
+          "status": "Menunggu",
+          "loket_tujuan": "Loket Meja 2",
+          "called_count": 0,
+          "updated_at": "2026-10-16T01:31:09.553Z"
+        },
+        {
+          "id": "q-1792114266693",
+          "nomor_antrean": "A-002",
+          "kode_loket": "A",
+          "meja_id": 1,
+          "meja_nama": "Meja 1: Kepaniteraan Pidana Militer",
+          "nama_pemohon": "Pengunjung Kios Mandiri PTSP",
+          "kategori_pemohon": "Prajurit TNI / Masyarakat",
+          "kesatuan_instansi": "Pengunjung Langsung Dilmilti V",
+          "no_wa": "-",
+          "keperluan": "Banding, Kasasi, PK, Grasi & Perkara Koneksitas",
+          "waktu_ambil": "09:31 WITA",
+          "estimasi_panggil": "09:41 WITA",
+          "status": "Menunggu",
+          "loket_tujuan": "Loket Meja 1",
+          "called_count": 0,
+          "updated_at": "2026-10-16T01:31:06.693Z"
+        },
+        {
           "id": "q-101",
           "nomor_antrean": "A-001",
           "kode_loket": "A",
@@ -5949,8 +6355,8 @@
           "status": "Dipanggil",
           "loket_tujuan": "Loket Meja 1 (Kepaniteraan Pidana)",
           "petugas_panggil": "Pelda Andi Mappanyukki",
-          "called_count": 2,
-          "updated_at": "2026-09-27T12:26:34.633Z"
+          "called_count": 6,
+          "updated_at": "2026-10-16T00:11:05.999Z"
         },
         {
           "id": "q-102",
@@ -5983,10 +6389,11 @@
           "keperluan": "Penyerahan Surat Masuk Kedinasan Resmi",
           "waktu_ambil": "08:30 WITA",
           "estimasi_panggil": "08:40 WITA",
-          "status": "Menunggu",
+          "status": "Dipanggil",
           "loket_tujuan": "Loket Meja 3 (Umum & Keuangan)",
-          "called_count": 0,
-          "updated_at": "2026-09-27T12:26:34.633Z"
+          "called_count": 3,
+          "updated_at": "2026-10-16T05:20:47.726Z",
+          "petugas_panggil": "Petugas Meja 3"
         },
         {
           "id": "q-104",
@@ -6001,10 +6408,11 @@
           "keperluan": "Konsultasi Hukum Gratis Posbakum & Prosedur Izin Besuk",
           "waktu_ambil": "08:35 WITA",
           "estimasi_panggil": "08:45 WITA",
-          "status": "Menunggu",
+          "status": "Dipanggil",
           "loket_tujuan": "Loket Meja 6 (Informasi & Posbakum)",
-          "called_count": 0,
-          "updated_at": "2026-09-27T12:26:34.633Z"
+          "called_count": 1,
+          "updated_at": "2026-10-16T00:10:46.059Z",
+          "petugas_panggil": "Petugas Meja 6"
         }
       ],
       "online_consultations": [
@@ -6056,11 +6464,11 @@
       "ptsp_room_streams": {
         "V-PTSP-101": {
           "room_code": "V-PTSP-101",
-          "callerFrame": "/api/upload?id=img_auto_29xxs9vumxi_5cr",
+          "callerFrame": "/api/upload?id=img_auto_26tiuui4e0o_4kz",
           "callerMicOn": true,
           "callerCamOn": true,
           "callerName": "Lettu Laut (KH) Budi Santoso, S.H.",
-          "callerUpdatedAt": 1790512068499,
+          "callerUpdatedAt": 1792110360298,
           "officerFrame": "/api/upload?id=img_auto_2czy4tt4hr_5f3",
           "officerMicOn": true,
           "officerCamOn": true,
@@ -6135,6 +6543,15 @@
           "message": "tes",
           "timestamp": "20:28 WITA",
           "created_at": "2026-09-27T12:28:11.655Z"
+        },
+        {
+          "id": "chat-1792109388605-z1p4",
+          "room_code": "V-PTSP-101",
+          "sender_role": "pemohon",
+          "sender_name": "Lettu Laut (KH) Budi Santoso, S.H. (Pemohon)",
+          "message": "tws",
+          "timestamp": "08:09 WITA",
+          "created_at": "2026-10-16T00:09:48.605Z"
         }
       ],
       "tbl_users": [
@@ -6472,21 +6889,22 @@
         "status": "Aktif"
       },
       {
-        "id": "btn-quick-ecourt",
-        "label": "e-Court",
-        "fullName": "Peradilan Elektronik Mahkamah Agung RI",
-        "desc": "e-Filing, e-Payment, e-Summons & e-Litigation online",
+        "id": "btn-quick-uu31",
+        "label": "UU No. 31/1997",
+        "fullName": "Undang-Undang Peradilan Militer (UU No. 31 Tahun 1997)",
+        "desc": "Pedoman Hukum Acara Pidana Militer, Kompetensi & Prosedur Sidang",
         "color": "from-[#072617] via-[#0D4227] to-[#051B10]",
         "borderColor": "border-amber-400/50",
-        "iconName": "Laptop",
+        "iconName": "BookOpen",
         "militaryIconName": "Crosshair",
-        "badge": "E-LITIGASI",
-        "section": "ecourt",
-        "externalUrl": "https://ecourt.mahkamahagung.go.id/",
-        "domain": "ecourt.mahkamahagung.go.id",
-        "instansi": "Mahkamah Agung Republik Indonesia",
+        "badge": "UU 31/1997",
+        "section": "hukum",
+        "subTab": "uu-31-1997",
+        "externalUrl": "https://ptsp.dilmilti5-makassar.go.id/",
+        "domain": "dilmilti5-makassar.go.id",
+        "instansi": "Pengadilan Militer Tinggi V Makassar",
         "urutan": 3,
-        "status": "Aktif"
+        "status": "Nonaktif"
       },
       {
         "id": "btn-quick-dirput",
@@ -6575,7 +6993,7 @@
         "domain": "monekstun.mahkamahagung.go.id",
         "instansi": "Ditjen Badilmiltun MA-RI",
         "urutan": 8,
-        "status": "Aktif"
+        "status": "Nonaktif"
       },
       {
         "id": "btn-quick-jdih",

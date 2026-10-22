@@ -1228,7 +1228,30 @@ async function startServer() {
         }
       }
 
-      return res.status(404).json({ success: false, message: 'Image not found' });
+      // 5. Graceful fallback: return dignified military court avatar SVG instead of broken 404 JSON
+      const fallbackSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" width="100%" height="100%">
+        <defs>
+          <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#062314" />
+            <stop offset="50%" stop-color="#0D4A2B" />
+            <stop offset="100%" stop-color="#03140B" />
+          </linearGradient>
+          <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#FDE68A" />
+            <stop offset="50%" stop-color="#F59E0B" />
+            <stop offset="100%" stop-color="#B45309" />
+          </linearGradient>
+        </defs>
+        <rect width="400" height="500" fill="url(#bg)"/>
+        <rect x="12" y="12" width="376" height="476" rx="16" fill="none" stroke="url(#gold)" stroke-width="1.5" opacity="0.4" />
+        <circle cx="200" cy="180" r="76" fill="#F8FAFC" opacity="0.95"/>
+        <path d="M96 430 C96 300, 304 300, 304 430 Z" fill="#F8FAFC" opacity="0.95"/>
+        <path d="M182 300 L200 328 L218 300 Z" fill="url(#gold)"/>
+        <text x="200" y="468" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="800" fill="#FDE68A" letter-spacing="2.5">PENGADILAN MILITER TINGGI V</text>
+      </svg>`;
+      res.setHeader('Content-Type', 'image/svg+xml');
+      res.setHeader('Cache-Control', 'public, max-age=60');
+      return res.send(Buffer.from(fallbackSvg, 'utf-8'));
     } catch (e: any) {
       console.error('[Court Server] Error serving upload:', e);
       res.status(500).json({ success: false, message: 'Internal Server Error' });
