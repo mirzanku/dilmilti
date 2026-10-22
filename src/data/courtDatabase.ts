@@ -42,6 +42,8 @@ import {
 import { DEFAULT_MENU_CONTENTS } from './defaultMenuContents';
 import { DEFAULT_DOCUMENT_TEMPLATES } from './defaultTemplatesData';
 import { compressImage } from '../utils/imageHelper';
+import { db } from '../firebase';
+import { collection, getDocs, doc, setDoc } from 'firebase/firestore';
 const bannerMakassar = '/images/makassar_court_banner_1789442426023.jpg';
 const bannerPtsp = '/images/ptsp_makassar_banner_1789442442546.jpg';
 const bannerMaklumat = '/images/maklumat_banner_1789442457863.jpg';

@@ -1,0 +1,25 @@
+{
+  "entities": {
+    "NewsItem": {
+      "title": "News Item",
+      "description": "Represents a news article or announcement.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "judul": { "type": "string" },
+        "isi": { "type": "string" },
+        "kategori": { "type": "string" },
+        "gambarUrl": { "type": "string" },
+        "tanggal": { "type": "string" },
+        "authorId": { "type": "string" }
+      },
+      "required": ["id", "judul", "isi", "kategori", "tanggal"]
+    }
+  },
+  "firestore": {
+    "/news/{newsId}": {
+      "schema": "NewsItem",
+      "description": "Collection of all news and announcements."
+    }
+  }
+}

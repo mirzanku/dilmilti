@@ -74,6 +74,8 @@ import {
   SUBTAB_LABELS,
   RouteState
 } from './utils/urlRouter';
+import { db } from './firebase';
+import { collection, doc, setDoc } from 'firebase/firestore';
 
 export default function App() {
   const [initialRoute] = useState<RouteState>(() => {
@@ -195,7 +197,7 @@ export default function App() {
       } catch {}
     }, 180);
 
-    const handleDbUpdate = () => {
+    const handleDbUpdate = async () => {
       const currentVersion = CourtDB.serverVersion;
       if (lastDbVersionRef.current === currentVersion) return;
       lastDbVersionRef.current = currentVersion;
@@ -205,6 +207,27 @@ export default function App() {
       setNewsList(CourtDB.getNewsList());
       setCurrentUser(CourtDB.getCurrentSession());
       setCourtIdentity(CourtDB.getCourtIdentity());
+
+      // Sync all data to Firestore
+      try {
+        const batch = async (collectionName: string, items: any[]) => {
+          const col = collection(db, collectionName);
+          for (const item of items) {
+            await setDoc(doc(col, String(item.id || item.kode || item.label)), item);
+          }
+        };
+
+        await Promise.all([
+          batch('news', CourtDB.getNewsList()),
+          batch('jadwal', CourtDB.getJadwalList()),
+          batch('sipp', CourtDB.getSippList()),
+          batch('personnel', CourtDB.getPersonnelList()),
+          batch('ptsp_queue', CourtDB.getPTSPQueue()),
+          batch('quick_access', CourtDB.getQuickAccessList())
+        ]);
+      } catch (err) {
+        console.error('Firestore sync error:', err);
+      }
     };
 
     window.addEventListener('dilmilti_db_updated', handleDbUpdate);
