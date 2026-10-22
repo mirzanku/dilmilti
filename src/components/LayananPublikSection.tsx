@@ -165,6 +165,7 @@ Dokumen ini diterbitkan secara sah oleh Sistem Informasi Layanan Publik Pengadil
       case 'layanan-disabilitas':
       case 'fasilitas-disabilitas':
       case 'sarpras': menuId = 'lp4'; break;
+      case 'tatatertib': menuId = 'lp_tatatertib'; break;
       case 'laporan':
       case 'statistik-perkara':
       case 'sakip':
@@ -227,6 +228,8 @@ Dokumen ini diterbitkan secara sah oleh Sistem Informasi Layanan Publik Pengadil
       case 'fasilitas-disabilitas':
       case 'sarpras':
         return 'Fasilitas & Layanan Disabilitas';
+      case 'tatatertib':
+        return 'Tata Tertib Gedung & Persidangan';
       case 'siwas':
       case 'sp4n-lapor':
       case 'pengaduan':
@@ -645,6 +648,135 @@ Dokumen ini diterbitkan secara sah oleh Sistem Informasi Layanan Publik Pengadil
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* SUB 3.2: TATA TERTIB GEDUNG & SIDANG */}
+      {activeSub === 'tatatertib' && (
+        <div className="bg-white rounded-xl border border-slate-200 p-6 shadow-xs space-y-6 text-xs text-slate-700">
+          <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+            <div>
+              <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-900 uppercase tracking-wider">
+                STANDAR PERADILAN MILITER
+              </span>
+              <h3 className="text-sm font-black text-slate-900 uppercase tracking-wide flex items-center gap-2 mt-1">
+                <ShieldCheck className="w-4 h-4 text-amber-700" />
+                <span>Tata Tertib Gedung & Persidangan Pengadilan Militer Tinggi V Makassar</span>
+              </h3>
+              <p className="text-xs text-slate-500 mt-0.5">
+                Berdasarkan Undang-Undang Republik Indonesia Nomor 31 Tahun 1997 tentang Peradilan Militer dan Keputusan Mahkamah Agung RI
+              </p>
+            </div>
+            {isAdminOrStaff && (
+              <button
+                type="button"
+                onClick={() => { setEditingMenuId('lp_tatatertib'); setIsMenuModalOpen(true); }}
+                className="px-3 py-1.5 bg-amber-400 hover:bg-amber-300 text-slate-950 rounded-xl text-xs font-bold flex items-center gap-1.5 cursor-pointer shadow-xs transition-colors shrink-0"
+              >
+                <Edit3 className="w-3.5 h-3.5" />
+                <span>Edit Tata Tertib (Role Admin)</span>
+              </button>
+            )}
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* Kartu Tata Tertib Persidangan */}
+            <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-3">
+              <div className="flex items-center gap-2 font-black text-slate-900 text-xs uppercase text-emerald-900">
+                <ShieldAlert className="w-4 h-4 text-emerald-700" />
+                <span>1. Tata Tertib di Dalam Ruang Sidang</span>
+              </div>
+              <ul className="space-y-2 text-[11px] text-slate-700">
+                <li className="flex items-start gap-2">
+                  <span className="w-4 h-4 rounded-full bg-emerald-100 text-emerald-800 font-bold flex items-center justify-center shrink-0 mt-0.5 text-[10px]">1</span>
+                  <span><strong>Pakaian & Penampilan:</strong> Setiap pengunjung dan pihak berperkara wajib mengenakan pakaian yang rapi, sopan, dan pantas. Anggota TNI/Polri wajib mengenakan Pakaian Dinas Harian (PDH) atau Pakaian Dinas Lapangan (PDL) yang ditentukan, serta menggunakan atribut kelengkapan militer yang sah.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="w-4 h-4 rounded-full bg-emerald-100 text-emerald-800 font-bold flex items-center justify-center shrink-0 mt-0.5 text-[10px]">2</span>
+                  <span><strong>Sikap di Ruang Sidang:</strong> Semua orang yang hadir di ruang sidang wajib bersikap tenang, tertib, dan menjaga wibawa peradilan. Dilarang membuat kegaduhan, berbicara keras, merokok, makan, minum, atau membaca koran selama persidangan berlangsung.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="w-4 h-4 rounded-full bg-emerald-100 text-emerald-800 font-bold flex items-center justify-center shrink-0 mt-0.5 text-[10px]">3</span>
+                  <span><strong>Berdiri Saat Hakim Masuk/Keluar:</strong> Saat Majelis Hakim memasuki dan meninggalkan ruang sidang, seluruh hadirin wajib berdiri untuk menghormati peradilan.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="w-4 h-4 rounded-full bg-emerald-100 text-emerald-800 font-bold flex items-center justify-center shrink-0 mt-0.5 text-[10px]">4</span>
+                  <span><strong>Larangan Elektronik & Perekaman:</strong> Penggunaan telepon genggam/gadget wajib dinonaktifkan atau disenyapkan. Pengambilan foto, video, atau rekaman suara di dalam ruang sidang wajib mendapat izin terlebih dahulu dari Ketua Majelis Hakim.</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* Kartu Tata Tertib Gedung & Tamu */}
+            <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-3">
+              <div className="flex items-center gap-2 font-black text-slate-900 text-xs uppercase text-emerald-900">
+                <Building className="w-4 h-4 text-emerald-700" />
+                <span>2. Tata Tertib Tamu & Gedung Kantor Dilmilti V</span>
+              </div>
+              <ul className="space-y-2 text-[11px] text-slate-700">
+                <li className="flex items-start gap-2">
+                  <span className="w-4 h-4 rounded-full bg-emerald-100 text-emerald-800 font-bold flex items-center justify-center shrink-0 mt-0.5 text-[10px]">1</span>
+                  <span><strong>Pemeriksaan Pos Penjagaan (Security):</strong> Setiap tamu wajib melapor ke petugas piket Polisi Militer / Satpam, meninggalkan kartu identitas resmi (KTP/KTA), dan mengenakan kartu tanda pengenal tamu (Visitor Pass).</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="w-4 h-4 rounded-full bg-emerald-100 text-emerald-800 font-bold flex items-center justify-center shrink-0 mt-0.5 text-[10px]">2</span>
+                  <span><strong>Larangan Senjata & Bahan Berbahaya:</strong> Dilarang membawa senjata api, senjata tajam, bahan peledak, atau benda berbahaya lainnya ke dalam lingkungan gedung kantor pengadilan tanpa izin dinas yang sah.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="w-4 h-4 rounded-full bg-emerald-100 text-emerald-800 font-bold flex items-center justify-center shrink-0 mt-0.5 text-[10px]">3</span>
+                  <span><strong>Kawasan Tanpa Rokok (KTR):</strong> Seluruh area gedung dan ruang pelayanan Pengadilan Militer Tinggi V Makassar merupakan Kawasan Tanpa Rokok. Merokok hanya diperkenankan pada area khusus merokok (smoking area) yang telah disediakan.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="w-4 h-4 rounded-full bg-emerald-100 text-emerald-800 font-bold flex items-center justify-center shrink-0 mt-0.5 text-[10px]">4</span>
+                  <span><strong>Kepatuhan Protokol & Etika:</strong> Menjaga kebersihan fasilitas umum, menghormati petugas pelayanan PTSP, serta menaati jam kerja dan jam kunjungan resmi kantor.</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Sanksi Pelanggaran */}
+          <div className="p-4 bg-amber-50 rounded-xl border border-amber-300 space-y-2">
+            <h4 className="font-extrabold text-amber-950 text-xs uppercase flex items-center gap-1.5">
+              <ShieldAlert className="w-4 h-4 text-amber-700" />
+              <span>Sanksi Pelanggaran Tata Tertib Sidang & Gedung:</span>
+            </h4>
+            <p className="text-[11px] text-amber-950 leading-relaxed">
+              Setiap orang yang melanggar tata tertib persidangan atau gedung pengadilan dapat dikenakan tindakan tegas mulai dari teguran lisan, pengeluaran seketika dari ruang sidang/gedung oleh petugas Polisi Militer / pengamanan, hingga diproses secara hukum pidana apabila perbuatan tersebut memenuhi unsur tindak pidana *Contempt of Court* (Penghinaan terhadap Pengadilan) sesuai ketentuan perundang-undangan yang berlaku.
+            </p>
+          </div>
+
+          {/* Dokumen SK Tata Tertib */}
+          <div className="pt-3 border-t border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <div className="font-bold text-slate-900 text-xs">
+                Keputusan Kepala Pengadilan Militer Tinggi V Makassar tentang Tata Tertib Persidangan & Keamanan Gedung TA 2026
+              </div>
+              <div className="text-[10px] font-mono text-slate-500">Nomor: W5-Mil.01/SK.HK1.2/I/2026/09 • PDF (1.6 MB)</div>
+            </div>
+            <button
+              type="button"
+              onClick={() =>
+                handleDownloadDoc({
+                  id: 'doc-sk-tatatertib-2026',
+                  judul: 'SK Tata Tertib Persidangan & Pengamanan Lingkungan Gedung Kantor Dilmilti V Makassar',
+                  kategori: 'PPID',
+                  subKategori: 'Tata Tertib',
+                  tahun: '2026',
+                  nomorDokumen: 'W5-Mil.01/SK.HK1.2/I/2026/09',
+                  deskripsi: 'Ketentuan resmi tata tertib pengunjung sidang, kewajiban pihak berperkara, prosedur keamanan tamu gedung, serta penegakan hukum tata tertib peradilan.',
+                  fileUrl: '',
+                  fileName: 'SK_Tata_Tertib_Sidang_Dan_Gedung_Dilmilti_V_2026.pdf',
+                  fileSize: '1.6 MB',
+                  fileType: 'PDF',
+                  tanggalUpload: '2026-01-10',
+                  penanggungJawab: 'Ketua Pengadilan Militer Tinggi V Makassar & Tim Pengamanan'
+                })
+              }
+              className="px-4 py-2 rounded-xl bg-[#0A3D24] hover:bg-emerald-800 text-amber-300 font-bold text-xs flex items-center gap-1.5 shrink-0 cursor-pointer transition-colors shadow-xs"
+            >
+              <Download className="w-3.5 h-3.5" />
+              <span>Unduh Dokumen SK Tata Tertib</span>
+            </button>
           </div>
         </div>
       )}
