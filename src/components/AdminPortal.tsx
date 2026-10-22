@@ -2542,297 +2542,306 @@ try {
           )}
         </div>
 
-        {/* Dynamic Navigation Tabs Bar (Filtered by Role Permissions) */}
-        <div className="flex flex-wrap gap-2 p-1.5 bg-slate-900/90 rounded-2xl border border-emerald-500/20 shadow-md">
-          {allowedTabs.includes('telemetri') && (
-            <button
-              type="button"
-              onClick={() => setActiveTab('telemetri')}
-              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
-                activeTab === 'telemetri'
-                  ? 'bg-gradient-to-r from-emerald-600 to-emerald-500 text-slate-950 shadow-md font-black'
-                  : 'text-slate-400 hover:text-slate-100 hover:bg-slate-800'
-              }`}
-            >
-              <Activity className="w-4 h-4" />
-              <span>Telemetri & Log</span>
-            </button>
-          )}
+        {/* Categorized & Organized Navigation Tabs Bar (Clean, Non-redundant, Grouped by Function) */}
+        <div className="space-y-2.5">
+          {/* Group 1: Utama & Telemetri */}
+          <div className="p-2.5 bg-slate-900/95 rounded-2xl border border-emerald-500/25 shadow-md flex flex-wrap items-center gap-2">
+            <span className="text-[10px] font-black uppercase tracking-wider text-emerald-300 px-2 py-1 bg-emerald-950/70 rounded-lg border border-emerald-500/30 flex items-center gap-1">
+              <span>📊</span>
+              <span>Utama</span>
+            </span>
+            {allowedTabs.includes('telemetri') && (
+              <button
+                type="button"
+                onClick={() => setActiveTab('telemetri')}
+                className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+                  activeTab === 'telemetri'
+                    ? 'bg-gradient-to-r from-emerald-600 to-emerald-500 text-slate-950 shadow-md font-black'
+                    : 'text-slate-300 hover:text-white hover:bg-slate-800'
+                }`}
+              >
+                <Activity className="w-4 h-4" />
+                <span>Telemetri & Log</span>
+              </button>
+            )}
+            {allowedTabs.includes('sipp') && (
+              <button
+                type="button"
+                onClick={() => setActiveTab('sipp')}
+                className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+                  activeTab === 'sipp'
+                    ? 'bg-gradient-to-r from-emerald-600 to-emerald-500 text-slate-950 shadow-md font-black'
+                    : 'text-slate-300 hover:text-white hover:bg-slate-800'
+                }`}
+              >
+                <Scale className="w-4 h-4" />
+                <span>Perkara SIPP</span>
+                <span className="px-1.5 py-0.2 rounded-full bg-slate-950/50 text-[10px] font-mono text-emerald-300">
+                  {sippList.length}
+                </span>
+              </button>
+            )}
+            {allowedTabs.includes('jadwal') && (
+              <button
+                type="button"
+                onClick={() => setActiveTab('jadwal')}
+                className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+                  activeTab === 'jadwal'
+                    ? 'bg-gradient-to-r from-emerald-600 to-emerald-500 text-slate-950 shadow-md font-black'
+                    : 'text-slate-300 hover:text-white hover:bg-slate-800'
+                }`}
+              >
+                <Calendar className="w-4 h-4" />
+                <span>Jadwal Sidang</span>
+              </button>
+            )}
+            {allowedTabs.includes('ecourt') && (
+              <button
+                type="button"
+                onClick={() => setActiveTab('ecourt')}
+                className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+                  activeTab === 'ecourt'
+                    ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md font-black ring-2 ring-blue-300'
+                    : 'text-blue-300 hover:text-white hover:bg-slate-800 border border-blue-500/30'
+                }`}
+              >
+                <Laptop className="w-4 h-4 text-blue-300" />
+                <span>CRUD e-Court</span>
+              </button>
+            )}
+          </div>
 
-          {allowedTabs.includes('whatsapp') && (
-            <button
-              type="button"
-              id="admin-tab-whatsapp-btn"
-              onClick={() => setActiveTab('whatsapp')}
-              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
-                activeTab === 'whatsapp'
-                  ? 'bg-gradient-to-r from-emerald-600 to-emerald-500 text-slate-950 shadow-md font-black ring-2 ring-emerald-300'
-                  : 'text-emerald-300 hover:text-white hover:bg-slate-800 border border-emerald-500/30'
-              }`}
-            >
-              <Phone className="w-4 h-4 text-emerald-400" />
-              <span>Notifikasi WA (Foonte)</span>
-              <span className={`px-1.5 py-0.2 rounded-full text-[9px] font-bold ${waIsActive ? 'bg-emerald-500/30 text-emerald-300' : 'bg-rose-500/30 text-rose-300'}`}>
-                {waIsActive ? 'AKTIF' : 'OFF'}
-              </span>
-            </button>
-          )}
+          {/* Group 2: Organisasi & Kepegawaian */}
+          <div className="p-2.5 bg-slate-900/95 rounded-2xl border border-emerald-500/25 shadow-md flex flex-wrap items-center gap-2">
+            <span className="text-[10px] font-black uppercase tracking-wider text-amber-300 px-2 py-1 bg-amber-950/70 rounded-lg border border-amber-500/30 flex items-center gap-1">
+              <span>🏛️</span>
+              <span>Organisasi</span>
+            </span>
+            {allowedTabs.includes('personel') && (
+              <button
+                type="button"
+                onClick={() => setActiveTab('personel')}
+                className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+                  activeTab === 'personel'
+                    ? 'bg-gradient-to-r from-emerald-600 to-emerald-500 text-slate-950 shadow-md font-black'
+                    : 'text-slate-300 hover:text-white hover:bg-slate-800'
+                }`}
+              >
+                <Users className="w-4 h-4" />
+                <span>Personel DILMILTI</span>
+                <span className="px-1.5 py-0.2 rounded-full bg-slate-950/50 text-[10px] font-mono text-amber-300">
+                  {personnelList.length}
+                </span>
+              </button>
+            )}
+            {allowedTabs.includes('satker') && (
+              <button
+                type="button"
+                onClick={() => setActiveTab('satker')}
+                className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+                  activeTab === 'satker'
+                    ? 'bg-gradient-to-r from-emerald-600 to-emerald-500 text-slate-950 shadow-md font-black'
+                    : 'text-slate-300 hover:text-white hover:bg-slate-800'
+                }`}
+              >
+                <Building2 className="w-4 h-4" />
+                <span>Struktur Satker</span>
+                <span className="px-1.5 py-0.2 rounded-full bg-slate-950/50 text-[10px] font-mono text-amber-300">
+                  {satkerList.length}
+                </span>
+              </button>
+            )}
+            {allowedTabs.includes('profil') && (
+              <button
+                type="button"
+                onClick={() => setActiveTab('profil')}
+                className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+                  activeTab === 'profil'
+                    ? 'bg-gradient-to-r from-emerald-600 to-emerald-500 text-slate-950 shadow-md font-black'
+                    : 'text-slate-300 hover:text-white hover:bg-slate-800'
+                }`}
+              >
+                <MapPin className="w-4 h-4" />
+                <span>Profil & Kontak</span>
+              </button>
+            )}
+            {allowedTabs.includes('tautan') && (
+              <button
+                type="button"
+                onClick={() => setActiveTab('tautan')}
+                className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+                  activeTab === 'tautan'
+                    ? 'bg-gradient-to-r from-emerald-600 to-emerald-500 text-slate-950 shadow-md font-black'
+                    : 'text-slate-300 hover:text-white hover:bg-slate-800'
+                }`}
+              >
+                <Globe className="w-4 h-4" />
+                <span>Tautan Situs MA</span>
+                <span className="px-1.5 py-0.2 rounded-full bg-slate-950/50 text-[10px] font-mono text-sky-300">
+                  {relatedWebsitesList.length}
+                </span>
+              </button>
+            )}
+          </div>
 
-          {allowedTabs.includes('personel') && (
-            <button
-              type="button"
-              onClick={() => setActiveTab('personel')}
-              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
-                activeTab === 'personel'
-                  ? 'bg-gradient-to-r from-emerald-600 to-emerald-500 text-slate-950 shadow-md font-black'
-                  : 'text-slate-400 hover:text-slate-100 hover:bg-slate-800'
-              }`}
-            >
-              <Users className="w-4 h-4" />
-              <span>Personel DILMILTI V</span>
-              <span className="px-1.5 py-0.2 rounded-full bg-slate-950/50 text-[10px] font-mono text-amber-300">
-                {personnelList.length}
-              </span>
-            </button>
-          )}
+          {/* Group 3: Publikasi & Konten */}
+          <div className="p-2.5 bg-slate-900/95 rounded-2xl border border-emerald-500/25 shadow-md flex flex-wrap items-center gap-2">
+            <span className="text-[10px] font-black uppercase tracking-wider text-purple-300 px-2 py-1 bg-purple-950/70 rounded-lg border border-purple-500/30 flex items-center gap-1">
+              <span>📰</span>
+              <span>Publikasi</span>
+            </span>
+            {allowedTabs.includes('berita') && (
+              <button
+                type="button"
+                onClick={() => setActiveTab('berita')}
+                className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+                  activeTab === 'berita'
+                    ? 'bg-gradient-to-r from-emerald-600 to-emerald-500 text-slate-950 shadow-md font-black'
+                    : 'text-slate-300 hover:text-white hover:bg-slate-800'
+                }`}
+              >
+                <Newspaper className="w-4 h-4" />
+                <span>Berita & Humas</span>
+              </button>
+            )}
+            {allowedTabs.includes('ppid') && (
+              <button
+                type="button"
+                onClick={() => setActiveTab('ppid')}
+                className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+                  activeTab === 'ppid'
+                    ? 'bg-gradient-to-r from-emerald-600 to-emerald-500 text-slate-950 shadow-md font-black'
+                    : 'text-slate-300 hover:text-white hover:bg-slate-800'
+                }`}
+              >
+                <FileText className="w-4 h-4" />
+                <span>PPID & Regulasi</span>
+              </button>
+            )}
+            {allowedTabs.includes('eviden') && (
+              <button
+                type="button"
+                onClick={() => setActiveTab('eviden')}
+                className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+                  activeTab === 'eviden'
+                    ? 'bg-gradient-to-r from-emerald-600 to-emerald-500 text-slate-950 shadow-md font-black'
+                    : 'text-slate-300 hover:text-white hover:bg-slate-800'
+                }`}
+              >
+                <Award className="w-4 h-4" />
+                <span>Eviden ZI (WBBM)</span>
+                <span className="px-1.5 py-0.2 rounded-full bg-slate-950/50 text-[10px] font-mono text-amber-300">
+                  {evidenList.length}
+                </span>
+              </button>
+            )}
+            {allowedTabs.includes('slider') && (
+              <button
+                type="button"
+                onClick={() => setActiveTab('slider')}
+                className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+                  activeTab === 'slider'
+                    ? 'bg-gradient-to-r from-emerald-600 to-emerald-500 text-slate-950 shadow-md font-black'
+                    : 'text-slate-300 hover:text-white hover:bg-slate-800'
+                }`}
+              >
+                <Layers className="w-4 h-4 text-amber-300" />
+                <span>Slider Banner</span>
+                <span className="px-1.5 py-0.2 rounded-full bg-slate-950/50 text-[10px] font-mono text-amber-300">
+                  {slidesList.length}
+                </span>
+              </button>
+            )}
+            {allowedTabs.includes('inovasi') && (
+              <button
+                type="button"
+                id="admin-tab-inovasi-btn"
+                onClick={() => setActiveTab('inovasi')}
+                className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+                  activeTab === 'inovasi'
+                    ? 'bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 shadow-md font-black ring-2 ring-amber-300'
+                    : 'text-amber-300 hover:text-white hover:bg-slate-800 border border-amber-500/30'
+                }`}
+              >
+                <Sparkles className="w-4 h-4 text-amber-400" />
+                <span>Inovasi Layanan</span>
+                <span className="px-1.5 py-0.2 rounded-full bg-slate-950/50 text-[10px] font-mono text-amber-300">
+                  {inovasiList.length}
+                </span>
+              </button>
+            )}
+          </div>
 
-          {allowedTabs.includes('satker') && (
-            <button
-              type="button"
-              onClick={() => setActiveTab('satker')}
-              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
-                activeTab === 'satker'
-                  ? 'bg-gradient-to-r from-emerald-600 to-emerald-500 text-slate-950 shadow-md font-black'
-                  : 'text-slate-400 hover:text-slate-100 hover:bg-slate-800'
-              }`}
-            >
-              <Building2 className="w-4 h-4" />
-              <span>Struktur Satker (PERMA 1/2017)</span>
-              <span className="px-1.5 py-0.2 rounded-full bg-slate-950/50 text-[10px] font-mono text-amber-300">
-                {satkerList.length}
-              </span>
-            </button>
-          )}
-
-          {allowedTabs.includes('tautan') && (
-            <button
-              type="button"
-              onClick={() => setActiveTab('tautan')}
-              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
-                activeTab === 'tautan'
-                  ? 'bg-gradient-to-r from-emerald-600 to-emerald-500 text-slate-950 shadow-md font-black'
-                  : 'text-slate-400 hover:text-slate-100 hover:bg-slate-800'
-              }`}
-            >
-              <Globe className="w-4 h-4" />
-              <span>Tautan Situs Resmi MA</span>
-              <span className="px-1.5 py-0.2 rounded-full bg-slate-950/50 text-[10px] font-mono text-sky-300">
-                {relatedWebsitesList.length}
-              </span>
-            </button>
-          )}
-
-          {allowedTabs.includes('profil') && (
-            <button
-              type="button"
-              onClick={() => setActiveTab('profil')}
-              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
-                activeTab === 'profil'
-                  ? 'bg-gradient-to-r from-emerald-600 to-emerald-500 text-slate-950 shadow-md font-black'
-                  : 'text-slate-400 hover:text-slate-100 hover:bg-slate-800'
-              }`}
-            >
-              <MapPin className="w-4 h-4" />
-              <span>Profil & Kontak Satker</span>
-            </button>
-          )}
-
-          {allowedTabs.includes('sipp') && (
-            <button
-              type="button"
-              onClick={() => setActiveTab('sipp')}
-              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
-                activeTab === 'sipp'
-                  ? 'bg-gradient-to-r from-emerald-600 to-emerald-500 text-slate-950 shadow-md font-black'
-                  : 'text-slate-400 hover:text-slate-100 hover:bg-slate-800'
-              }`}
-            >
-              <Scale className="w-4 h-4" />
-              <span>Perkara SIPP</span>
-              <span className="px-1.5 py-0.2 rounded-full bg-slate-950/50 text-[10px] font-mono text-emerald-300">
-                {sippList.length}
-              </span>
-            </button>
-          )}
-
-          {allowedTabs.includes('jadwal') && (
-            <button
-              type="button"
-              onClick={() => setActiveTab('jadwal')}
-              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
-                activeTab === 'jadwal'
-                  ? 'bg-gradient-to-r from-emerald-600 to-emerald-500 text-slate-950 shadow-md font-black'
-                  : 'text-slate-400 hover:text-slate-100 hover:bg-slate-800'
-              }`}
-            >
-              <Calendar className="w-4 h-4" />
-              <span>Jadwal Sidang</span>
-            </button>
-          )}
-
-          {allowedTabs.includes('berita') && (
-            <button
-              type="button"
-              onClick={() => setActiveTab('berita')}
-              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
-                activeTab === 'berita'
-                  ? 'bg-gradient-to-r from-emerald-600 to-emerald-500 text-slate-950 shadow-md font-black'
-                  : 'text-slate-400 hover:text-slate-100 hover:bg-slate-800'
-              }`}
-            >
-              <Newspaper className="w-4 h-4" />
-              <span>Berita & Publikasi</span>
-            </button>
-          )}
-
-          {allowedTabs.includes('ppid') && (
-            <button
-              type="button"
-              onClick={() => setActiveTab('ppid')}
-              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
-                activeTab === 'ppid'
-                  ? 'bg-gradient-to-r from-emerald-600 to-emerald-500 text-slate-950 shadow-md font-black'
-                  : 'text-slate-400 hover:text-slate-100 hover:bg-slate-800'
-              }`}
-            >
-              <FileText className="w-4 h-4" />
-              <span>PPID & Regulasi</span>
-            </button>
-          )}
-
-          {allowedTabs.includes('eviden') && (
-            <button
-              type="button"
-              onClick={() => setActiveTab('eviden')}
-              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
-                activeTab === 'eviden'
-                  ? 'bg-gradient-to-r from-emerald-600 to-emerald-500 text-slate-950 shadow-md font-black'
-                  : 'text-slate-400 hover:text-slate-100 hover:bg-slate-800'
-              }`}
-            >
-              <Award className="w-4 h-4" />
-              <span>Eviden ZI (WBBM)</span>
-              <span className="px-1.5 py-0.2 rounded-full bg-slate-950/50 text-[10px] font-mono text-amber-300">
-                {evidenList.length}
-              </span>
-            </button>
-          )}
-
-          {allowedTabs.includes('popup') && (
-            <button
-              type="button"
-              onClick={() => setActiveTab('popup')}
-              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
-                activeTab === 'popup'
-                  ? 'bg-gradient-to-r from-emerald-600 to-emerald-500 text-slate-950 shadow-md font-black'
-                  : 'text-slate-400 hover:text-slate-100 hover:bg-slate-800'
-              }`}
-            >
-              <Sparkles className="w-4 h-4 text-amber-300" />
-              <span>Pop-up Pengumuman</span>
-              <span className={`px-1.5 py-0.2 rounded-full text-[9px] font-bold ${popIsActive ? 'bg-emerald-500/30 text-emerald-300' : 'bg-rose-500/30 text-rose-300'}`}>
-                {popIsActive ? 'ON' : 'OFF'}
-              </span>
-            </button>
-          )}
-
-          {allowedTabs.includes('slider') && (
-            <button
-              type="button"
-              onClick={() => setActiveTab('slider')}
-              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
-                activeTab === 'slider'
-                  ? 'bg-gradient-to-r from-emerald-600 to-emerald-500 text-slate-950 shadow-md font-black'
-                  : 'text-slate-400 hover:text-slate-100 hover:bg-slate-800'
-              }`}
-            >
-              <Layers className="w-4 h-4 text-amber-300" />
-              <span>Slider Banner</span>
-              <span className="px-1.5 py-0.2 rounded-full bg-slate-950/50 text-[10px] font-mono text-amber-300">
-                {slidesList.length}
-              </span>
-            </button>
-          )}
-
-          {allowedTabs.includes('inovasi') && (
-            <button
-              type="button"
-              id="admin-tab-inovasi-btn"
-              onClick={() => setActiveTab('inovasi')}
-              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
-                activeTab === 'inovasi'
-                  ? 'bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 shadow-md font-black ring-2 ring-amber-300'
-                  : 'text-amber-300 hover:text-white hover:bg-slate-800 border border-amber-500/30'
-              }`}
-            >
-              <Sparkles className="w-4 h-4 text-amber-400" />
-              <span>Inovasi Layanan Publik</span>
-              <span className="px-1.5 py-0.2 rounded-full bg-slate-950/50 text-[10px] font-mono text-amber-300">
-                {inovasiList.length}
-              </span>
-            </button>
-          )}
-
-          {allowedTabs.includes('users') && (
-            <button
-              type="button"
-              onClick={() => setActiveTab('users')}
-              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
-                activeTab === 'users'
-                  ? 'bg-gradient-to-r from-emerald-600 to-emerald-500 text-slate-950 shadow-md font-black'
-                  : 'text-slate-400 hover:text-slate-100 hover:bg-slate-800'
-              }`}
-            >
-              <ShieldCheck className="w-4 h-4" />
-              <span>Pengguna & Hak Akses</span>
-            </button>
-          )}
-
-          {allowedTabs.includes('ecourt') && (
-            <button
-              type="button"
-              onClick={() => setActiveTab('ecourt')}
-              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
-                activeTab === 'ecourt'
-                  ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md font-black ring-2 ring-blue-300'
-                  : 'text-blue-300 hover:text-white hover:bg-slate-800 border border-blue-500/30'
-              }`}
-            >
-              <Laptop className="w-4 h-4 text-blue-300" />
-              <span>CRUD e-Court Perkara</span>
-              <span className="px-1.5 py-0.2 rounded-full bg-blue-500/20 text-[10px] font-bold text-blue-200">
-                CRUD
-              </span>
-            </button>
-          )}
-
-          {allowedTabs.includes('database') && (
-            <button
-              type="button"
-              onClick={() => setActiveTab('database')}
-              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
-                activeTab === 'database'
-                  ? 'bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 shadow-md font-black ring-2 ring-amber-300'
-                  : 'text-amber-300 hover:text-white hover:bg-slate-800 border border-amber-500/30'
-              }`}
-            >
-              <Database className="w-4 h-4 text-amber-400" />
-              <span>Backup & Restore Aplikasi</span>
-              <span className="px-1.5 py-0.2 rounded-full bg-amber-400/20 text-[10px] font-bold text-amber-300">
-                Admin
-              </span>
-            </button>
-          )}
+          {/* Group 4: Sistem & Pengaturan */}
+          <div className="p-2.5 bg-slate-900/95 rounded-2xl border border-emerald-500/25 shadow-md flex flex-wrap items-center gap-2">
+            <span className="text-[10px] font-black uppercase tracking-wider text-sky-300 px-2 py-1 bg-sky-950/70 rounded-lg border border-sky-500/30 flex items-center gap-1">
+              <span>⚙️</span>
+              <span>Sistem</span>
+            </span>
+            {allowedTabs.includes('whatsapp') && (
+              <button
+                type="button"
+                id="admin-tab-whatsapp-btn"
+                onClick={() => setActiveTab('whatsapp')}
+                className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+                  activeTab === 'whatsapp'
+                    ? 'bg-gradient-to-r from-emerald-600 to-emerald-500 text-slate-950 shadow-md font-black ring-2 ring-emerald-300'
+                    : 'text-emerald-300 hover:text-white hover:bg-slate-800 border border-emerald-500/30'
+                }`}
+              >
+                <Phone className="w-4 h-4 text-emerald-400" />
+                <span>Notifikasi WA</span>
+                <span className={`px-1.5 py-0.2 rounded-full text-[9px] font-bold ${waIsActive ? 'bg-emerald-500/30 text-emerald-300' : 'bg-rose-500/30 text-rose-300'}`}>
+                  {waIsActive ? 'ON' : 'OFF'}
+                </span>
+              </button>
+            )}
+            {allowedTabs.includes('popup') && (
+              <button
+                type="button"
+                onClick={() => setActiveTab('popup')}
+                className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+                  activeTab === 'popup'
+                    ? 'bg-gradient-to-r from-emerald-600 to-emerald-500 text-slate-950 shadow-md font-black'
+                    : 'text-slate-300 hover:text-white hover:bg-slate-800'
+                }`}
+              >
+                <Sparkles className="w-4 h-4 text-amber-300" />
+                <span>Pop-up Info</span>
+                <span className={`px-1.5 py-0.2 rounded-full text-[9px] font-bold ${popIsActive ? 'bg-emerald-500/30 text-emerald-300' : 'bg-rose-500/30 text-rose-300'}`}>
+                  {popIsActive ? 'ON' : 'OFF'}
+                </span>
+              </button>
+            )}
+            {allowedTabs.includes('users') && (
+              <button
+                type="button"
+                onClick={() => setActiveTab('users')}
+                className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+                  activeTab === 'users'
+                    ? 'bg-gradient-to-r from-emerald-600 to-emerald-500 text-slate-950 shadow-md font-black'
+                    : 'text-slate-300 hover:text-white hover:bg-slate-800'
+                }`}
+              >
+                <ShieldCheck className="w-4 h-4" />
+                <span>Pengguna & Hak Akses</span>
+              </button>
+            )}
+            {allowedTabs.includes('database') && (
+              <button
+                type="button"
+                onClick={() => setActiveTab('database')}
+                className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+                  activeTab === 'database'
+                    ? 'bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 shadow-md font-black ring-2 ring-amber-300'
+                    : 'text-amber-300 hover:text-white hover:bg-slate-800 border border-amber-500/30'
+                }`}
+              >
+                <Database className="w-4 h-4 text-amber-400" />
+                <span>Backup & Restore DB</span>
+              </button>
+            )}
+          </div>
         </div>
 
         {/* TOAST NOTIFICATION */}
