@@ -69,7 +69,7 @@ export function cleanPageNumberReferences(text: string | undefined): string {
 }
 
 // KUNCI STORAGE LOKAL
-const STORAGE_KEYS = {
+export const STORAGE_KEYS = {
   PERSONNEL: 'dilmilti5_db_personnel_v2',
   USERS: 'dilmilti5_db_users_v2',
   CURRENT_USER: 'dilmilti5_auth_session_v2',

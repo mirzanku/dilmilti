@@ -823,13 +823,15 @@ export default function Navbar({
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
               {[
-                { tab: 'tentang', subTab: 'sambutan', label: 'Tentang Pengadilan', desc: 'Profil, Sejarah & Aparatur (Bag. II.6.b)', icon: Building2 },
-                { tab: 'tentang', subTab: 'profil-hakim', label: 'Profil Pegawai', desc: 'Data Hakim & ASN (Bag. II.6.b)', icon: Users },
-                { tab: 'publik', subTab: 'jenis-layanan', label: 'Layanan Publik', desc: 'PTSP, Laporan & Perkara (Bag. II.6.c)', icon: Users },
-                { tab: 'hukum', subTab: 'referensi-uu31', label: 'Layanan Hukum', desc: 'Posbakum, Prodeo & Upaya Hukum (Bag. II.6.d)', icon: Scale },
-                { tab: 'berita', subTab: 'berita-terkini', label: 'Berita & Publikasi', desc: 'Rilis Pers, Artikel & Galeri (Bag. II.6.e)', icon: Newspaper },
-                { tab: 'reformasi', subTab: 'zona-integritas', label: 'Reformasi Birokrasi', desc: 'Zona Integritas WBK/WBBM & SMAP (Bag. II.6.f)', icon: ShieldCheck },
-                { tab: 'hubungi-kami', subTab: 'alamat', label: 'Hubungi Kami', desc: 'Alamat, Telepon, Email & Medsos (Bag. II.6.g)', icon: PhoneCall },
+                { tab: 'tentang', subTab: 'sambutan', label: 'Tentang Pengadilan', desc: 'Profil & Sejarah', icon: Building2 },
+                { tab: 'tentang', subTab: 'profil-hakim', label: 'Profil Pegawai', desc: 'Data Hakim & ASN', icon: Users },
+                { tab: 'publik', subTab: 'jenis-layanan', label: 'Layanan Publik', desc: 'PTSP, Laporan & Perkara', icon: Layers },
+                { tab: 'hukum', subTab: 'referensi-uu31', label: 'Layanan Hukum', desc: 'Posbakum & Upaya Hukum', icon: Scale },
+                { tab: 'berita', subTab: 'berita-terkini', label: 'Berita & Publikasi', desc: 'Rilis Pers & Artikel', icon: Newspaper },
+                { tab: 'reformasi', subTab: 'zona-integritas', label: 'Reformasi Birokrasi', desc: 'Zona Integritas WBK/WBBM', icon: ShieldCheck },
+                { tab: 'ppid', subTab: 'berkala', label: 'Informasi Publik (PPID)', desc: 'DIP, LHKPN & Laporan', icon: Megaphone },
+                { tab: 'dokumen', subTab: 'laporan-tahunan', label: 'Dokumen & Laporan', desc: 'Statistik & Arsip', icon: FileText },
+                { tab: 'hubungi-kami', subTab: 'alamat', label: 'Hubungi Kami', desc: 'Alamat, Telepon & Medsos', icon: PhoneCall },
               ].map((item) => {
                 const IconComp = item.icon;
                 return (

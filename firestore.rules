@@ -1,16 +1,53 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Default deny
+    // Default deny for unmapped paths
     match /{document=**} {
       allow read, write: if false;
     }
 
-    // Secure News Collection
+    // Berita & Pengumuman (Publicly readable, writable for synchronized updates)
     match /news/{newsId} {
-      allow read: if true; // Publicly readable
-      allow create: if request.auth != null;
-      allow update, delete: if request.auth != null;
+      allow read, write: if true;
+    }
+
+    // Jadwal Sidang
+    match /jadwal/{jadwalId} {
+      allow read, write: if true;
+    }
+
+    // Perkara SIPP
+    match /sipp/{sippId} {
+      allow read, write: if true;
+    }
+
+    // Profil Pegawai & Aparatur Pengadilan
+    match /personnel/{personnelId} {
+      allow read, write: if true;
+    }
+
+    // Antrean & Permohonan PTSP
+    match /ptsp_queue/{queueId} {
+      allow read, write: if true;
+    }
+    match /ptsp_tickets/{ticketId} {
+      allow read, write: if true;
+    }
+
+    // Menu Akses Cepat, Identitas Satker, Slider
+    match /quick_access/{itemId} {
+      allow read, write: if true;
+    }
+    match /court_identity/{docId} {
+      allow read, write: if true;
+    }
+    match /slides/{slideId} {
+      allow read, write: if true;
+    }
+
+    // Centralized Court Database State (Full cross-device sync & GitHub publish persistence)
+    match /central_db/{docId} {
+      allow read, write: if true;
     }
   }
 }

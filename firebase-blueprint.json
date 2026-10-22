@@ -2,7 +2,7 @@
   "entities": {
     "NewsItem": {
       "title": "News Item",
-      "description": "Represents a news article or announcement.",
+      "description": "Represents a news article, announcement, or press release.",
       "type": "object",
       "properties": {
         "id": { "type": "string" },
@@ -14,12 +14,111 @@
         "authorId": { "type": "string" }
       },
       "required": ["id", "judul", "isi", "kategori", "tanggal"]
+    },
+    "JadwalSidang": {
+      "title": "Jadwal Sidang",
+      "description": "Represents a scheduled court hearing session.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "nomorPerkara": { "type": "string" },
+        "agenda": { "type": "string" },
+        "tanggalSidang": { "type": "string" },
+        "ruangSidang": { "type": "string" }
+      },
+      "required": ["id", "nomorPerkara", "tanggalSidang"]
+    },
+    "PerkaraSIPP": {
+      "title": "Perkara SIPP",
+      "description": "Represents a military court case record from SIPP.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "nomorPerkara": { "type": "string" },
+        "jenisPerkara": { "type": "string" },
+        "statusPerkara": { "type": "string" }
+      },
+      "required": ["id", "nomorPerkara"]
+    },
+    "PersonnelItem": {
+      "title": "Personnel Item",
+      "description": "Represents a judge, official, or court employee profile.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "nama": { "type": "string" },
+        "jabatan": { "type": "string" },
+        "nipNrp": { "type": "string" },
+        "fotoUrl": { "type": "string" }
+      },
+      "required": ["id", "nama", "jabatan"]
+    },
+    "PtspQueueItem": {
+      "title": "PTSP Queue Item",
+      "description": "Represents a queue item for the PTSP integrated service counter.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "nomorAntrean": { "type": "string" },
+        "layanan": { "type": "string" },
+        "status": { "type": "string" }
+      },
+      "required": ["id", "nomorAntrean"]
+    },
+    "CourtIdentity": {
+      "title": "Court Identity",
+      "description": "Represents official identity, contacts, and branding of the court.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "namaPengadilan": { "type": "string" },
+        "alamat": { "type": "string" },
+        "telepon": { "type": "string" },
+        "logoUrl": { "type": "string" }
+      },
+      "required": ["id", "namaPengadilan"]
+    },
+    "CentralDbState": {
+      "title": "Central DB State",
+      "description": "Centralized database snapshot keeping all court modules synced across devices.",
+      "type": "object",
+      "properties": {
+        "docId": { "type": "string" },
+        "version": { "type": "number" },
+        "lastUpdated": { "type": "string" },
+        "data": { "type": "object" }
+      },
+      "required": ["docId", "version", "lastUpdated"]
     }
   },
   "firestore": {
     "/news/{newsId}": {
       "schema": "NewsItem",
-      "description": "Collection of all news and announcements."
+      "description": "Collection of all news, press releases, and announcements."
+    },
+    "/jadwal/{jadwalId}": {
+      "schema": "JadwalSidang",
+      "description": "Collection of hearing schedules."
+    },
+    "/sipp/{sippId}": {
+      "schema": "PerkaraSIPP",
+      "description": "Collection of SIPP court cases."
+    },
+    "/personnel/{personnelId}": {
+      "schema": "PersonnelItem",
+      "description": "Collection of court personnel and judges."
+    },
+    "/ptsp_queue/{queueId}": {
+      "schema": "PtspQueueItem",
+      "description": "Collection of PTSP counter queues."
+    },
+    "/court_identity/{docId}": {
+      "schema": "CourtIdentity",
+      "description": "Collection of court identity documents."
+    },
+    "/central_db/{docId}": {
+      "schema": "CentralDbState",
+      "description": "Collection storing centralized database state across devices."
     }
   }
 }
