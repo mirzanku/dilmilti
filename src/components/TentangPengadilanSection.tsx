@@ -522,6 +522,28 @@ export default function TentangPengadilanSection({ initialSubTab = 'sambutan', o
   });
 
   const getActiveSubTabTitle = () => {
+    let menuId = '';
+    switch (subTab) {
+      case 'sambutan': menuId = 'm1'; break;
+      case 'visimisi': menuId = 'm2'; break;
+      case 'sejarah':
+      case 'profil': menuId = 'm3'; break;
+      case 'struktur': menuId = 'm4'; break;
+      case 'denah': menuId = 'm5'; break;
+      case 'role-model':
+      case 'rolemodel': menuId = 'm6'; break;
+      case 'kepaniteraan':
+      case 'tugas-fungsi': menuId = 'm7'; break;
+      case 'pengelolaan': menuId = 'm8'; break;
+      case 'profil-pegawai':
+      case 'pejabat': menuId = 'm9'; break;
+      default: break;
+    }
+    if (menuId) {
+      const found = menuContents.find(m => m.id === menuId);
+      if (found?.judul) return found.judul;
+    }
+
     switch (subTab) {
       case 'sambutan': return 'Sambutan Kepala';
       case 'visimisi': return 'Visi dan Misi';

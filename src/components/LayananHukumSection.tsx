@@ -242,6 +242,24 @@ Sumber Resmi JDIHN: https://jdihn.go.id & Mahkamah Agung RI: https://jdih.mahkam
   }, []);
 
   const getActiveSubTitle = () => {
+    let menuId = '';
+    switch (activeSub) {
+      case 'posbakum':
+      case 'prodeo': menuId = 'lh1'; break;
+      case 'tata-cara':
+      case 'alur-banding': menuId = 'lh2'; break;
+      case 'upaya-hukum':
+      case 'alur-tun': menuId = 'lh3'; break;
+      case 'sidang-luar': menuId = 'lh4'; break;
+      case 'eksekusi': menuId = 'lh5'; break;
+      case 'tatatertib': menuId = 'lh6'; break;
+      default: break;
+    }
+    if (menuId) {
+      const found = CourtDB.getMenuContentById(menuId);
+      if (found?.judul) return found.judul;
+    }
+
     switch (activeSub) {
       case 'referensi-uu31':
       case 'regulasi':

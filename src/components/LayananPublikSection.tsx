@@ -148,6 +148,41 @@ Dokumen ini diterbitkan secara sah oleh Sistem Informasi Layanan Publik Pengadil
   });
 
   const getActiveSubTitle = () => {
+    let menuId = '';
+    switch (activeSub) {
+      case 'ptsp':
+      case 'ptsp-inovasi':
+      case 'jenis-layanan':
+      case 'app-viewer':
+      case 'informasi-perkara':
+      case 'direktori-putusan': menuId = 'lp1'; break;
+      case 'standar-pelayanan':
+      case 'maklumat':
+      case 'maklumat-pelayanan': menuId = 'lp2'; break;
+      case 'kompensasi':
+      case 'jam-kerja': menuId = 'lp3'; break;
+      case 'disabilitas':
+      case 'layanan-disabilitas':
+      case 'fasilitas-disabilitas':
+      case 'sarpras': menuId = 'lp4'; break;
+      case 'laporan':
+      case 'statistik-perkara':
+      case 'sakip':
+      case 'dipa': menuId = 'lp5'; break;
+      case 'siwas':
+      case 'sp4n-lapor':
+      case 'pengaduan': menuId = 'lp6'; break;
+      case 'survei':
+      case 'ikm':
+      case 'ipak': menuId = 'lp7'; break;
+      case 'ebrosur': menuId = 'lp8'; break;
+      default: break;
+    }
+    if (menuId) {
+      const found = allMenus.find(m => m.id === menuId);
+      if (found?.judul) return found.judul;
+    }
+
     switch (activeSub) {
       case 'ptsp':
       case 'ptsp-inovasi':
