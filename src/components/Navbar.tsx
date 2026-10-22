@@ -824,6 +824,7 @@ export default function Navbar({
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
               {[
                 { tab: 'tentang', subTab: 'sambutan', label: 'Tentang Pengadilan', desc: 'Profil, Sejarah & Aparatur (Bag. II.6.b)', icon: Building2 },
+                { tab: 'tentang', subTab: 'profil-hakim', label: 'Profil Pegawai', desc: 'Data Hakim & ASN (Bag. II.6.b)', icon: Users },
                 { tab: 'publik', subTab: 'jenis-layanan', label: 'Layanan Publik', desc: 'PTSP, Laporan & Perkara (Bag. II.6.c)', icon: Users },
                 { tab: 'hukum', subTab: 'referensi-uu31', label: 'Layanan Hukum', desc: 'Posbakum, Prodeo & Upaya Hukum (Bag. II.6.d)', icon: Scale },
                 { tab: 'berita', subTab: 'berita-terkini', label: 'Berita & Publikasi', desc: 'Rilis Pers, Artikel & Galeri (Bag. II.6.e)', icon: Newspaper },
