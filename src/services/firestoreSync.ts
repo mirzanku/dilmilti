@@ -384,7 +384,7 @@ export async function pushAllToFirestore(): Promise<void> {
   if (typeof window === 'undefined' || getIsQuotaExceeded()) return;
 
   const now = Date.now();
-  if (now - lastCloudWriteTime < 8000) {
+  if (now - lastCloudWriteTime < 1000) {
     return;
   }
   lastCloudWriteTime = now;
@@ -458,16 +458,16 @@ export async function pushAllToFirestore(): Promise<void> {
 export function subscribeToFirestoreChanges(): () => void {
   if (typeof window === 'undefined' || getIsQuotaExceeded()) return () => {};
 
-  try {
-    const centralDocRef = doc(db, 'central_db', 'dilmilti5_central_db');
+  const unsubscribes: (() => void)[] = [];
 
-    const unsubscribe = onSnapshot(
+  try {
+    // 1. Listen to central database snapshot
+    const centralDocRef = doc(db, 'central_db', 'dilmilti5_central_db');
+    const unsubCentral = onSnapshot(
       centralDocRef,
       (snapshot) => {
-        // Avoid overwriting local edits that occurred within the last 3 seconds
-        if (Date.now() - lastLocalSaveTimestamp < 3000) {
-          return;
-        }
+        // Skip local write echoes originating from this specific client instance
+        if (snapshot.metadata.hasPendingWrites) return;
 
         if (snapshot.exists()) {
           const cloudData = snapshot.data();
@@ -489,8 +489,7 @@ export function subscribeToFirestoreChanges(): () => void {
             });
 
             if (changed) {
-              console.log('Real-time remote update received from Firestore.');
-              // Tagged with source: 'cloud' to prevent echo loops
+              console.log('[Firestore] Real-time remote central update received from cloud.');
               window.dispatchEvent(new CustomEvent('dilmilti_db_updated', { detail: { source: 'cloud' } }));
               notifySyncStatus('synced');
             }
@@ -507,16 +506,68 @@ export function subscribeToFirestoreChanges(): () => void {
           markQuotaExceeded();
           isQuotaExceeded = true;
           notifySyncStatus('quota_paused');
-          console.warn('[Firestore] Real-time subscription paused: daily quota limit reached. Using local database.');
+          console.warn('[Firestore] Real-time subscription paused: daily quota limit reached.');
           return;
         }
-        handleFirestoreError(error, OperationType.GET, 'central_db/dilmilti5_central_db');
       }
     );
+    unsubscribes.push(unsubCentral);
 
-    return unsubscribe;
+    // 2. Listen to personnel collection changes in real-time
+    const unsubPersonnel = onSnapshot(
+      collection(db, 'personnel'),
+      (snapshot) => {
+        if (snapshot.metadata.hasPendingWrites) return;
+        if (snapshot.empty) return;
+
+        const cloudPersonnelMap = new Map<string, PersonnelItem>();
+        snapshot.forEach(docSnap => {
+          const p = docSnap.data() as PersonnelItem;
+          if (p && p.id) {
+            cloudPersonnelMap.set(p.id, p);
+          }
+        });
+
+        if (cloudPersonnelMap.size > 0) {
+          const localRaw = localStorage.getItem(STORAGE_KEYS.PERSONNEL);
+          let localList: PersonnelItem[] = [];
+          try {
+            localList = localRaw ? JSON.parse(localRaw) : [];
+          } catch {}
+
+          let changed = false;
+          const mergedList = [...localList];
+
+          cloudPersonnelMap.forEach((cloudP, id) => {
+            const idx = mergedList.findIndex(p => p.id === id);
+            if (idx !== -1) {
+              if (JSON.stringify(mergedList[idx]) !== JSON.stringify(cloudP)) {
+                mergedList[idx] = { ...mergedList[idx], ...cloudP };
+                changed = true;
+              }
+            } else {
+              mergedList.push(cloudP);
+              changed = true;
+            }
+          });
+
+          if (changed) {
+            localStorage.setItem(STORAGE_KEYS.PERSONNEL, JSON.stringify(mergedList));
+            console.log('[Firestore] Real-time personnel update received from another device.');
+            window.dispatchEvent(new CustomEvent('dilmilti_db_updated', { detail: { source: 'cloud' } }));
+            notifySyncStatus('synced');
+          }
+        }
+      },
+      () => {}
+    );
+    unsubscribes.push(unsubPersonnel);
+
+    return () => {
+      unsubscribes.forEach(unsub => unsub());
+    };
   } catch (err) {
-    console.warn('[Firestore] Could not start snapshot listener:', err);
+    console.warn('[Firestore] Could not start snapshot listeners:', err);
     return () => {};
   }
 }

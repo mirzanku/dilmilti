@@ -229,12 +229,12 @@ export default function App() {
       setCurrentUser(CourtDB.getCurrentSession());
       setCourtIdentity(CourtDB.getCourtIdentity());
 
-      // Only push to Firestore if mutation originated locally and after initial app startup window (8s)
-      if (!isFromCloud && Date.now() - appMountTimestamp.current > 8000) {
+      // Only push to Firestore if mutation originated locally and after initial app startup window (1s)
+      if (!isFromCloud && Date.now() - appMountTimestamp.current > 1000) {
         if (pushTimer) clearTimeout(pushTimer);
         pushTimer = setTimeout(() => {
           pushAllToFirestore();
-        }, 2000);
+        }, 300);
       }
     };
 

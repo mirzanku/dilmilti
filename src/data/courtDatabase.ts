@@ -3987,16 +3987,14 @@ class CourtDatabaseEngine {
     // Initial fetch from central server on app startup
     this.fetchFromCentralServer(true);
 
-    // Periodic check every 120 seconds (2 minutes) when tab is visible for changes made on other devices
-    // Prevents frequent 15-second polling noise on Vercel Serverless Functions while keeping cross-device sync active
+    // Periodic lightweight version check every 8 seconds when tab is visible
     setInterval(() => {
       if (typeof document !== 'undefined' && document.visibilityState === 'hidden') return;
       if (typeof navigator !== 'undefined' && navigator.onLine === false) return;
       this.checkServerVersionAndUpdate();
-    }, 120000);
+    }, 8000);
 
     // Lightweight version check when user switches back to this tab/window, unlocks phone, or closes a file dialog
-    // Only downloads full /api/court-db if server version actually changed on another device
     window.addEventListener('focus', () => {
       this.checkServerVersionAndUpdate();
     });
@@ -4007,6 +4005,7 @@ class CourtDatabaseEngine {
 
     window.addEventListener('online', () => {
       this.fetchHighPrioritySection('jadwal-sidang');
+      this.checkServerVersionAndUpdate();
     });
 
     document.addEventListener('visibilitychange', () => {
@@ -4034,9 +4033,9 @@ class CourtDatabaseEngine {
   private async checkServerVersionAndUpdate() {
     if (typeof window === 'undefined') return;
     if (this.isVersionCheckInFlight || this.isBackgroundRevalidating) return;
-    // Enforce minimum 20-second cooldown between version checks so focus/pageshow/visibilitychange/interval don't spam Vercel
+    // Enforce minimum 3-second cooldown between version checks
     const now = Date.now();
-    if (now - this.lastVersionCheckTime < 20000 || now - this.lastCentralFetchTime < 15000) {
+    if (now - this.lastVersionCheckTime < 3000 || now - this.lastCentralFetchTime < 3000) {
       return;
     }
     // Self-heal stale dirty flag if more than 5 seconds have elapsed since last local write
