@@ -4647,6 +4647,13 @@ class CourtDatabaseEngine {
     this.savePersonnelStorage(updated);
     this.addAuditLog('CREATE', 'PERSONEL', `Menambahkan data personel baru: ${newItem.nama} (${newItem.jabatan})`);
     this.notify(STORAGE_KEYS.PERSONNEL, updated);
+
+    if (typeof window !== 'undefined') {
+      import('../services/firestoreSync').then(({ syncPersonnelToFirestore }) => {
+        syncPersonnelToFirestore(newItem).catch(err => console.warn('[Firestore] Sync add personnel warning:', err));
+      }).catch(() => {});
+    }
+
     return newItem;
   }
 
@@ -4721,6 +4728,13 @@ class CourtDatabaseEngine {
           this.savePersonnelStorage(updated);
           this.addAuditLog('CREATE', 'PERSONEL', `Menambahkan data personel: ${newItem.nama} (${newItem.jabatan})`);
           this.notify(STORAGE_KEYS.PERSONNEL, updated);
+
+          if (typeof window !== 'undefined') {
+            import('../services/firestoreSync').then(({ syncPersonnelToFirestore }) => {
+              syncPersonnelToFirestore(newItem).catch(err => console.warn('[Firestore] Sync add fallback warning:', err));
+            }).catch(() => {});
+          }
+
           return true;
         }
         return false;
@@ -4737,6 +4751,14 @@ class CourtDatabaseEngine {
       this.savePersonnelStorage(personnel);
       this.addAuditLog('UPDATE', 'PERSONEL', `Memperbarui data & foto personel: ${personnel[idx].nama}`);
       this.notify(STORAGE_KEYS.PERSONNEL, personnel);
+
+      if (typeof window !== 'undefined') {
+        const updatedItem = personnel[idx];
+        import('../services/firestoreSync').then(({ syncPersonnelToFirestore }) => {
+          syncPersonnelToFirestore(updatedItem).catch(err => console.warn('[Firestore] Sync update personnel warning:', err));
+        }).catch(() => {});
+      }
+
       return true;
     } catch (e) {
       console.error("Database error in updatePersonnel:", e);
@@ -4761,6 +4783,13 @@ class CourtDatabaseEngine {
     this.savePersonnelStorage(filtered);
     this.addAuditLog('DELETE', 'PERSONEL', `Menghapus personel: ${target.nama}`);
     this.notify(STORAGE_KEYS.PERSONNEL, filtered);
+
+    if (typeof window !== 'undefined') {
+      import('../services/firestoreSync').then(({ deletePersonnelFromFirestore }) => {
+        deletePersonnelFromFirestore(target.id).catch(err => console.warn('[Firestore] Sync delete warning:', err));
+      }).catch(() => {});
+    }
+
     return true;
   }
 

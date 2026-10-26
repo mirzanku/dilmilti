@@ -305,6 +305,7 @@ export default function MenuContentEditModal({
       case 'lp6': return { section: 'publik', subTab: 'pengaduan' };
       case 'lp7': return { section: 'publik', subTab: 'survei' };
       case 'lp8': return { section: 'publik', subTab: 'ebrosur' };
+      case 'lp_tatatertib': return { section: 'publik', subTab: 'tatatertib' };
       case 'lh1': return { section: 'hukum', subTab: 'posbakum' };
       case 'lh2': return { section: 'hukum', subTab: 'alur-banding' };
       case 'lh3': return { section: 'hukum', subTab: 'alur-tun' };

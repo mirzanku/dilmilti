@@ -3,10 +3,14 @@ import {
   doc,
   getDoc,
   setDoc,
+  deleteDoc,
+  collection,
+  getDocs,
   onSnapshot,
   getDocFromServer
 } from 'firebase/firestore';
 import { CourtDB, STORAGE_KEYS } from '../data/courtDatabase';
+import { PersonnelItem } from '../types';
 
 export enum OperationType {
   CREATE = 'create',
@@ -42,7 +46,7 @@ function getTodayString(): string {
   try {
     return new Date().toISOString().split('T')[0];
   } catch {
-    return '2026-10-22';
+    return new Date().toDateString();
   }
 }
 
@@ -51,8 +55,8 @@ export function checkIsQuotaExceeded(): boolean {
   try {
     const today = getTodayString();
     const stored = localStorage.getItem(QUOTA_EXHAUSTED_KEY);
-    // If today is recorded as exhausted, return true
-    return stored === today || stored === '2026-10-22';
+    // Only return true if today explicitly had a quota exhaustion error from Firestore
+    return stored === today;
   } catch {
     return false;
   }
@@ -194,9 +198,80 @@ export function getAllLocalEntries(): Record<string, any> {
 }
 
 /**
+ * Synchronizes a single personnel document to Firestore /personnel/{personnelId}
+ * Ensures that employee profile details and photo URLs are stored in the database.
+ */
+export async function syncPersonnelToFirestore(item: PersonnelItem): Promise<boolean> {
+  if (typeof window === 'undefined' || getIsQuotaExceeded() || !item || !item.id) return false;
+  try {
+    const personRef = doc(db, 'personnel', item.id);
+    await setDoc(personRef, {
+      id: item.id,
+      no: item.no,
+      nama: item.nama || '',
+      nipNrp: item.nipNrp || '',
+      pangkatGol: item.pangkatGol || '',
+      jabatan: item.jabatan || '',
+      kategori: item.kategori || 'Kesekretariatan',
+      isMutasiMasuk: Boolean(item.isMutasiMasuk),
+      matra: item.matra || 'ASN MA-RI',
+      pendidikan: item.pendidikan || '',
+      riwayatSingkat: item.riwayatSingkat || '',
+      fotoUrl: item.fotoUrl || '',
+      lastUpdated: new Date().toISOString()
+    }, { merge: true });
+    console.log(`[Firestore] Successfully saved personnel profile photo & details to database: ${item.nama} (${item.id})`);
+    return true;
+  } catch (err: any) {
+    const msg = err instanceof Error ? err.message : String(err);
+    if (msg.includes('Quota exceeded') || msg.includes('resource-exhausted')) {
+      markQuotaExceeded();
+      isQuotaExceeded = true;
+      notifySyncStatus('quota_paused');
+      return false;
+    }
+    handleFirestoreError(err, OperationType.WRITE, `personnel/${item.id}`);
+    return false;
+  }
+}
+
+/**
+ * Deletes a personnel document from Firestore /personnel/{personnelId}
+ */
+export async function deletePersonnelFromFirestore(id: string): Promise<boolean> {
+  if (typeof window === 'undefined' || getIsQuotaExceeded() || !id) return false;
+  try {
+    const personRef = doc(db, 'personnel', id);
+    await deleteDoc(personRef);
+    console.log(`[Firestore] Successfully deleted personnel from database: ${id}`);
+    return true;
+  } catch (err: any) {
+    handleFirestoreError(err, OperationType.DELETE, `personnel/${id}`);
+    return false;
+  }
+}
+
+/**
+ * Synchronizes all personnel items to Firestore /personnel/{personnelId}
+ */
+export async function syncAllPersonnelToFirestore(items: PersonnelItem[]): Promise<boolean> {
+  if (typeof window === 'undefined' || getIsQuotaExceeded() || !Array.isArray(items)) return false;
+  try {
+    for (const item of items) {
+      if (!item || !item.id) continue;
+      await syncPersonnelToFirestore(item);
+    }
+    return true;
+  } catch (err) {
+    console.warn('[Firestore] Error syncing all personnel:', err);
+    return false;
+  }
+}
+
+/**
  * Hydrates database from Firestore on app startup.
  * If data exists in Firestore, populates localStorage and triggers UI refresh.
- * If quota is exhausted or offline, falls back safely to local database without crashing.
+ * Also hydrates the individual /personnel collection to guarantee profile photos are always restored.
  */
 export async function hydrateFromFirestore(): Promise<{ success: boolean; source: 'cloud' | 'seeded' | 'local_fallback' | 'error' }> {
   if (typeof window === 'undefined') return { success: false, source: 'error' };
@@ -207,57 +282,94 @@ export async function hydrateFromFirestore(): Promise<{ success: boolean; source
 
   try {
     notifySyncStatus('syncing');
-    const centralDocRef = doc(db, 'central_db', 'dilmilti5_central_db');
-    let centralDocSnap;
+    let hasChanges = false;
 
+    // 1. Fetch centralized database snapshot
+    const centralDocRef = doc(db, 'central_db', 'dilmilti5_central_db');
     try {
-      centralDocSnap = await getDoc(centralDocRef);
+      const centralDocSnap = await getDoc(centralDocRef);
+      if (centralDocSnap && centralDocSnap.exists()) {
+        const cloudData = centralDocSnap.data();
+        const entries = cloudData?.data;
+
+        if (entries && typeof entries === 'object' && Object.keys(entries).length > 0) {
+          Object.entries(entries).forEach(([key, val]) => {
+            if (!key.startsWith('dilmilti5_')) return;
+            if (key === STORAGE_KEYS.CURRENT_USER) return;
+
+            const strVal = typeof val === 'string' ? val : JSON.stringify(val);
+            const currentLocal = localStorage.getItem(key);
+
+            if (currentLocal !== strVal) {
+              localStorage.setItem(key, strVal);
+              hasChanges = true;
+            }
+          });
+        }
+      }
     } catch (err: any) {
       const msg = err instanceof Error ? err.message : String(err);
       if (msg.includes('Quota exceeded') || msg.includes('resource-exhausted') || msg.includes('Quota limit exceeded')) {
         markQuotaExceeded();
         isQuotaExceeded = true;
         notifySyncStatus('quota_paused');
-        console.warn('[Firestore] Quota limit reached during hydration. Falling back to local court database.');
         return { success: true, source: 'local_fallback' };
       }
-      handleFirestoreError(err, OperationType.GET, 'central_db/dilmilti5_central_db');
-      return { success: false, source: 'error' };
+      console.warn('[Firestore] Central DB fetch notice:', msg);
     }
 
-    if (centralDocSnap && centralDocSnap.exists()) {
-      const cloudData = centralDocSnap.data();
-      const entries = cloudData?.data;
-
-      if (entries && typeof entries === 'object' && Object.keys(entries).length > 0) {
-        let hasChanges = false;
-
-        Object.entries(entries).forEach(([key, val]) => {
-          if (!key.startsWith('dilmilti5_')) return;
-          if (key === STORAGE_KEYS.CURRENT_USER) return;
-
-          const strVal = typeof val === 'string' ? val : JSON.stringify(val);
-          const currentLocal = localStorage.getItem(key);
-
-          if (currentLocal !== strVal) {
-            localStorage.setItem(key, strVal);
-            hasChanges = true;
+    // 2. Fetch all personnel profiles directly from Firestore /personnel collection
+    try {
+      const persSnapshot = await getDocs(collection(db, 'personnel'));
+      if (persSnapshot && !persSnapshot.empty) {
+        const cloudPersonnelMap = new Map<string, PersonnelItem>();
+        persSnapshot.forEach(docSnap => {
+          const p = docSnap.data() as PersonnelItem;
+          if (p && p.id) {
+            cloudPersonnelMap.set(p.id, p);
           }
         });
 
-        if (hasChanges) {
-          // Explicitly tag event with source: 'cloud' to prevent echo loop back to Firestore
-          window.dispatchEvent(new CustomEvent('dilmilti_db_updated', { detail: { source: 'cloud' } }));
-        }
+        if (cloudPersonnelMap.size > 0) {
+          const localPersonnelRaw = localStorage.getItem(STORAGE_KEYS.PERSONNEL);
+          let localPersonnel: PersonnelItem[] = [];
+          try {
+            localPersonnel = localPersonnelRaw ? JSON.parse(localPersonnelRaw) : [];
+          } catch {}
 
-        notifySyncStatus('synced');
-        console.log('Successfully hydrated court database from Firestore cloud.');
-        return { success: true, source: 'cloud' };
+          const mergedPersonnel = [...localPersonnel];
+          cloudPersonnelMap.forEach((cloudPerson, id) => {
+            const idx = mergedPersonnel.findIndex(p => p.id === id);
+            if (idx !== -1) {
+              // If cloud has a valid fotoUrl or newer fields, merge them
+              mergedPersonnel[idx] = {
+                ...mergedPersonnel[idx],
+                ...cloudPerson,
+                fotoUrl: cloudPerson.fotoUrl || mergedPersonnel[idx].fotoUrl
+              };
+            } else {
+              mergedPersonnel.push(cloudPerson);
+            }
+          });
+
+          const newStr = JSON.stringify(mergedPersonnel);
+          if (localPersonnelRaw !== newStr) {
+            localStorage.setItem(STORAGE_KEYS.PERSONNEL, newStr);
+            hasChanges = true;
+            console.log(`[Firestore] Hydrated ${cloudPersonnelMap.size} personnel profile records from database collection.`);
+          }
+        }
       }
+    } catch (err: any) {
+      console.warn('[Firestore] Personnel collection fetch notice:', err?.message || err);
     }
 
-    notifySyncStatus('connected');
-    return { success: true, source: 'seeded' };
+    if (hasChanges) {
+      window.dispatchEvent(new CustomEvent('dilmilti_db_updated', { detail: { source: 'cloud' } }));
+    }
+
+    notifySyncStatus('synced');
+    return { success: true, source: 'cloud' };
   } catch (error) {
     console.warn('[Firestore] Hydration notice:', error);
     notifySyncStatus('connected');
@@ -266,16 +378,13 @@ export async function hydrateFromFirestore(): Promise<{ success: boolean; source
 }
 
 /**
- * Pushes full database snapshot to Firestore.
- * Highly quota-efficient: utilizes exactly 1 document write (central_db/dilmilti5_central_db)
- * and throttles requests to at most once per 10 seconds.
+ * Pushes full database snapshot to Firestore central_db and also syncs all personnel.
  */
 export async function pushAllToFirestore(): Promise<void> {
   if (typeof window === 'undefined' || getIsQuotaExceeded()) return;
 
   const now = Date.now();
-  // Throttle to at most 1 cloud write every 10 seconds to conserve free daily quota
-  if (now - lastCloudWriteTime < 10000) {
+  if (now - lastCloudWriteTime < 8000) {
     return;
   }
   lastCloudWriteTime = now;
@@ -287,6 +396,7 @@ export async function pushAllToFirestore(): Promise<void> {
     const version = CourtDB.serverVersion || Date.now();
     const nowIso = new Date().toISOString();
 
+    // 1. Save central document
     const centralDocRef = doc(db, 'central_db', 'dilmilti5_central_db');
     try {
       await setDoc(centralDocRef, {
@@ -296,7 +406,7 @@ export async function pushAllToFirestore(): Promise<void> {
         data: allData
       });
       notifySyncStatus('synced');
-      console.log('Synchronized database snapshot to Firestore cloud (1 quota unit used).');
+      console.log('Synchronized database snapshot to Firestore cloud.');
     } catch (err: any) {
       const msg = err instanceof Error ? err.message : String(err);
       if (
@@ -310,6 +420,30 @@ export async function pushAllToFirestore(): Promise<void> {
         return;
       }
       handleFirestoreError(err, OperationType.WRITE, 'central_db/dilmilti5_central_db');
+    }
+
+    // 2. Also ensure each personnel record is saved to the /personnel collection
+    const personnel = CourtDB.getPersonnel();
+    if (Array.isArray(personnel) && personnel.length > 0) {
+      for (const p of personnel) {
+        try {
+          await setDoc(doc(db, 'personnel', p.id), {
+            id: p.id,
+            no: p.no,
+            nama: p.nama,
+            nipNrp: p.nipNrp,
+            pangkatGol: p.pangkatGol,
+            jabatan: p.jabatan,
+            kategori: p.kategori,
+            isMutasiMasuk: Boolean(p.isMutasiMasuk),
+            matra: p.matra,
+            pendidikan: p.pendidikan || '',
+            riwayatSingkat: p.riwayatSingkat || '',
+            fotoUrl: p.fotoUrl || '',
+            lastUpdated: nowIso
+          }, { merge: true });
+        } catch {}
+      }
     }
   } catch (error) {
     console.warn('Error saving to Firestore:', error);

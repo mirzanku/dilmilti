@@ -37,6 +37,7 @@ import { PersonnelItem, SatkerStructureItem, CourtIdentityData, JurisdictionCour
 import { isStaffUser } from '../utils/rbac';
 import MenuContentEditModal from './admin/MenuContentEditModal';
 import { syncRouteToUrl } from '../utils/urlRouter';
+import OfficerProfileImage from './OfficerProfileImage';
 
 interface TentangProps {
   initialSubTab?: string;
@@ -1962,14 +1963,11 @@ export default function TentangPengadilanSection({ initialSubTab = 'sambutan', o
                 className="bg-gradient-to-br from-white via-amber-50/20 to-emerald-50/10 p-6 rounded-2xl border-2 border-amber-400/60 hover:border-amber-500 transition-all space-y-4 shadow-md"
               >
                 <div className="flex flex-col sm:flex-row items-center sm:items-start gap-5">
-                  <div className="w-32 h-44 sm:w-36 sm:h-48 rounded-2xl p-1 bg-gradient-to-b from-amber-400 via-emerald-700 to-[#062416] shadow-lg shrink-0">
-                    <img
-                      src={getFreshImageUrl(item.fotoUrl)}
+                  <div className="w-32 h-44 sm:w-36 sm:h-48 rounded-2xl p-1 bg-gradient-to-b from-amber-400 via-emerald-700 to-[#062416] shadow-lg shrink-0 overflow-hidden">
+                    <OfficerProfileImage
+                      src={item.fotoUrl}
                       alt={item.nama}
-                      onError={(e) => handleImageFallback(e, DEFAULT_OFFICIAL_AVATAR)}
-                      loading="lazy"
-                      decoding="async"
-                      className="w-full h-full rounded-xl object-cover object-top bg-slate-100"
+                      className="w-full h-full rounded-xl object-cover object-top"
                     />
                   </div>
                   <div className="text-center sm:text-left">
@@ -2063,14 +2061,11 @@ export default function TentangPengadilanSection({ initialSubTab = 'sambutan', o
                 className="bg-gradient-to-br from-white via-emerald-50/30 to-teal-50/10 p-6 rounded-2xl border-2 border-emerald-800/30 hover:border-emerald-600 transition-all space-y-4 shadow-md"
               >
                 <div className="flex flex-col sm:flex-row items-center sm:items-start gap-5">
-                  <div className="w-32 h-44 sm:w-36 sm:h-48 rounded-2xl p-1 bg-gradient-to-b from-emerald-600 via-[#0D4A2B] to-[#062416] shadow-lg shrink-0">
-                    <img
-                      src={getFreshImageUrl(item.fotoUrl)}
+                  <div className="w-32 h-44 sm:w-36 sm:h-48 rounded-2xl p-1 bg-gradient-to-b from-emerald-600 via-[#0D4A2B] to-[#062416] shadow-lg shrink-0 overflow-hidden">
+                    <OfficerProfileImage
+                      src={item.fotoUrl}
                       alt={item.nama}
-                      onError={(e) => handleImageFallback(e, DEFAULT_OFFICIAL_AVATAR)}
-                      loading="lazy"
-                      decoding="async"
-                      className="w-full h-full rounded-xl object-cover object-top bg-slate-100"
+                      className="w-full h-full rounded-xl object-cover object-top"
                     />
                   </div>
                   <div className="text-center sm:text-left">
@@ -2249,13 +2244,10 @@ export default function TentangPengadilanSection({ initialSubTab = 'sambutan', o
                   {/* Large Official Portrait Frame */}
                   <div className="relative shrink-0">
                     <div className="w-32 h-44 sm:w-36 sm:h-48 rounded-2xl p-1 bg-gradient-to-b from-amber-400 via-[#0D4A2B] to-[#051F12] shadow-lg group-hover:shadow-amber-500/20 transition-all overflow-hidden">
-                      <img
-                        src={getFreshImageUrl(p.fotoUrl)}
+                      <OfficerProfileImage
+                        src={p.fotoUrl}
                         alt={p.nama}
-                        onError={(e) => handleImageFallback(e, DEFAULT_OFFICIAL_AVATAR)}
-                        loading="lazy"
-                        decoding="async"
-                        className="w-full h-full rounded-xl object-cover object-top bg-slate-200 group-hover:scale-105 transition-transform duration-500"
+                        className="w-full h-full rounded-xl object-cover object-top group-hover:scale-105 transition-transform duration-500"
                       />
                     </div>
                     {isAdminOrStaff && (
@@ -2412,13 +2404,11 @@ export default function TentangPengadilanSection({ initialSubTab = 'sambutan', o
               {/* Photo & Core Bio Card (Enlarged Portrait, No NRP/NIP) */}
               <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 p-5 bg-gradient-to-br from-slate-50 via-white to-emerald-50/40 rounded-2xl border-2 border-emerald-900/15 shadow-inner">
                 <div className="flex flex-col items-center gap-2.5 shrink-0">
-                  <div className="w-44 h-56 sm:w-48 sm:h-64 rounded-2xl p-1.5 bg-gradient-to-b from-amber-400 via-[#0D4A2B] to-[#041C11] shadow-xl">
-                    <img
-                      src={getFreshImageUrl(selectedPersonnel.fotoUrl)}
+                  <div className="w-44 h-56 sm:w-48 sm:h-64 rounded-2xl p-1.5 bg-gradient-to-b from-amber-400 via-[#0D4A2B] to-[#041C11] shadow-xl overflow-hidden">
+                    <OfficerProfileImage
+                      src={selectedPersonnel.fotoUrl}
                       alt={selectedPersonnel.nama}
-                      onError={(e) => handleImageFallback(e, DEFAULT_OFFICIAL_AVATAR)}
-                      decoding="async"
-                      className="w-full h-full rounded-xl object-cover object-top bg-slate-200"
+                      className="w-full h-full rounded-xl object-cover object-top"
                     />
                   </div>
                   {isAdminOrStaff && (

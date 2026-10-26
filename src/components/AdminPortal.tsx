@@ -61,7 +61,7 @@ import ECourtSection from './ECourtSection';
 import MenuContentEditModal from './admin/MenuContentEditModal';
 import { CourtDB } from '../data/courtDatabase';
 import { SyncStatusIndicator } from './SyncStatusIndicator';
-import { pushAllToFirestore, hydrateFromFirestore } from '../services/firestoreSync';
+import { pushAllToFirestore, hydrateFromFirestore, syncPersonnelToFirestore, deletePersonnelFromFirestore } from '../services/firestoreSync';
 import { sendWhatsAppMessage } from '../utils/whatsappHelper';
 import { compressImage, getFreshImageUrl, handleImageFallback, DEFAULT_OFFICIAL_AVATAR, logoTransparent, logoHijau } from '../utils/imageHelper';
 
@@ -1267,7 +1267,9 @@ try {
         showToast(`Tautan resmi ${selectedItem.name} berhasil dihapus.`);
       } else if (modalTargetModule === 'personel') {
         CourtDB.deletePersonnel(selectedItem.id);
-        showToast(`Personel ${selectedItem.nama} berhasil dihapus.`);
+        deletePersonnelFromFirestore(selectedItem.id).catch(() => {});
+        setPersonnelList(CourtDB.getPersonnel());
+        showToast(`Personel ${selectedItem.nama} berhasil dihapus dari database.`);
       } else if (modalTargetModule === 'berita') {
         CourtDB.deleteNews(selectedItem.id);
         showToast('Berita berhasil dihapus.');
@@ -1364,7 +1366,7 @@ try {
       }
 
       if (modalType === 'create') {
-        CourtDB.addPersonnel({
+        const created = CourtDB.addPersonnel({
           nama: persNama.trim(),
           nipNrp: persNipNrp.trim() || '-',
           pangkatGol: persPangkat.trim() || '-',
@@ -1376,7 +1378,9 @@ try {
           riwayatSingkat: persRiwayat.trim(),
           fotoUrl: finalPhoto || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&auto=format&fit=crop&q=80'
         });
-        showToast(`Personel baru ${persNama} berhasil ditambahkan ke database!`);
+        syncPersonnelToFirestore(created).catch(() => {});
+        setPersonnelList(CourtDB.getPersonnel());
+        showToast(`Personel baru ${persNama} berhasil ditambahkan dan disimpan ke database!`);
       } else if (modalType === 'edit' && selectedItem) {
         const updatePayload = {
           nama: persNama.trim(),
@@ -1392,7 +1396,10 @@ try {
         };
         const success = CourtDB.updatePersonnel(selectedItem.id, updatePayload);
         if (success) {
-          showToast(`Data personel "${persNama}" berhasil diperbarui dan disimpan ke database!`);
+          const freshItem = CourtDB.getPersonnel().find(p => p.id === selectedItem.id) || { ...selectedItem, ...updatePayload };
+          syncPersonnelToFirestore(freshItem).catch(() => {});
+          setPersonnelList(CourtDB.getPersonnel());
+          showToast(`Data personel & foto "${persNama}" berhasil diperbarui dan disimpan ke database!`);
         } else {
           showToast(`Gagal menyimpan perubahan data personel ${persNama}`, 'error');
         }

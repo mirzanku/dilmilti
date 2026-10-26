@@ -86,6 +86,8 @@ export default function LayananPublikSection({ onNavigateToPTSPInovasi, onNaviga
   const menuLp6 = allMenus.find(m => m.id === 'lp6') || CourtDB.getMenuContentById('lp6');
   const menuLp7 = allMenus.find(m => m.id === 'lp7') || CourtDB.getMenuContentById('lp7');
   const menuLp8 = allMenus.find(m => m.id === 'lp8') || CourtDB.getMenuContentById('lp8');
+  const menuTatatertib = allMenus.find(m => m.id === 'lp_tatatertib') || allMenus.find(m => m.id === 'lh6') || CourtDB.getMenuContentById('lh6');
+  const tatatertibMenuId = menuTatatertib?.id || 'lh6';
 
   const [isMenuModalOpen, setIsMenuModalOpen] = useState(false);
   const [editingMenuId, setEditingMenuId] = useState<string | null>(null);
@@ -165,7 +167,7 @@ Dokumen ini diterbitkan secara sah oleh Sistem Informasi Layanan Publik Pengadil
       case 'layanan-disabilitas':
       case 'fasilitas-disabilitas':
       case 'sarpras': menuId = 'lp4'; break;
-      case 'tatatertib': menuId = 'lp_tatatertib'; break;
+      case 'tatatertib': menuId = tatatertibMenuId; break;
       case 'laporan':
       case 'statistik-perkara':
       case 'sakip':
@@ -658,20 +660,20 @@ Dokumen ini diterbitkan secara sah oleh Sistem Informasi Layanan Publik Pengadil
           <div className="flex items-center justify-between pb-3 border-b border-slate-100">
             <div>
               <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-900 uppercase tracking-wider">
-                STANDAR PERADILAN MILITER
+                {menuTatatertib?.dasarHukum || 'STANDAR PERADILAN MILITER'}
               </span>
               <h3 className="text-sm font-black text-slate-900 uppercase tracking-wide flex items-center gap-2 mt-1">
                 <ShieldCheck className="w-4 h-4 text-amber-700" />
-                <span>Tata Tertib Gedung & Persidangan Pengadilan Militer Tinggi V Makassar</span>
+                <span>{menuTatatertib?.judul || 'Tata Tertib Gedung & Persidangan Pengadilan Militer Tinggi V Makassar'}</span>
               </h3>
               <p className="text-xs text-slate-500 mt-0.5">
-                Berdasarkan Undang-Undang Republik Indonesia Nomor 31 Tahun 1997 tentang Peradilan Militer dan Keputusan Mahkamah Agung RI
+                {menuTatatertib?.subJudul || 'Berdasarkan Undang-Undang Republik Indonesia Nomor 31 Tahun 1997 tentang Peradilan Militer dan Keputusan Mahkamah Agung RI'}
               </p>
             </div>
             {isAdminOrStaff && (
               <button
                 type="button"
-                onClick={() => { setEditingMenuId('lp_tatatertib'); setIsMenuModalOpen(true); }}
+                onClick={() => { setEditingMenuId(tatatertibMenuId); setIsMenuModalOpen(true); }}
                 className="px-3 py-1.5 bg-amber-400 hover:bg-amber-300 text-slate-950 rounded-xl text-xs font-bold flex items-center gap-1.5 cursor-pointer shadow-xs transition-colors shrink-0"
               >
                 <Edit3 className="w-3.5 h-3.5" />

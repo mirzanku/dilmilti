@@ -16,10 +16,32 @@ import { searchRegulatoryDatabase } from './src/data/regulatoryDatabase';
 const PORT = 3000;
 const DB_DIR = path.join(process.cwd(), 'data');
 const DB_FILE = path.join(DB_DIR, 'court_db.json');
+const MEDIA_FILE = path.join(DB_DIR, 'court_media.json');
 
 // Ensure data directory exists
 if (!fs.existsSync(DB_DIR)) {
   fs.mkdirSync(DB_DIR, { recursive: true });
+}
+
+// Persistent media dictionary to guarantee uploaded profile photos and assets never vanish
+let persistentMedia: Record<string, { contentType: string; dataUrl: string; filename?: string }> = {};
+
+if (fs.existsSync(MEDIA_FILE)) {
+  try {
+    const raw = fs.readFileSync(MEDIA_FILE, 'utf-8');
+    persistentMedia = JSON.parse(raw);
+    console.log(`[Court Server] Loaded ${Object.keys(persistentMedia).length} media items from court_media.json`);
+  } catch (e) {
+    console.error('[Court Server] Error reading court_media.json:', e);
+  }
+}
+
+function saveMediaToFile() {
+  try {
+    fs.writeFileSync(MEDIA_FILE, JSON.stringify(persistentMedia, null, 2), 'utf-8');
+  } catch (e) {
+    console.error('[Court Server] Error saving court_media.json:', e);
+  }
 }
 
 interface CourtServerDbState {
@@ -1164,6 +1186,18 @@ async function startServer() {
         return res.send(item.buffer);
       }
 
+      // 1b. Check persistent court_media.json database
+      if (persistentMedia[fileId]) {
+        const item = persistentMedia[fileId];
+        const commaIdx = item.dataUrl.indexOf(',');
+        const base64Data = commaIdx !== -1 ? item.dataUrl.slice(commaIdx + 1) : item.dataUrl;
+        const buffer = Buffer.from(base64Data, 'base64');
+        serverMediaCache.set(fileId, { contentType: item.contentType, buffer, dataUrl: item.dataUrl });
+        res.setHeader('Content-Type', item.contentType);
+        res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+        return res.send(buffer);
+      }
+
       // 2. Check /tmp disk cache
       const tmpPath = path.join('/tmp', `court_media_${fileId}.json`);
       if (fs.existsSync(tmpPath)) {
@@ -1298,6 +1332,10 @@ async function startServer() {
       // Cache by ID and uniqueName
       serverMediaCache.set(newFileId, { contentType, buffer, dataUrl });
       serverMediaCache.set(uniqueName, { contentType, buffer, dataUrl });
+      persistentMedia[newFileId] = { contentType, dataUrl, filename: uniqueName };
+      persistentMedia[uniqueName] = { contentType, dataUrl, filename: uniqueName };
+      saveMediaToFile();
+
       try {
         const tmpPath = path.join('/tmp', `court_media_${newFileId}.json`);
         fs.writeFileSync(tmpPath, JSON.stringify({ fileId: newFileId, contentType, dataUrl }), 'utf-8');
