@@ -384,7 +384,7 @@ export async function pushAllToFirestore(): Promise<void> {
   if (typeof window === 'undefined' || getIsQuotaExceeded()) return;
 
   const now = Date.now();
-  if (now - lastCloudWriteTime < 1000) {
+  if (now - lastCloudWriteTime < 3000) {
     return;
   }
   lastCloudWriteTime = now;
@@ -396,7 +396,7 @@ export async function pushAllToFirestore(): Promise<void> {
     const version = CourtDB.serverVersion || Date.now();
     const nowIso = new Date().toISOString();
 
-    // 1. Save central document
+    // Save central document snapshot (contains all keys including personnel)
     const centralDocRef = doc(db, 'central_db', 'dilmilti5_central_db');
     try {
       await setDoc(centralDocRef, {
@@ -406,7 +406,7 @@ export async function pushAllToFirestore(): Promise<void> {
         data: allData
       });
       notifySyncStatus('synced');
-      console.log('Synchronized database snapshot to Firestore cloud.');
+      console.log('[Firestore] Synchronized database snapshot to cloud.');
     } catch (err: any) {
       const msg = err instanceof Error ? err.message : String(err);
       if (
@@ -417,48 +417,32 @@ export async function pushAllToFirestore(): Promise<void> {
         markQuotaExceeded();
         isQuotaExceeded = true;
         notifySyncStatus('quota_paused');
+        console.warn('[Firestore] Quota limit reached on push. Switching to local resilient database mode.');
         return;
       }
       handleFirestoreError(err, OperationType.WRITE, 'central_db/dilmilti5_central_db');
     }
-
-    // 2. Also ensure each personnel record is saved to the /personnel collection
-    const personnel = CourtDB.getPersonnel();
-    if (Array.isArray(personnel) && personnel.length > 0) {
-      for (const p of personnel) {
-        try {
-          await setDoc(doc(db, 'personnel', p.id), {
-            id: p.id,
-            no: p.no,
-            nama: p.nama,
-            nipNrp: p.nipNrp,
-            pangkatGol: p.pangkatGol,
-            jabatan: p.jabatan,
-            kategori: p.kategori,
-            isMutasiMasuk: Boolean(p.isMutasiMasuk),
-            matra: p.matra,
-            pendidikan: p.pendidikan || '',
-            riwayatSingkat: p.riwayatSingkat || '',
-            fotoUrl: p.fotoUrl || '',
-            lastUpdated: nowIso
-          }, { merge: true });
-        } catch {}
-      }
-    }
   } catch (error) {
-    console.warn('Error saving to Firestore:', error);
+    console.warn('[Firestore] Notice saving snapshot:', error);
     notifySyncStatus('connected');
   }
 }
 
 /**
  * Subscribes to real-time updates from Firestore to enable live sync across devices.
- * Automatically pauses if daily quota is reached.
+ * Automatically pauses and unsubscribes if daily free quota is reached.
  */
 export function subscribeToFirestoreChanges(): () => void {
   if (typeof window === 'undefined' || getIsQuotaExceeded()) return () => {};
 
   const unsubscribes: (() => void)[] = [];
+
+  const cleanupSubscriptions = () => {
+    unsubscribes.forEach(unsub => {
+      try { unsub(); } catch {}
+    });
+    unsubscribes.length = 0;
+  };
 
   try {
     // 1. Listen to central database snapshot
@@ -466,7 +450,6 @@ export function subscribeToFirestoreChanges(): () => void {
     const unsubCentral = onSnapshot(
       centralDocRef,
       (snapshot) => {
-        // Skip local write echoes originating from this specific client instance
         if (snapshot.metadata.hasPendingWrites) return;
 
         if (snapshot.exists()) {
@@ -489,7 +472,7 @@ export function subscribeToFirestoreChanges(): () => void {
             });
 
             if (changed) {
-              console.log('[Firestore] Real-time remote central update received from cloud.');
+              console.log('[Firestore] Real-time remote central update received.');
               window.dispatchEvent(new CustomEvent('dilmilti_db_updated', { detail: { source: 'cloud' } }));
               notifySyncStatus('synced');
             }
@@ -507,7 +490,7 @@ export function subscribeToFirestoreChanges(): () => void {
           isQuotaExceeded = true;
           notifySyncStatus('quota_paused');
           console.warn('[Firestore] Real-time subscription paused: daily quota limit reached.');
-          return;
+          cleanupSubscriptions();
         }
       }
     );
@@ -553,19 +536,30 @@ export function subscribeToFirestoreChanges(): () => void {
 
           if (changed) {
             localStorage.setItem(STORAGE_KEYS.PERSONNEL, JSON.stringify(mergedList));
-            console.log('[Firestore] Real-time personnel update received from another device.');
+            console.log('[Firestore] Real-time personnel update received.');
             window.dispatchEvent(new CustomEvent('dilmilti_db_updated', { detail: { source: 'cloud' } }));
             notifySyncStatus('synced');
           }
         }
       },
-      () => {}
+      (error) => {
+        const msg = error instanceof Error ? error.message : String(error);
+        if (
+          msg.includes('Quota exceeded') ||
+          msg.includes('resource-exhausted') ||
+          msg.includes('Quota limit exceeded')
+        ) {
+          markQuotaExceeded();
+          isQuotaExceeded = true;
+          notifySyncStatus('quota_paused');
+          console.warn('[Firestore] Personnel subscription paused: daily quota limit reached.');
+          cleanupSubscriptions();
+        }
+      }
     );
     unsubscribes.push(unsubPersonnel);
 
-    return () => {
-      unsubscribes.forEach(unsub => unsub());
-    };
+    return cleanupSubscriptions;
   } catch (err) {
     console.warn('[Firestore] Could not start snapshot listeners:', err);
     return () => {};
