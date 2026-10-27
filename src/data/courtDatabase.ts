@@ -2310,13 +2310,68 @@ const COURT_SYNC_WORKER_SOURCE = `
           if (k === 'dilmilti5_court_identity') {
             const localTs = localVal.lastUpdated || 0;
             const serverTsIdentity = serverVal.lastUpdated || 0;
+            const localKadilmil = (localVal.fotoKadilmil && !localVal.fotoKadilmil.includes('unsplash.com')) ? localVal.fotoKadilmil : null;
+            const serverKadilmil = (serverVal.fotoKadilmil && !serverVal.fotoKadilmil.includes('unsplash.com')) ? serverVal.fotoKadilmil : null;
             mergedData[k] = {
               ...serverVal,
               ...localVal,
               logoUrl: (localVal.logoUrl && localVal.logoUrl !== '/images/dilmilti_v_logo_transparent.png') ? localVal.logoUrl : (serverVal.logoUrl || localVal.logoUrl),
               bannerUrl: (localVal.bannerUrl && localVal.bannerUrl !== '/images/makassar_court_banner_1789442426023.jpg') ? localVal.bannerUrl : (serverVal.bannerUrl || localVal.bannerUrl),
+              fotoKadilmil: localKadilmil || serverKadilmil || localVal.fotoKadilmil || serverVal.fotoKadilmil,
               lastUpdated: Math.max(localTs, serverTsIdentity, Date.now())
             };
+          } else if (k === 'dilmilti5_menu_contents' && Array.isArray(serverVal)) {
+            if (Array.isArray(localVal)) {
+              const localMap = new Map();
+              localVal.forEach(item => { if (item && item.id) localMap.set(item.id, item); });
+              const mergedMenus = serverVal.map(sm => {
+                const lm = localMap.get(sm.id);
+                if (!lm) return sm;
+                return {
+                  ...sm,
+                  ...lm,
+                  customFields: { ...(sm.customFields || {}), ...(lm.customFields || {}) }
+                };
+              });
+              localVal.forEach(item => {
+                if (item && item.id && !serverVal.some(s => s.id === item.id)) {
+                  mergedMenus.push(item);
+                }
+              });
+              mergedData[k] = mergedMenus;
+            } else {
+              mergedData[k] = serverVal;
+            }
+          } else if (k === 'dilmilti5_personnel' && Array.isArray(serverVal)) {
+            if (Array.isArray(localVal)) {
+              const localMap = new Map();
+              localVal.forEach(p => {
+                if (p && p.id) localMap.set(p.id, p);
+                if (p && p.nama) localMap.set(p.nama.trim().toLowerCase(), p);
+              });
+              const mergedPers = serverVal.map(sp => {
+                const lp = localMap.get(sp.id) || (sp.nama ? localMap.get(sp.nama.trim().toLowerCase()) : null);
+                if (!lp) return sp;
+                const lpFoto = lp.fotoUrl && typeof lp.fotoUrl === 'string' && lp.fotoUrl.trim() ? lp.fotoUrl.trim() : '';
+                const spFoto = sp.fotoUrl && typeof sp.fotoUrl === 'string' && sp.fotoUrl.trim() ? sp.fotoUrl.trim() : '';
+                const isLpCustom = lpFoto && !lpFoto.includes('unsplash.com');
+                const isSpCustom = spFoto && !spFoto.includes('unsplash.com');
+                const finalFoto = isLpCustom ? lpFoto : (isSpCustom ? spFoto : (lpFoto || spFoto));
+                return {
+                  ...sp,
+                  ...lp,
+                  fotoUrl: finalFoto
+                };
+              });
+              localVal.forEach(p => {
+                if (p && p.id && !serverVal.some(s => s.id === p.id)) {
+                  mergedPers.push(p);
+                }
+              });
+              mergedData[k] = mergedPers;
+            } else {
+              mergedData[k] = serverVal;
+            }
           } else if (localVal.lastUpdated && serverVal.lastUpdated && localVal.lastUpdated > serverVal.lastUpdated) {
             mergedData[k] = localVal;
           } else {
@@ -3027,58 +3082,129 @@ class CourtDatabaseEngine {
    * Applies pre-serialized snapshot & key updates returned by the SyncManager Web Worker
    * so the main thread never blocks on large JSON.stringify calls.
    */
+  private applyMergedEntry(key: string, strVal: string): void {
+    if (!key.startsWith('dilmilti5_') || key === STORAGE_KEYS.CURRENT_USER) return;
+    if (typeof strVal !== 'string') return;
+
+    // Protection: If user made a local edit within the last 15 seconds or state is dirty, do not overwrite modified keys
+    if (this.isLocalDirty || (Date.now() - this.lastLocalWriteTime < 15000)) {
+      if (this.modifiedKeysVector.has(key)) {
+        return;
+      }
+    }
+
+    if (key === STORAGE_KEYS.COURT_IDENTITY) {
+      try {
+        const serverData = JSON.parse(strVal);
+        const localRaw = localStorage.getItem(key);
+        if (localRaw) {
+          const localData = JSON.parse(localRaw);
+          const localKadilmil = (localData.fotoKadilmil && !localData.fotoKadilmil.includes('unsplash.com')) ? localData.fotoKadilmil : null;
+          const serverKadilmil = (serverData.fotoKadilmil && !serverData.fotoKadilmil.includes('unsplash.com')) ? serverData.fotoKadilmil : null;
+          const merged = {
+            ...serverData,
+            ...localData,
+            logoUrl: (localData.logoUrl && localData.logoUrl !== '/images/dilmilti_v_logo_transparent.png') ? localData.logoUrl : (serverData.logoUrl || localData.logoUrl),
+            bannerUrl: (localData.bannerUrl && localData.bannerUrl !== '/images/makassar_court_banner_1789442426023.jpg') ? localData.bannerUrl : (serverData.bannerUrl || localData.bannerUrl),
+            fotoKadilmil: localKadilmil || serverKadilmil || localData.fotoKadilmil || serverData.fotoKadilmil,
+            lastUpdated: Math.max(localData.lastUpdated || 0, serverData.lastUpdated || 0, Date.now())
+          };
+          this.safeSetLocalStorage(key, JSON.stringify(merged));
+        } else {
+          this.safeSetLocalStorage(key, strVal);
+        }
+      } catch {
+        this.safeSetLocalStorage(key, strVal);
+      }
+    } else if (key === STORAGE_KEYS.PERSONNEL) {
+      try {
+        const serverList: PersonnelItem[] = JSON.parse(strVal);
+        const localRaw = localStorage.getItem(key);
+        if (localRaw && Array.isArray(serverList)) {
+          const localList: PersonnelItem[] = JSON.parse(localRaw);
+          const localMap = new Map<string, PersonnelItem>();
+          if (Array.isArray(localList)) {
+            localList.forEach(p => {
+              if (p && p.id) localMap.set(p.id, p);
+              if (p && p.nama) localMap.set(p.nama.trim().toLowerCase(), p);
+            });
+          }
+          const merged: PersonnelItem[] = serverList.map(sp => {
+            const lp = localMap.get(sp.id) || (sp.nama ? localMap.get(sp.nama.trim().toLowerCase()) : null);
+            if (!lp) return sp;
+            const lpFoto = lp.fotoUrl && typeof lp.fotoUrl === 'string' && lp.fotoUrl.trim() ? lp.fotoUrl.trim() : '';
+            const spFoto = sp.fotoUrl && typeof sp.fotoUrl === 'string' && sp.fotoUrl.trim() ? sp.fotoUrl.trim() : '';
+            const isLpCustom = lpFoto && !lpFoto.includes('unsplash.com');
+            const isSpCustom = spFoto && !spFoto.includes('unsplash.com');
+            const finalFoto = isLpCustom ? lpFoto : (isSpCustom ? spFoto : (lpFoto || spFoto));
+            return {
+              ...sp,
+              ...lp,
+              fotoUrl: finalFoto
+            };
+          });
+          // Retain any locally added personnel
+          if (Array.isArray(localList)) {
+            localList.forEach(lp => {
+              if (lp && lp.id && !serverList.some(sp => sp.id === lp.id)) {
+                merged.push(lp);
+              }
+            });
+          }
+          this.safeSetLocalStorage(key, JSON.stringify(merged));
+        } else {
+          this.safeSetLocalStorage(key, strVal);
+        }
+      } catch {
+        this.safeSetLocalStorage(key, strVal);
+      }
+    } else if (key === STORAGE_KEYS.MENU_CONTENTS) {
+      try {
+        const serverMenus: MenuContentItem[] = JSON.parse(strVal);
+        const localRaw = localStorage.getItem(key);
+        if (localRaw && Array.isArray(serverMenus)) {
+          const localMenus: MenuContentItem[] = JSON.parse(localRaw);
+          const localMap = new Map<string, MenuContentItem>();
+          localMenus.forEach(m => { if (m && m.id) localMap.set(m.id, m); });
+          const merged: MenuContentItem[] = serverMenus.map(sm => {
+            const lm = localMap.get(sm.id);
+            if (!lm) return sm;
+            return {
+              ...sm,
+              ...lm,
+              customFields: { ...(sm.customFields || {}), ...(lm.customFields || {}) }
+            };
+          });
+          // Retain any custom menu pages created locally
+          localMenus.forEach(lm => {
+            if (lm && lm.id && !serverMenus.some(sm => sm.id === lm.id)) {
+              merged.push(lm);
+            }
+          });
+          this.safeSetLocalStorage(key, JSON.stringify(merged));
+        } else {
+          this.safeSetLocalStorage(key, strVal);
+        }
+      } catch {
+        this.safeSetLocalStorage(key, strVal);
+      }
+    } else {
+      this.safeSetLocalStorage(key, strVal);
+    }
+  }
+
+  /**
+   * Applies pre-serialized snapshot & key updates returned by the SyncManager Web Worker
+   * so the main thread never blocks on large JSON.stringify calls.
+   */
   private applyWorkerSerializedArtifacts(result: any): boolean {
     if (typeof window === 'undefined' || !result) return false;
     let hasChanges = Boolean(result.hasChanges);
 
     if (result.changedEntries && typeof result.changedEntries === 'object') {
       Object.entries(result.changedEntries).forEach(([key, strVal]) => {
-        if (!key.startsWith('dilmilti5_') || key === STORAGE_KEYS.CURRENT_USER) return;
         if (typeof strVal === 'string') {
-          if (key === STORAGE_KEYS.COURT_IDENTITY) {
-            try {
-              const serverData = JSON.parse(strVal);
-              const localRaw = localStorage.getItem(key);
-              if (localRaw) {
-                const localData = JSON.parse(localRaw);
-                const merged = {
-                  ...serverData,
-                  ...localData,
-                  logoUrl: (localData.logoUrl && localData.logoUrl !== '/images/dilmilti_v_logo_transparent.png') ? localData.logoUrl : (serverData.logoUrl || localData.logoUrl),
-                  bannerUrl: (localData.bannerUrl && localData.bannerUrl !== '/images/makassar_court_banner_1789442426023.jpg') ? localData.bannerUrl : (serverData.bannerUrl || localData.bannerUrl),
-                  lastUpdated: Math.max(localData.lastUpdated || 0, serverData.lastUpdated || 0, Date.now())
-                };
-                this.safeSetLocalStorage(key, JSON.stringify(merged));
-              } else {
-                this.safeSetLocalStorage(key, strVal);
-              }
-            } catch {
-              this.safeSetLocalStorage(key, strVal);
-            }
-          } else if (key === STORAGE_KEYS.PERSONNEL) {
-            try {
-              const serverList: PersonnelItem[] = JSON.parse(strVal);
-              const localRaw = localStorage.getItem(key);
-              if (localRaw && Array.isArray(serverList)) {
-                const localList: PersonnelItem[] = JSON.parse(localRaw);
-                const merged = serverList.map(sp => {
-                  const lp = Array.isArray(localList) ? localList.find(l => l.id === sp.id || (l.nama && sp.nama && l.nama.toLowerCase() === sp.nama.toLowerCase())) : null;
-                  const finalFoto = (sp.fotoUrl && sp.fotoUrl.trim()) ? sp.fotoUrl.trim() : (lp?.fotoUrl || sp.fotoUrl);
-                  return {
-                    ...sp,
-                    fotoUrl: finalFoto
-                  };
-                });
-                this.safeSetLocalStorage(key, JSON.stringify(merged));
-              } else {
-                this.safeSetLocalStorage(key, strVal);
-              }
-            } catch {
-              this.safeSetLocalStorage(key, strVal);
-            }
-          } else {
-            this.safeSetLocalStorage(key, strVal);
-          }
+          this.applyMergedEntry(key, strVal);
           hasChanges = true;
         }
       });
@@ -3086,52 +3212,8 @@ class CourtDatabaseEngine {
 
     if (result.reconciledEntriesForLocal && typeof result.reconciledEntriesForLocal === 'object') {
       Object.entries(result.reconciledEntriesForLocal).forEach(([key, strVal]) => {
-        if (!key.startsWith('dilmilti5_') || key === STORAGE_KEYS.CURRENT_USER) return;
         if (typeof strVal === 'string') {
-          if (key === STORAGE_KEYS.COURT_IDENTITY) {
-            try {
-              const serverData = JSON.parse(strVal);
-              const localRaw = localStorage.getItem(key);
-              if (localRaw) {
-                const localData = JSON.parse(localRaw);
-                const merged = {
-                  ...serverData,
-                  ...localData,
-                  logoUrl: (localData.logoUrl && localData.logoUrl !== '/images/dilmilti_v_logo_transparent.png') ? localData.logoUrl : (serverData.logoUrl || localData.logoUrl),
-                  bannerUrl: (localData.bannerUrl && localData.bannerUrl !== '/images/makassar_court_banner_1789442426023.jpg') ? localData.bannerUrl : (serverData.bannerUrl || localData.bannerUrl),
-                  lastUpdated: Math.max(localData.lastUpdated || 0, serverData.lastUpdated || 0, Date.now())
-                };
-                this.safeSetLocalStorage(key, JSON.stringify(merged));
-              } else {
-                this.safeSetLocalStorage(key, strVal);
-              }
-            } catch {
-              this.safeSetLocalStorage(key, strVal);
-            }
-          } else if (key === STORAGE_KEYS.PERSONNEL) {
-            try {
-              const serverList: PersonnelItem[] = JSON.parse(strVal);
-              const localRaw = localStorage.getItem(key);
-              if (localRaw && Array.isArray(serverList)) {
-                const localList: PersonnelItem[] = JSON.parse(localRaw);
-                const merged = serverList.map(sp => {
-                  const lp = Array.isArray(localList) ? localList.find(l => l.id === sp.id || (l.nama && sp.nama && l.nama.toLowerCase() === sp.nama.toLowerCase())) : null;
-                  const finalFoto = (sp.fotoUrl && sp.fotoUrl.trim()) ? sp.fotoUrl.trim() : (lp?.fotoUrl || sp.fotoUrl);
-                  return {
-                    ...sp,
-                    fotoUrl: finalFoto
-                  };
-                });
-                this.safeSetLocalStorage(key, JSON.stringify(merged));
-              } else {
-                this.safeSetLocalStorage(key, strVal);
-              }
-            } catch {
-              this.safeSetLocalStorage(key, strVal);
-            }
-          } else {
-            this.safeSetLocalStorage(key, strVal);
-          }
+          this.applyMergedEntry(key, strVal);
           hasChanges = true;
         }
       });
@@ -4315,6 +4397,20 @@ class CourtDatabaseEngine {
 
       // 4. Notify local UI components & schedule queue-locked debounced sync
       this.notify(key, processedData);
+
+      // 5. Fire direct sync-key POST to backend so this specific key is saved to court_db.json immediately
+      if (typeof fetch !== 'undefined') {
+        fetch('/api/court-db/sync-key', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            key,
+            value: processedData,
+            version: nextVer
+          })
+        }).catch(err => console.warn('[CourtDB] Direct sync-key warning:', err));
+      }
+
       return true;
     } catch (err) {
       console.error(`[CourtDB - Atomic Transaction Error] Key: ${key}:`, err);
@@ -4645,6 +4741,7 @@ class CourtDatabaseEngine {
     const updated = [...personnel, newItem];
     this.savePersonnelStorage(updated);
     this.addAuditLog('CREATE', 'PERSONEL', `Menambahkan data personel baru: ${newItem.nama} (${newItem.jabatan})`);
+    this.syncKeyToServer(STORAGE_KEYS.PERSONNEL, updated);
     this.notify(STORAGE_KEYS.PERSONNEL, updated);
 
     if (typeof window !== 'undefined') {
@@ -4726,6 +4823,7 @@ class CourtDatabaseEngine {
           const updated = [...personnel, newItem];
           this.savePersonnelStorage(updated);
           this.addAuditLog('CREATE', 'PERSONEL', `Menambahkan data personel: ${newItem.nama} (${newItem.jabatan})`);
+          this.syncKeyToServer(STORAGE_KEYS.PERSONNEL, updated);
           this.notify(STORAGE_KEYS.PERSONNEL, updated);
 
           if (typeof window !== 'undefined') {
@@ -4749,6 +4847,7 @@ class CourtDatabaseEngine {
       };
       this.savePersonnelStorage(personnel);
       this.addAuditLog('UPDATE', 'PERSONEL', `Memperbarui data & foto personel: ${personnel[idx].nama}`);
+      this.syncKeyToServer(STORAGE_KEYS.PERSONNEL, personnel);
       this.notify(STORAGE_KEYS.PERSONNEL, personnel);
 
       if (typeof window !== 'undefined') {
@@ -4781,6 +4880,7 @@ class CourtDatabaseEngine {
     const filtered = personnel.filter((_, i) => i !== idx).map((p, index) => ({ ...p, no: index + 1 }));
     this.savePersonnelStorage(filtered);
     this.addAuditLog('DELETE', 'PERSONEL', `Menghapus personel: ${target.nama}`);
+    this.syncKeyToServer(STORAGE_KEYS.PERSONNEL, filtered);
     this.notify(STORAGE_KEYS.PERSONNEL, filtered);
 
     if (typeof window !== 'undefined') {

@@ -30,7 +30,7 @@ export function registerServiceWorker(): void {
           if (
             key.startsWith('workbox-') ||
             key.startsWith('ptsp-dilmilti5-') ||
-            (key.startsWith('dilmilti5-') && !key.endsWith('-v7'))
+            (key.startsWith('dilmilti5-') && !key.endsWith('-v8'))
           ) {
             caches.delete(key);
           }

@@ -198,57 +198,65 @@ function getResolvedDirname(): string {
  * Thread-safe, globalThis-cached MongoDB Atlas connection handler for Vercel serverless environments.
  * Prevents duplicate connection storms across warm invocations and respects Atlas M0 connection limits.
  */
+let cachedMongo = (globalThis as any).mongoose;
+if (!cachedMongo) {
+  cachedMongo = (globalThis as any).mongoose = { conn: null, promise: null };
+}
+
 async function connectToMongo(): Promise<typeof mongoose | null> {
   const mongoUri = process.env.MONGODB_URI || process.env.MONGO_URI || process.env.MONGODB_URL;
   if (!mongoUri) return null;
 
   // Reuse active connection immediately (readyState: 1 = connected)
-  if (mongoose.connection.readyState === 1) {
+  if ((mongoose.connection.readyState as number) === 1) {
     mongoState.conn = mongoose;
+    cachedMongo.conn = mongoose;
     return mongoose;
   }
 
-  // If mongoose is currently connecting (readyState: 2) and we have an in-flight promise, await it
-  if (!mongoState.promise) {
-    mongoState.promise = (async () => {
-      try {
-        const conn = await mongoose.connect(mongoUri, {
-          bufferCommands: false,
-          serverSelectionTimeoutMS: 7000,
-          connectTimeoutMS: 7000,
-          socketTimeoutMS: 25000,
-          maxPoolSize: 3,
-          minPoolSize: 0,
-          maxIdleTimeMS: 30000,
-          family: 4,
-          retryWrites: true,
-          w: 1
-        });
-        mongoState.conn = conn;
-        mongoState.lastError = null;
-        console.log('[Court API - MongoDB] Successfully established connection to MongoDB Atlas');
-        return conn;
-      } catch (err: any) {
-        mongoState.lastError = err?.message || String(err);
-        console.error('[Court API - MongoDB] Connection error:', mongoState.lastError);
-        mongoState.promise = null;
-        mongoState.conn = null;
-        return null;
-      }
-    })();
+  if (!cachedMongo.promise && !mongoState.promise) {
+    const p = mongoose.connect(mongoUri, {
+      bufferCommands: false,
+      serverSelectionTimeoutMS: 7000,
+      connectTimeoutMS: 7000,
+      socketTimeoutMS: 25000,
+      maxPoolSize: 3,
+      minPoolSize: 0,
+      maxIdleTimeMS: 30000,
+      family: 4,
+      retryWrites: true,
+      w: 1
+    }).then((m) => {
+      mongoState.conn = m;
+      cachedMongo.conn = m;
+      mongoState.lastError = null;
+      console.log('[Court API - MongoDB] Successfully established connection to MongoDB Atlas');
+      return m;
+    }).catch((err) => {
+      mongoState.lastError = err?.message || String(err);
+      console.error('[Court API - MongoDB] Connection error:', mongoState.lastError);
+      mongoState.conn = null;
+      cachedMongo.conn = null;
+      mongoState.promise = null;
+      cachedMongo.promise = null;
+      return null;
+    });
+
+    cachedMongo.promise = p;
+    mongoState.promise = p;
   }
 
   try {
-    const conn = await mongoState.promise;
+    const conn = await (cachedMongo.promise || mongoState.promise);
     if (conn && Number(mongoose.connection.readyState) === 1) {
       return conn;
     }
+    cachedMongo.promise = null;
     mongoState.promise = null;
-    mongoState.conn = null;
     return null;
   } catch {
+    cachedMongo.promise = null;
     mongoState.promise = null;
-    mongoState.conn = null;
     return null;
   }
 }
@@ -500,8 +508,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   // Route: check version (lightweight polling with 4s warm-instance TTL cache)
   if (isVersionRoute) {
+    const hasCacheBust = requestUrl.searchParams.has('_t') || requestUrl.searchParams.get('priority') === 'network-first';
     const now = Date.now();
     if (
+      !hasCacheBust &&
       mongoState.cachedDb &&
       now - mongoState.lastVersionCheckTs < 4000 &&
       mongoose.connection.readyState === 1
@@ -529,8 +539,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   // Route: GET full database
   if (req.method === 'GET') {
+    const hasCacheBust = requestUrl.searchParams.has('_t') || requestUrl.searchParams.get('priority') === 'network-first';
     const now = Date.now();
     if (
+      !hasCacheBust &&
       mongoState.cachedDb &&
       mongoState.cachedDb.data &&
       Object.keys(mongoState.cachedDb.data).length > 0 &&
@@ -638,12 +650,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           Boolean(mongo)
         );
 
-        if (mongoState.cachedDb) {
-          if (!mongoState.cachedDb.data) mongoState.cachedDb.data = {};
-          mongoState.cachedDb.data[body.key] = cleanedValue;
-          mongoState.cachedDb.version = newVer;
-          mongoState.cachedDb.lastUpdated = lastUpdated;
+        if (!mongoState.cachedDb) {
+          mongoState.cachedDb = { version: newVer, lastUpdated, data: {} };
         }
+        if (!mongoState.cachedDb.data) mongoState.cachedDb.data = {};
+        mongoState.cachedDb.data[body.key] = cleanedValue;
+        mongoState.cachedDb.version = newVer;
+        mongoState.cachedDb.lastUpdated = lastUpdated;
         mongoState.lastVersionCheckTs = Date.now();
 
         if (mongo) {
@@ -689,7 +702,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         const meta = await getDatabaseVersionMeta();
         const serverVer = meta.version || 85;
 
-        const newVer = Math.max(serverVer + 1, clientVer);
+        const newVer = Math.max(serverVer + 1, clientVer + 1);
         const lastUpdated = new Date().toISOString();
 
         const mongo = await connectToMongo();
@@ -702,13 +715,14 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         const entries = Object.entries(cleanedData).filter(([k]) => k.startsWith('dilmilti5_'));
         const keyCount = entries.length;
 
-        if (mongoState.cachedDb) {
-          mongoState.cachedDb = {
-            version: newVer,
-            lastUpdated,
-            data: { ...(mongoState.cachedDb.data || {}), ...cleanedData }
-          };
+        if (!mongoState.cachedDb) {
+          mongoState.cachedDb = { version: newVer, lastUpdated, data: {} };
         }
+        mongoState.cachedDb = {
+          version: newVer,
+          lastUpdated,
+          data: { ...(mongoState.cachedDb.data || {}), ...cleanedData }
+        };
         mongoState.lastVersionCheckTs = Date.now();
 
         if (mongo) {

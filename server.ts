@@ -902,26 +902,7 @@ async function startServer() {
         return res.status(400).json({ success: false, message: 'Data object required' });
       }
       const cVer = typeof clientVer === 'number' ? clientVer : 0;
-      const clientTs = typeof req.body?.clientTimestamp === 'number' ? req.body.clientTimestamp : 0;
-      const clientVectorKeys = req.body?.versionVector?.keys || {};
-      const serverVer = dbState.version || 79;
-      const serverTs = dbState.lastUpdated ? Date.parse(dbState.lastUpdated) : 0;
-
-      const hasNewerKeyVector = Object.values(clientVectorKeys).some(
-        (node: any) => (node?.timestamp || 0) >= serverTs || (node?.version || 0) >= serverVer
-      );
-      if (cVer > 0 && cVer < serverVer && clientTs > 0 && clientTs < serverTs && !hasNewerKeyVector) {
-        return res.json({
-          success: false,
-          abortedStale: true,
-          reason: 'STALE_CLIENT_VERSION_VECTOR',
-          version: serverVer,
-          lastUpdated: dbState.lastUpdated,
-          storage: mongoConnected ? 'mongodb_atlas' : 'lan_server'
-        });
-      }
-
-      dbState.version = Math.max(dbState.version + 1, cVer);
+      dbState.version = Math.max(dbState.version + 1, cVer + 1);
       dbState.lastUpdated = new Date().toISOString();
       // Merge deeply into database so no keys are dropped
       dbState.data = {

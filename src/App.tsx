@@ -63,7 +63,7 @@ import {
   Headphones
 } from 'lucide-react';
 import { CourtDB } from './data/courtDatabase';
-import { PerkaraSIPP, JadwalSidangItem, NewsItem, UserAccount, CourtIdentityData } from './types';
+import { PerkaraSIPP, JadwalSidangItem, NewsItem, NewsCommentItem, UserAccount, CourtIdentityData } from './types';
 import {
   getInitialRouteState,
   syncRouteToUrl,
@@ -151,18 +151,121 @@ export default function App() {
     const input = homeCommentInputs[key] || { name: '', text: '' };
     if (!input.text.trim()) return;
 
-    CourtDB.addNewsComment(newsId, {
-      authorName: input.name.trim() || currentUser?.nama || 'Pengunjung Portal',
-      authorRole: currentUser?.instansi || 'Masyarakat Umum',
-      content: input.text.trim()
-    });
+    const authorName = input.name.trim() || currentUser?.nama || 'Pengunjung Portal';
+    const authorRole = currentUser?.instansi || 'Masyarakat Umum';
+    const content = input.text.trim();
 
-    setNewsList(CourtDB.getNewsList());
+    const tempId = `comment-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`;
+    const nowStr = new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+    const newCommentItem: NewsCommentItem = {
+      id: tempId,
+      authorName,
+      authorRole,
+      content,
+      createdAt: nowStr
+    };
+
+    // 1. Optimistic UI update: Reflect changes instantly before backend sync completes
+    setNewsList((prevNews) =>
+      prevNews.map((n) => {
+        if (String(n.id) === key) {
+          const updatedComments = [...(n.comments || []), newCommentItem];
+          return { ...n, comments: updatedComments };
+        }
+        return n;
+      })
+    );
+
     setHomeCommentInputs((prev) => ({ ...prev, [key]: { name: input.name, text: '' } }));
     setHomeCommentSaved((prev) => ({ ...prev, [key]: true }));
+
+    // 2. Persist to CourtDB which updates local DB and schedules async background sync
+    CourtDB.addNewsComment(newsId, {
+      authorName,
+      authorRole,
+      content
+    });
+
     setTimeout(() => {
       setHomeCommentSaved((prev) => ({ ...prev, [key]: false }));
     }, 2500);
+  };
+
+  // Optimistic CRUD Helpers for instant local state reactivity
+  const handleOptimisticSavePerkara = (item: PerkaraSIPP) => {
+    setPerkaraList((prev) => {
+      const idx = prev.findIndex((p) => p.id === item.id);
+      if (idx >= 0) {
+        const next = [...prev];
+        next[idx] = item;
+        return next;
+      }
+      return [item, ...prev];
+    });
+    const existing = CourtDB.getSIPP().find((p) => p.id === item.id);
+    if (existing) {
+      CourtDB.updateSIPP(item.id, item);
+    } else {
+      CourtDB.addSIPP(item);
+    }
+  };
+
+  const handleOptimisticDeletePerkara = (id: string | number) => {
+    const idStr = String(id);
+    setPerkaraList((prev) => prev.filter((p) => String(p.id) !== idStr));
+    CourtDB.deleteSIPP(idStr);
+  };
+
+  const handleOptimisticSaveJadwal = (item: JadwalSidangItem) => {
+    setJadwalList((prev) => {
+      const idx = prev.findIndex((j) => j.id === item.id);
+      if (idx >= 0) {
+        const next = [...prev];
+        next[idx] = item;
+        return next;
+      }
+      return [item, ...prev];
+    });
+    const existing = CourtDB.getJadwal().find((j) => j.id === item.id);
+    if (existing) {
+      CourtDB.updateJadwal(item.id, item);
+    } else {
+      CourtDB.addJadwal(item);
+    }
+  };
+
+  const handleOptimisticDeleteJadwal = (id: string | number) => {
+    const idStr = String(id);
+    setJadwalList((prev) => prev.filter((j) => String(j.id) !== idStr));
+    CourtDB.deleteJadwal(idStr);
+  };
+
+  const handleOptimisticSaveNews = (item: NewsItem) => {
+    setNewsList((prev) => {
+      const idx = prev.findIndex((n) => n.id === item.id);
+      if (idx >= 0) {
+        const next = [...prev];
+        next[idx] = item;
+        return next;
+      }
+      return [item, ...prev];
+    });
+    const existing = CourtDB.getNews().find((n) => String(n.id) === String(item.id));
+    if (existing) {
+      CourtDB.updateNews(item.id, item);
+    } else {
+      CourtDB.addNews(item);
+    }
+  };
+
+  const handleOptimisticDeleteNews = (id: string | number) => {
+    setNewsList((prev) => prev.filter((n) => String(n.id) !== String(id)));
+    CourtDB.deleteNews(id);
+  };
+
+  const handleOptimisticSaveIdentity = (identityData: CourtIdentityData) => {
+    setCourtIdentity(identityData);
+    CourtDB.updateCourtIdentity(identityData);
   };
 
   useEffect(() => {
@@ -223,6 +326,7 @@ export default function App() {
       const currentVersion = CourtDB.serverVersion;
       lastDbVersionRef.current = currentVersion;
       
+      // Synchronous optimistic update of React state directly from local memory cache
       setPerkaraList(CourtDB.getSippList());
       setJadwalList(CourtDB.getJadwalList());
       setNewsList(CourtDB.getNewsList());

@@ -232,7 +232,7 @@ export default function MenuContentEditModal({
   };
 
   // Save handler
-  const handleSave = () => {
+  const handleSave = async () => {
     setIsSaving(true);
     try {
       const isCustomItem = contentItem.isCustomCreated ?? (!['m1','m2','m3','m4','m5','m6','m7','m8','m9','lp1','lp2','lp3','lp4','lp5','lp6','lp7','lp8','lh1','lh2','lh3','lh4','lh5','lh6'].includes(contentItem.id));
@@ -266,9 +266,17 @@ export default function MenuContentEditModal({
         CourtDB.saveRoleModelAgents(roleModelList, currentUser);
       }
 
+      // Force synchronous full push to server so changes are immediately persisted in court_db.json
+      await CourtDB.syncAllData(true);
+
+      // Also trigger cloud firestore sync in the background
+      import('../../services/firestoreSync').then(({ pushAllToFirestore }) => {
+        pushAllToFirestore().catch(() => {});
+      }).catch(() => {});
+
       setIsSaving(false);
       setSaveSuccessNotice(true);
-      showToast(`Data menu '${judul}' berhasil disimpan dan diperbarui!`);
+      showToast(`Data menu '${judul}' berhasil disimpan dan diperbarui secara permanen!`);
 
       if (onSaveSuccess) {
         onSaveSuccess(updatedItem);

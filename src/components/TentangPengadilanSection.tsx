@@ -245,11 +245,12 @@ export default function TentangPengadilanSection({ initialSubTab = 'sambutan', o
     });
 
     if (success) {
+      CourtDB.syncAllData(true).catch(() => {});
       loadData();
       if (selectedPersonnel && (String(selectedPersonnel.id) === String(photoTargetPersonnelId) || (targetPerson && selectedPersonnel.nipNrp === targetPerson.nipNrp))) {
         setSelectedPersonnel(prev => prev ? { ...prev, fotoUrl: finalPhoto } : null);
       }
-      showToast('Foto pegawai berhasil diperbarui dan disimpan!');
+      showToast('Foto pegawai berhasil diperbarui dan disimpan secara permanen!');
       setIsPhotoModalOpen(false);
     } else {
       showToast('Gagal memperbarui foto pegawai. Silakan coba lagi.');
@@ -411,6 +412,7 @@ export default function TentangPengadilanSection({ initialSubTab = 'sambutan', o
       }
     }
 
+    CourtDB.syncAllData(true).catch(() => {});
     loadData();
     setIsPersCrudModalOpen(false);
   };

@@ -1,15 +1,22 @@
-# Rencana Perbaikan Sinkronisasi Antar Perangkat
+# Audit & Perbaikan Penyimpanan, Caching Vercel, dan Koneksi MongoDB Serverless
 
-Masalah: Perubahan identitas (logo/banner) pada perangkat admin tidak segera tercermin pada perangkat klien meskipun sudah tersambung dan dilakukan hard refresh setelah lebih dari 5 menit.
+## Ringkasan Masalah & Solusi
 
-## Analisis Masalah:
-- Perangkat klien menunjukkan status "Tersambung" namun tidak mendapatkan pembaruan data `court_identity`.
-- Log server menunjukkan sinkronisasi data terjadi.
-- Mekanisme sinkronisasi saat ini mengandalkan `setInterval` (120 detik) dan peristiwa `focus`/`visibilitychange` untuk memicu `checkServerVersionAndUpdate`.
+### 1. Masalah Tampilan/UI Tidak Terupdate di Perangkat Lain (Caching Vercel & PWA)
+- **Akar Masalah**:
+  - `vercel.json` sebelumnya belum memiliki konfigurasi `headers`, sehingga Vercel Edge Cache / CDN menyimpan respons HTML dan rute API secara agresif.
+  - Service Worker (`sw.js`) dan cache shell `index.html` masih menggunakan versi lama (`v7`) yang mempertahankan aset atau snapshot cache lokal lama di browser pengguna lain.
+- **Perbaikan yang Diterapkan**:
+  - Menambahkan konfigurasi `headers` di `vercel.json` dengan `Cache-Control: public, max-age=0, must-revalidate` untuk semua rute HTML (`/(.*)` dan `/index.html`), serta `no-cache, no-store, must-revalidate` untuk `/sw.js` dan `/api/(.*)`.
+  - Menaikkan versi Service Worker ke `v8` (`public/sw.js`), memperbarui auto-purge cache usang di `index.html` dan `src/utils/serviceWorkerRegistration.ts` agar cache `v7` atau yang lebih lama otomatis dihapus dari memori browser klien.
+  - Memastikan permintaan `_t` (cache-bust) dan `priority=network-first` pada API (`/api/court-db`) selalu melewati (*bypass*) in-memory TTL serverless dan langsung mengambil versi terbaru dari database MongoDB Atlas.
 
-## Rencana Perbaikan:
-1.  **Optimasi BroadcastChannel**: Memastikan pesan `DB_UPDATED` benar-benar dikirim dari server/worker ke *client* saat pembaruan identitas terjadi, sehingga perangkat klien mendapatkan notifikasi *real-time* untuk melakukan *pull* ulang tanpa menunggu *polling* 2 menit.
-2.  **Pemaksaan Verifikasi Versi (Force Version Check)**: Meningkatkan sensitivitas `checkServerVersionAndUpdate` pada perangkat klien untuk memastikan bahwa saat terjadi sinkronisasi basis data, versi lokal benar-benar disinkronkan dengan versi terbaru di server, meskipun versi server yang terdeteksi secara lokal mungkin tampak sama karena masalah *caching* pada respons API `GET /api/court-db/version`.
-3.  **Audit `syncManager`**: Memastikan `syncManager` tidak memblokir *pull* data identitas karena dianggap sebagai pembaruan "prioritas rendah".
-
-Kami akan melakukan audit dan perbaikan pada logika `checkServerVersionAndUpdate` serta mekanisme *broadcast* pembaruan data agar sinkronisasi antar perangkat lebih responsif.
+### 2. Masalah CRUD Gagal / Tidak Sinkron di Arsitektur Serverless (MongoDB di Vercel)
+- **Akar Masalah**:
+  - Pada Vercel Serverless Functions, container API (`/api/court-db.ts` dan `/api/upload.ts`) hidup dan mati secara dinamis. Jika koneksi Mongoose tidak disimpan pada objek `globalThis` yang tepat atau mencoba membuka koneksi baru di setiap *invocation*, terjadi *connection leak*, *pool exhaustion*, atau timeout.
+  - Pada rute `POST /api/court-db`, versi server (`serverVer`) sebelumnya tidak selalu dinaikkan secara pasti saat sinkronisasi penuh (`clientVer` vs `serverVer`), menyebabkan versi tidak bertambah dan perangkat klien lain menganggap data belum berubah.
+- **Perbaikan yang Diterapkan**:
+  - Mengimplementasikan pola koneksi `globalThis.mongoose` yang direkomendasikan untuk Vercel Serverless (`let cached = globalThis.mongoose; if (!cached) cached = globalThis.mongoose = { conn: null, promise: null };`) pada `/api/court-db.ts` dan `/api/upload.ts`.
+  - Mengatur parameter koneksi Mongoose yang optimal untuk serverless: `bufferCommands: false`, `serverSelectionTimeoutMS: 7000`, `connectTimeoutMS: 7000`, `maxPoolSize: 3`, `minPoolSize: 0`, `maxIdleTimeMS: 30000`.
+  - Memastikan `dbState.version = Math.max(serverVer + 1, clientVer + 1)` di setiap penyimpanan POST, sehingga versi database pusat selalu bertambah dan memicu deteksi versi baru di seluruh perangkat lain.
+  - Memastikan *state* lokal React dan `localStorage` langsung terbarui secara *optimistic* dan memicu *event* broadcast `dilmilti_db_updated` seketika saat operasi CRUD selesai.

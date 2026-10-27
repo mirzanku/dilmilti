@@ -455,15 +455,119 @@ export function subscribeToFirestoreChanges(): () => void {
           const entries = cloudData?.data;
 
           if (entries && typeof entries === 'object') {
+            const lastLocalWrite = Number(localStorage.getItem('dilmilti5_last_local_write') || 0);
+            const isRecentLocalWrite = Date.now() - lastLocalWrite < 15000;
             let changed = false;
+
             Object.entries(entries).forEach(([key, val]) => {
               if (!key.startsWith('dilmilti5_')) return;
               if (key === STORAGE_KEYS.CURRENT_USER) return;
+              if (isRecentLocalWrite && (key === STORAGE_KEYS.MENU_CONTENTS || key === STORAGE_KEYS.PERSONNEL || key === STORAGE_KEYS.COURT_IDENTITY)) {
+                return;
+              }
 
               const strVal = typeof val === 'string' ? val : JSON.stringify(val);
               const current = localStorage.getItem(key);
 
-              if (current !== strVal) {
+              if (key === STORAGE_KEYS.COURT_IDENTITY && current) {
+                try {
+                  const sData = JSON.parse(strVal);
+                  const lData = JSON.parse(current);
+                  const localKadilmil = (lData.fotoKadilmil && !lData.fotoKadilmil.includes('unsplash.com')) ? lData.fotoKadilmil : null;
+                  const serverKadilmil = (sData.fotoKadilmil && !sData.fotoKadilmil.includes('unsplash.com')) ? sData.fotoKadilmil : null;
+                  const merged = {
+                    ...sData,
+                    ...lData,
+                    logoUrl: (lData.logoUrl && lData.logoUrl !== '/images/dilmilti_v_logo_transparent.png') ? lData.logoUrl : (sData.logoUrl || lData.logoUrl),
+                    bannerUrl: (lData.bannerUrl && lData.bannerUrl !== '/images/makassar_court_banner_1789442426023.jpg') ? lData.bannerUrl : (sData.bannerUrl || lData.bannerUrl),
+                    fotoKadilmil: localKadilmil || serverKadilmil || lData.fotoKadilmil || sData.fotoKadilmil
+                  };
+                  const mergedStr = JSON.stringify(merged);
+                  if (current !== mergedStr) {
+                    localStorage.setItem(key, mergedStr);
+                    changed = true;
+                  }
+                } catch {
+                  if (current !== strVal) {
+                    localStorage.setItem(key, strVal);
+                    changed = true;
+                  }
+                }
+              } else if (key === STORAGE_KEYS.MENU_CONTENTS && current) {
+                try {
+                  const sMenus = JSON.parse(strVal);
+                  const lMenus = JSON.parse(current);
+                  if (Array.isArray(sMenus) && Array.isArray(lMenus)) {
+                    const lMap = new Map();
+                    lMenus.forEach(m => { if (m && m.id) lMap.set(m.id, m); });
+                    const merged = sMenus.map(sm => {
+                      const lm = lMap.get(sm.id);
+                      if (!lm) return sm;
+                      return {
+                        ...sm,
+                        ...lm,
+                        customFields: { ...(sm.customFields || {}), ...(lm.customFields || {}) }
+                      };
+                    });
+                    lMenus.forEach(lm => {
+                      if (lm && lm.id && !sMenus.some(sm => sm.id === lm.id)) {
+                        merged.push(lm);
+                      }
+                    });
+                    const mergedStr = JSON.stringify(merged);
+                    if (current !== mergedStr) {
+                      localStorage.setItem(key, mergedStr);
+                      changed = true;
+                    }
+                  }
+                } catch {
+                  if (current !== strVal) {
+                    localStorage.setItem(key, strVal);
+                    changed = true;
+                  }
+                }
+              } else if (key === STORAGE_KEYS.PERSONNEL && current) {
+                try {
+                  const sList = JSON.parse(strVal);
+                  const lList = JSON.parse(current);
+                  if (Array.isArray(sList) && Array.isArray(lList)) {
+                    const lMap = new Map();
+                    lList.forEach(p => {
+                      if (p && p.id) lMap.set(p.id, p);
+                      if (p && p.nama) lMap.set(p.nama.trim().toLowerCase(), p);
+                    });
+                    const merged = sList.map(sp => {
+                      const lp = lMap.get(sp.id) || (sp.nama ? lMap.get(sp.nama.trim().toLowerCase()) : null);
+                      if (!lp) return sp;
+                      const lpFoto = lp.fotoUrl && typeof lp.fotoUrl === 'string' && lp.fotoUrl.trim() ? lp.fotoUrl.trim() : '';
+                      const spFoto = sp.fotoUrl && typeof sp.fotoUrl === 'string' && sp.fotoUrl.trim() ? sp.fotoUrl.trim() : '';
+                      const isLpCustom = lpFoto && !lpFoto.includes('unsplash.com');
+                      const isSpCustom = spFoto && !spFoto.includes('unsplash.com');
+                      const finalFoto = isLpCustom ? lpFoto : (isSpCustom ? spFoto : (lpFoto || spFoto));
+                      return {
+                        ...sp,
+                        ...lp,
+                        fotoUrl: finalFoto
+                      };
+                    });
+                    lList.forEach(lp => {
+                      if (lp && lp.id && !sList.some(sp => sp.id === lp.id)) {
+                        merged.push(lp);
+                      }
+                    });
+                    const mergedStr = JSON.stringify(merged);
+                    if (current !== mergedStr) {
+                      localStorage.setItem(key, mergedStr);
+                      changed = true;
+                    }
+                  }
+                } catch {
+                  if (current !== strVal) {
+                    localStorage.setItem(key, strVal);
+                    changed = true;
+                  }
+                }
+              } else if (current !== strVal) {
                 localStorage.setItem(key, strVal);
                 changed = true;
               }
@@ -501,6 +605,11 @@ export function subscribeToFirestoreChanges(): () => void {
         if (snapshot.metadata.hasPendingWrites) return;
         if (snapshot.empty) return;
 
+        const lastLocalWrite = Number(localStorage.getItem('dilmilti5_last_local_write') || 0);
+        if (Date.now() - lastLocalWrite < 15000) {
+          return;
+        }
+
         const cloudPersonnelMap = new Map<string, PersonnelItem>();
         snapshot.forEach(docSnap => {
           const p = docSnap.data() as PersonnelItem;
@@ -522,8 +631,14 @@ export function subscribeToFirestoreChanges(): () => void {
           cloudPersonnelMap.forEach((cloudP, id) => {
             const idx = mergedList.findIndex(p => p.id === id);
             if (idx !== -1) {
-              if (JSON.stringify(mergedList[idx]) !== JSON.stringify(cloudP)) {
-                mergedList[idx] = { ...mergedList[idx], ...cloudP };
+              const localFoto = mergedList[idx].fotoUrl && typeof mergedList[idx].fotoUrl === 'string' && mergedList[idx].fotoUrl.trim() ? mergedList[idx].fotoUrl.trim() : '';
+              const cloudFoto = cloudP.fotoUrl && typeof cloudP.fotoUrl === 'string' && cloudP.fotoUrl.trim() ? cloudP.fotoUrl.trim() : '';
+              const isLocalCustom = localFoto && !localFoto.includes('unsplash.com');
+              const isCloudCustom = cloudFoto && !cloudFoto.includes('unsplash.com');
+              const finalFoto = isLocalCustom ? localFoto : (isCloudCustom ? cloudFoto : (localFoto || cloudFoto));
+              const mergedItem = { ...mergedList[idx], ...cloudP, fotoUrl: finalFoto };
+              if (JSON.stringify(mergedList[idx]) !== JSON.stringify(mergedItem)) {
+                mergedList[idx] = mergedItem;
                 changed = true;
               }
             } else {

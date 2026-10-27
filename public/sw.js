@@ -7,7 +7,7 @@
  *    on slow cellular connections.
  */
 
-const CACHE_VERSION = 'v7';
+const CACHE_VERSION = 'v8';
 const CORE_CACHE_NAME = `dilmilti5-core-${CACHE_VERSION}`;
 const STATIC_CACHE_NAME = `dilmilti5-static-${CACHE_VERSION}`;
 const API_CACHE_NAME = `dilmilti5-api-swr-${CACHE_VERSION}`;

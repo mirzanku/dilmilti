@@ -45,52 +45,61 @@ const uploadMongoState = globalForUploadMongo.__dilmiltiMongoCache;
 // In-memory & disk fallback cache for serverless environment
 const localMediaCache = globalForUploadMongo.__dilmiltiMediaCache;
 
+let cachedUploadMongo = (globalThis as any).mongoose;
+if (!cachedUploadMongo) {
+  cachedUploadMongo = (globalThis as any).mongoose = { conn: null, promise: null };
+}
+
 async function connectToMongo(): Promise<typeof mongoose | null> {
   const uri = process.env.MONGODB_URI || process.env.MONGO_URI || process.env.MONGODB_URL;
   if (!uri) return null;
 
-  if (mongoose.connection.readyState === 1) {
+  if ((mongoose.connection.readyState as number) === 1) {
     uploadMongoState.conn = mongoose;
+    cachedUploadMongo.conn = mongoose;
     return mongoose;
   }
 
-  if (!uploadMongoState.promise) {
-    uploadMongoState.promise = (async () => {
-      try {
-        const conn = await mongoose.connect(uri, {
-          bufferCommands: false,
-          serverSelectionTimeoutMS: 7000,
-          connectTimeoutMS: 7000,
-          socketTimeoutMS: 30000,
-          maxPoolSize: 3,
-          minPoolSize: 0,
-          maxIdleTimeMS: 30000,
-          family: 4,
-          retryWrites: true,
-          w: 1
-        });
-        uploadMongoState.conn = conn;
-        return conn;
-      } catch (err: any) {
-        console.error('[Upload API - MongoDB] Connection failed:', err?.message || err);
-        uploadMongoState.promise = null;
-        uploadMongoState.conn = null;
-        return null;
-      }
-    })();
+  if (!cachedUploadMongo.promise && !uploadMongoState.promise) {
+    const p = mongoose.connect(uri, {
+      bufferCommands: false,
+      serverSelectionTimeoutMS: 7000,
+      connectTimeoutMS: 7000,
+      socketTimeoutMS: 30000,
+      maxPoolSize: 3,
+      minPoolSize: 0,
+      maxIdleTimeMS: 30000,
+      family: 4,
+      retryWrites: true,
+      w: 1
+    }).then((m) => {
+      uploadMongoState.conn = m;
+      cachedUploadMongo.conn = m;
+      return m;
+    }).catch((err: any) => {
+      console.error('[Upload API - MongoDB] Connection failed:', err?.message || err);
+      uploadMongoState.promise = null;
+      uploadMongoState.conn = null;
+      cachedUploadMongo.promise = null;
+      cachedUploadMongo.conn = null;
+      return null;
+    });
+
+    cachedUploadMongo.promise = p;
+    uploadMongoState.promise = p;
   }
 
   try {
-    const conn = await uploadMongoState.promise;
+    const conn = await (cachedUploadMongo.promise || uploadMongoState.promise);
     if (conn && Number(mongoose.connection.readyState) === 1) {
       return conn;
     }
+    cachedUploadMongo.promise = null;
     uploadMongoState.promise = null;
-    uploadMongoState.conn = null;
     return null;
   } catch {
+    cachedUploadMongo.promise = null;
     uploadMongoState.promise = null;
-    uploadMongoState.conn = null;
     return null;
   }
 }
