@@ -1105,7 +1105,7 @@ try {
     setInBadge('INOVASI');
     setInKategori('Pelayanan Publik');
     setInUrlTujuan('');
-    setInDomainLabel('dilmilti5-makassar.go.id');
+    setInDomainLabel('dilmilti-gez4.vercel.app');
     setInInstansi('Pengadilan Militer Tinggi V Makassar');
     setInInternalSection('publik');
     setInInternalSubTab('');

@@ -135,7 +135,7 @@ export default function QuickAccessGrid({ onNavigate, hide }: QuickAccessGridPro
     setFormSection('layanan-publik');
     setFormSubTab('');
     setFormExternalUrl('https://');
-    setFormDomain('dilmilti5-makassar.go.id');
+    setFormDomain('dilmilti-gez4.vercel.app');
     setFormInstansi('Pengadilan Militer Tinggi V Makassar');
     setFormIconName('Swords');
     setFormMilitaryIconName('Swords');
@@ -178,7 +178,7 @@ export default function QuickAccessGrid({ onNavigate, hide }: QuickAccessGridPro
         section: formSection,
         subTab: formSubTab.trim() || undefined,
         externalUrl: formExternalUrl.trim() || '#',
-        domain: formDomain.trim() || 'dilmilti5-makassar.go.id',
+        domain: formDomain.trim() || 'dilmilti-gez4.vercel.app',
         instansi: formInstansi.trim() || 'Pengadilan Militer Tinggi V Makassar',
         iconName: formIconName,
         militaryIconName: formMilitaryIconName,
@@ -196,7 +196,7 @@ export default function QuickAccessGrid({ onNavigate, hide }: QuickAccessGridPro
         section: formSection,
         subTab: formSubTab.trim() || undefined,
         externalUrl: formExternalUrl.trim() || '#',
-        domain: formDomain.trim() || 'dilmilti5-makassar.go.id',
+        domain: formDomain.trim() || 'dilmilti-gez4.vercel.app',
         instansi: formInstansi.trim() || 'Pengadilan Militer Tinggi V Makassar',
         iconName: formIconName,
         militaryIconName: formMilitaryIconName,

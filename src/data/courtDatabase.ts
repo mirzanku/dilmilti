@@ -116,8 +116,8 @@ export const INITIAL_QUICK_ACCESS_ITEMS: QuickAccessItem[] = [
     badge: 'PTSP MILITER',
     section: 'ptsp-inovasi',
     subTab: 'app-viewer',
-    externalUrl: 'https://dilmilti5-makassar.go.id/?portal=ptsp-online',
-    domain: 'ptsp.dilmilti5-makassar.go.id',
+    externalUrl: 'https://dilmilti-gez4.vercel.app/?portal=ptsp-online',
+    domain: 'dilmilti-gez4.vercel.app',
     instansi: 'PTSP Pengadilan Militer Tinggi V Makassar',
     urutan: 1,
     status: 'Aktif'
@@ -152,7 +152,7 @@ export const INITIAL_QUICK_ACCESS_ITEMS: QuickAccessItem[] = [
     section: 'hukum',
     subTab: 'uu-31-1997',
     externalUrl: '#',
-    domain: 'dilmilti5-makassar.go.id',
+    domain: 'dilmilti-gez4.vercel.app',
     instansi: 'Pengadilan Militer Tinggi V Makassar',
     urutan: 3,
     status: 'Aktif'

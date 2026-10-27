@@ -304,7 +304,7 @@ function getFallbackSeed(): Record<string, any> {
       phone: '(0411) 512345 / 512346',
       whatsapp: '0811-4567-890 (Layanan PTSP & SIPP WhatsApp Real-Time)',
       email: 'dilmiti5makassar@gmail.com',
-      website: 'https://dilmilti5-makassar.go.id',
+      website: 'https://dilmilti-gez4.vercel.app',
       logoUrl: '/images/dilmilti_v_logo_transparent.png',
       bannerUrl: '/images/makassar_court_banner_1789442426023.jpg',
       slogan: 'REWAKO (Responsif, Energik, Wibawa, Adaptif, Kolaboratif, Objektif)',

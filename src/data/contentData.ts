@@ -10,7 +10,7 @@ export const COURT_IDENTITY = {
   phone: '081144405554',
   whatsapp: '0811-4440-5554 (Layanan PTSP & SIPP WhatsApp Real-Time)',
   email: 'dilmiti5makassar@gmail.com',
-  website: 'https://dilmilti5-makassar.go.id',
+  website: 'https://dilmilti-gez4.vercel.app',
   yurisdiksi: 'Daerah Hukum Pengadilan Militer Tinggi V Makassar Berdasarkan Peraturan Pemerintah Nomor 22 Tahun 2025 Meliputi 12 Provinsi di Indonesia Timur: Sulawesi Utara, Gorontalo, Sulawesi Tengah, Sulawesi Barat, Sulawesi Tenggara, Sulawesi Selatan, Maluku Utara, Maluku, Papua Barat Daya, Papua Barat, Papua Tengah, Papua Pegunungan, Papua, dan Papua Selatan; Serta Membawahi 6 Pengadilan Militer Tingkat Pertama: Dilmil V-17 Makassar, Dilmil V-18 Kendari, Dilmil V-19 Manado, Dilmil V-20 Ambon, Dilmil V-21 Manokwari, dan Dilmil V-22 Jayapura.',
   logoUrl: logoTransparent,
   bannerUrl: '/images/makassar_court_banner_1789442426023.jpg',

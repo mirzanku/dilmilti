@@ -118,7 +118,7 @@ export default function InovasiQuickAccessSection({
     setBadge('INOVASI DIGITAL');
     setKategori('Pelayanan Publik Terpadu');
     setUrlTujuan('https://');
-    setDomainLabel('dilmilti5-makassar.go.id');
+    setDomainLabel('dilmilti-gez4.vercel.app');
     setInstansi('Pengadilan Militer Tinggi V Makassar');
     setInternalSection('');
     setInternalSubTab('');
@@ -159,8 +159,8 @@ export default function InovasiQuickAccessSection({
       deskripsi: deskripsi.trim(),
       badge: badge.trim() || 'INOVASI',
       kategori: kategori.trim() || 'Inovasi Pengadilan',
-      urlTujuan: urlTujuan.trim() || 'https://dilmilti5-makassar.go.id',
-      domainLabel: domainLabel.trim() || 'dilmilti5-makassar.go.id',
+      urlTujuan: urlTujuan.trim() || 'https://dilmilti-gez4.vercel.app',
+      domainLabel: domainLabel.trim() || 'dilmilti-gez4.vercel.app',
       instansi: instansi.trim() || 'Pengadilan Militer Tinggi V Makassar',
       internalSection: internalSection ? (internalSection as NavSection) : undefined,
       internalSubTab: internalSubTab.trim() || undefined,
