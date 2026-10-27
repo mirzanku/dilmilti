@@ -38,7 +38,7 @@ export interface FirestoreErrorInfo {
   };
 }
 
-export type SyncStatus = 'connected' | 'syncing' | 'synced' | 'quota_paused' | 'offline';
+export type SyncStatus = 'connected' | 'syncing' | 'synced' | 'quota_paused' | 'offline' | 'error';
 
 const QUOTA_EXHAUSTED_KEY = 'dilmilti5_firestore_quota_exhausted_date';
 
@@ -92,10 +92,30 @@ function notifySyncStatus(status: SyncStatus) {
   }
 }
 
-export function handleFirestoreError(error: unknown, operationType: OperationType, path: string | null): void {
-  const errMsg = error instanceof Error ? error.message : String(error);
+/**
+ * Structured logger for synchronization debugging
+ */
+const syncLogger = (level: 'info' | 'warn' | 'error', message: string, context?: any) => {
+  const timestamp = new Date().toISOString();
+  const contextStr = context ? ` | Context: ${JSON.stringify(context, null, 2)}` : '';
+  console[level](`[FirestoreSync][${timestamp}] ${message}${contextStr}`);
+};
 
-  // Gracefully handle free tier quota exhaustion without throwing unhandled exceptions
+/**
+ * Enhanced error handler with UI notification and structured logging
+ */
+export function handleFirestoreError(err: any, operationType: OperationType, path?: string | null) {
+  const errMsg = err instanceof Error ? err.message : String(err);
+  
+  // Log the error with context
+  syncLogger('error', `Operation ${operationType} failed on ${path || 'unknown path'}`, {
+    error: errMsg,
+    path,
+    operationType,
+    authUid: auth.currentUser?.uid
+  });
+
+  // Handle Quota exceeded
   if (
     errMsg.includes('Quota exceeded') ||
     errMsg.includes('resource-exhausted') ||
@@ -104,40 +124,18 @@ export function handleFirestoreError(error: unknown, operationType: OperationTyp
     markQuotaExceeded();
     isQuotaExceeded = true;
     notifySyncStatus('quota_paused');
-    console.warn(
-      `[Firestore Quota Notice] Free daily quota reached for operation ${operationType} on ${path || 'database'}. ` +
-      `The app will seamlessly continue using the local database. Quota resets daily. ` +
-      `Firebase console: https://console.firebase.google.com/project/gen-lang-client-0432019785/firestore/databases/ai-studio-pengadilanmilite-33a9cad1-35c0-4b90-8eca-8a4a7c47f941/data?openUpgradeDialog=true`
-    );
+    syncLogger('warn', `Daily quota limit reached on ${path || 'database'}`);
     return;
   }
 
-  // Gracefully handle offline / network connectivity errors
+  // Handle Offline / Network errors
   if (errMsg.includes('the client is offline') || errMsg.includes('unavailable')) {
     notifySyncStatus('offline');
-    console.warn(`[Firestore Notice] Client is offline or service unavailable on ${path || 'database'}. Using local database.`);
+    syncLogger('warn', `Client is offline or service unavailable on ${path || 'database'}`);
     return;
   }
 
-  // Strictly conform to Firestore error diagnostic contract for permission / security rule errors
-  const errInfo: FirestoreErrorInfo = {
-    error: errMsg,
-    authInfo: {
-      userId: auth.currentUser?.uid,
-      email: auth.currentUser?.email,
-      emailVerified: auth.currentUser?.emailVerified,
-      isAnonymous: auth.currentUser?.isAnonymous,
-      tenantId: auth.currentUser?.tenantId,
-      providerInfo: auth.currentUser?.providerData?.map(provider => ({
-        providerId: provider.providerId,
-        email: provider.email,
-      })) || []
-    },
-    operationType,
-    path
-  };
-  console.error('Firestore Error: ', JSON.stringify(errInfo));
-  throw new Error(JSON.stringify(errInfo));
+  notifySyncStatus('error');
 }
 
 /**
@@ -406,7 +404,7 @@ export async function pushAllToFirestore(): Promise<void> {
         data: allData
       });
       notifySyncStatus('synced');
-      console.log('[Firestore] Synchronized database snapshot to cloud.');
+      syncLogger('info', '[Firestore] Synchronized database snapshot to cloud.');
     } catch (err: any) {
       const msg = err instanceof Error ? err.message : String(err);
       if (
@@ -423,7 +421,7 @@ export async function pushAllToFirestore(): Promise<void> {
       handleFirestoreError(err, OperationType.WRITE, 'central_db/dilmilti5_central_db');
     }
   } catch (error) {
-    console.warn('[Firestore] Notice saving snapshot:', error);
+    syncLogger('error', 'Error saving snapshot to Firestore', { error });
     notifySyncStatus('connected');
   }
 }
@@ -472,7 +470,7 @@ export function subscribeToFirestoreChanges(): () => void {
             });
 
             if (changed) {
-              console.log('[Firestore] Real-time remote central update received.');
+              syncLogger('info', '[Firestore] Real-time remote central update received.');
               window.dispatchEvent(new CustomEvent('dilmilti_db_updated', { detail: { source: 'cloud' } }));
               notifySyncStatus('synced');
             }
@@ -536,7 +534,7 @@ export function subscribeToFirestoreChanges(): () => void {
 
           if (changed) {
             localStorage.setItem(STORAGE_KEYS.PERSONNEL, JSON.stringify(mergedList));
-            console.log('[Firestore] Real-time personnel update received.');
+            syncLogger('info', '[Firestore] Real-time personnel update received.');
             window.dispatchEvent(new CustomEvent('dilmilti_db_updated', { detail: { source: 'cloud' } }));
             notifySyncStatus('synced');
           }
